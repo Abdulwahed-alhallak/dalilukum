@@ -4,7 +4,11 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DUMP = ROOT.parent / "syrialzeel.sql"
+DUMP = ROOT.parent / "dalilukum.sql"
+if not DUMP.exists():
+    _legacy = ROOT.parent / "syrialzeel.sql"
+    if _legacy.exists():
+        DUMP = _legacy
 DB = ROOT / "database" / "database.sqlite"
 
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Script to import data from syrialzeel.sql to SQLite
+ * Script to import data from dalilukum.sql to SQLite
  * Run: php import_seed.php
  */
 

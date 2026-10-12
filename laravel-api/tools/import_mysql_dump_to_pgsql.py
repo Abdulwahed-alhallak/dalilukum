@@ -1,5 +1,5 @@
 """
-Import syrialzeel.sql (MariaDB dump) into PostgreSQL.
+Import dalilukum.sql (MariaDB dump) into PostgreSQL.
 
 Usage:
   # عبر DATABASE_URL
@@ -12,7 +12,7 @@ Usage:
   python tools/import_mysql_dump_to_pgsql.py --dry-run
 
 The script:
-  - يقرأ syrialzeel.sql
+  - يقرأ dalilukum.sql
   - يحول CREATE TABLE إلى صيغة PostgreSQL (TEXT, INTEGER, REAL -> proper pgsql types)
   - يحول enum -> TEXT + CHECK
   - يحول INSERT INTO ليكون متوافقاً مع pgsql (backticks -> double quotes)
@@ -25,7 +25,12 @@ from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 ROOT = Path(__file__).resolve().parents[1]
-DUMP = ROOT.parent / "syrialzeel.sql"
+DUMP = ROOT.parent / "dalilukum.sql"
+# Fallback للتوافق مع الاسم القديم
+if not DUMP.exists():
+    _legacy = ROOT.parent / "syrialzeel.sql"
+    if _legacy.exists():
+        DUMP = _legacy
 
 
 def parse_db_url(url: str) -> dict:
