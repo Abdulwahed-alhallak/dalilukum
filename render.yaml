@@ -11,6 +11,23 @@ services:
       - key: APP_KEY
         sync: false
       - key: APP_URL
-        value: https://daleel-com-api.onrender.com
+        value: https://dalilukum.sy
       - key: CORS_ALLOWED_ORIGINS
         value: "*"
+      # PostgreSQL على VPS (CyberPanel)
+      # تُحقن هذه المتغيرات من إعدادات Render أو .env الإنتاج
+      # DB_CONNECTION=pgsql
+      # DB_HOST=179.236.255.47
+      # DB_PORT=5432
+      # DB_DATABASE=dalilukum
+      # DB_USERNAME=dalilukum
+      # DB_PASSWORD=<secret — يُضبط في Render Dashboard>
+      # DATABASE_URL=postgresql://dalilukum:<password>@179.236.255.47:5432/dalilukum
+
+# عند توفر managed PostgreSQL على المنصة، يُضاف:
+# databases:
+#   - name: dalilukum-db
+#     plan: starter
+#     databaseName: dalilukum
+#     user: dalilukum
+#   ثم تُربط بـ envVars عبر fromDatabase.property: connectionString
