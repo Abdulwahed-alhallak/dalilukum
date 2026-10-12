@@ -152,8 +152,13 @@ export function AdsProvider({ children }: { children: ReactNode }) {
       setCarModelsMap(models);
       setRealEstateCats(catRows.map(mapCategory));
       setRealEstateSubs(subRows.reduce((acc: any, row: any) => ({ ...acc, [row.category_id]: [...(acc[row.category_id] || []), mapSub(row)] }), {}));
-      setNotifications(notifRows.map(mapNotif));
+      setNotifications(
+        notifRows
+          .filter((r: any) => r && r.title && String(r.title).trim() !== '')
+          .map(mapNotif)
+      );
       setUserLimits(limitRows.reduce((acc: any, row: any) => ({ ...acc, [String(row.user_id)]: { maxImages: row.max_images, maxVideos: row.max_videos } }), {}));
+
       if (defaults[0]) setDefaultLimits({ maxImages: defaults[0].max_images, maxVideos: defaults[0].max_videos });
       setIconOverrides(icons.reduce((acc: any, row: any) => ({ ...acc, [row.override_key]: row.icon_name }), {}));
       setFavorites(favRows.map((row: any) => row.ad_id).filter(Boolean));
@@ -180,7 +185,8 @@ export function AdsProvider({ children }: { children: ReactNode }) {
       whatsapp_phone: ad.whatsappPhone,
     };
     const created = await api.post<any>('/ads', payload);
-    setAds(prev => [mapAd(created.ad ? { ...created.ad, images: created.images, videos: created.videos, details: created.details, car_specs: created.car_specs, real_estate_specs: created.real_estate_specs } : created), ...prev]);
+    const mapped = mapAd(created.ad ? { ...created.ad, images: created.images, videos: created.videos, details: created.details, car_specs: created.car_specs, real_estate_specs: created.real_estate_specs } : created);
+    setAds(prev => [mapped, ...prev]);
   };
   const updateAd = async (id: string, fields: Partial<AdItem>) => {
     const payload: Record<string, any> = { ...fields };
@@ -215,21 +221,40 @@ export function AdsProvider({ children }: { children: ReactNode }) {
   const updateRealEstateCat = async (id: string, data: Partial<RealEstateCategory>) => { await api.put(`/real-estate/categories/${id}`, { ar_name: data.ar, en_name: data.en, ads_count: data.count, image_url: data.image, icon: data.icon }); await refresh(); };
   const updateRealEstateSubs = async () => refresh();
   const updateIconOverride = async (key: string, iconName: string) => { await api.post('/icon-overrides', { override_key: key, icon_name: iconName }); setIconOverrides(prev => ({ ...prev, [key]: iconName })); };
-  const addNotification = async (notif: Omit<NotificationItem, 'id' | 'isRead'>) => { await api.post('/notifications', { id: `sys-${Date.now()}`, title: notif.title, body: notif.body, display_date: notif.date, is_read: 0 }); await refresh(); };
-  const deleteNotification = async (id: string) => { await api.delete(`/notifications/${id}`); setNotifications(prev => prev.filter(n => n.id !== id)); };
-  const markAllNotificationsRead = async () => { setNotifications(prev => prev.map(n => ({ ...n, isRead: true }))); };
-  const clearAllNotifications = async () => { await Promise.all(notifications.map(n => api.delete(`/notifications/${n.id}`))); setNotifications([]); };
+  const addNotification = async (notif: Omit<NotificationItem, 'id' | 'isRead'>) => {
+    const newId = `notif-${Date.now()}`;
+    await api.post('/notifications', { id: newId, title: notif.title, body: notif.body, display_date: notif.date || 'الآن', is_read: 0 });
+    setNotifications(prev => [{ id: newId, title: notif.title, body: notif.body, date: notif.date || 'الآن', isRead: false }, ...prev]);
+  };
+  const deleteNotification = async (id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+    await api.delete(`/notifications/${id}`).catch(() => null);
+  };
+  const markAllNotificationsRead = async () => {
+    const unread = notifications.filter(n => !n.isRead);
+    setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+    await Promise.all(unread.map(n => api.put(`/notifications/${n.id}`, { is_read: 1 }).catch(() => null)));
+  };
+  const clearAllNotifications = async () => {
+    const current = [...notifications];
+    setNotifications([]);
+    await Promise.all(current.map(n => api.delete(`/notifications/${n.id}`).catch(() => null)));
+  };
   const toggleFavorite = async (id: string) => {
     const exists = favorites.includes(id);
     setFavorites(prev => exists ? prev.filter(x => x !== id) : [...prev, id]);
     try {
-      if (exists) await api.delete(`/favorites/${encodeURIComponent(id)}`);
-      else await api.post('/favorites', { ad_id: id });
+      if (exists) {
+        await api.delete(`/favorites/${encodeURIComponent(id)}`);
+      } else {
+        await api.post('/favorites', { ad_id: id });
+      }
     } catch (e) {
       setFavorites(prev => exists ? [...prev, id] : prev.filter(x => x !== id));
       console.error(e);
     }
   };
+
   const toggleComparison = (id: string) => setComparisons(prev => prev.includes(id) ? prev.filter(x => x !== id) : prev.length >= 3 ? [...prev.slice(1), id] : [...prev, id]);
   const value = useMemo(() => ({
     ads, addAd, updateAd, deleteAd, getFilteredAds: (criteria: FilterCriteria) => filterAds(ads, criteria, brands, carModelsMap),

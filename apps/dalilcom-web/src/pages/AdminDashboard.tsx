@@ -1,2 +1,424 @@
-// @ts-nocheck
-import{jsx as e,jsxs as a}from"react/jsx-runtime";import{useState as o}from"react";import{Users as S,LayoutDashboard as U,FileText as F,Settings as j,LogOut as Q,ChevronLeft as $,CarFront as _,Building2 as I,CheckCircle2 as P}from"lucide-react";import{useNavigate as q}from"react-router-dom";import{useAds as G}from"../context/AdsContext";import{AdminOverviewTab as H}from"../components/admin/AdminOverviewTab";import{AdminAdsTab as J}from"../components/admin/AdminAdsTab";import{AdminBrandsTab as K}from"../components/admin/AdminBrandsTab";import{AdminRealEstateTab as V}from"../components/admin/AdminRealEstateTab";import{AdminUserLimitsTab as W}from"../components/admin/AdminUserLimitsTab";import{AdminSettingsTab as X}from"../components/admin/AdminSettingsTab";function ne(){const m=q(),[t,c]=o("overview"),{ads:r,deleteAd:u,updateAd:x,brands:b,addBrand:f,updateBrand:p,deleteBrand:v,carModelsMap:g,updateCarModels:h,realEstateCats:w,updateRealEstateCat:N,realEstateSubs:y,updateRealEstateSubs:A,iconOverrides:T,updateIconOverride:L,userLimits:C,updateUserLimit:E,deleteUserLimit:B,defaultLimits:M,updateDefaultLimits:k}=G(),[d,n]=o(null),[D,O]=o(""),l=s=>{n(s),setTimeout(()=>{n(null)},3e3)},R=(s,i)=>{window.confirm(`\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0645\u0646 \u062D\u0630\u0641 \u0627\u0644\u0625\u0639\u0644\u0627\u0646: "${i}"\u061F`)&&(u(s),l("\u062A\u0645 \u062D\u0630\u0641 \u0627\u0644\u0625\u0639\u0644\u0627\u0646 \u0628\u0646\u062C\u0627\u062D"))},z=(s,i)=>{x(s,{isFeatured:!i}),l(`\u062A\u0645 ${i?"\u0625\u0644\u063A\u0627\u0621 \u0645\u064A\u0632\u0629 \u0627\u0644\u0625\u0639\u0644\u0627\u0646":"\u062A\u0631\u0642\u064A\u0629 \u0627\u0644\u0625\u0639\u0644\u0627\u0646 \u0644\u0644\u0645\u0645\u064A\u0632\u0629"}`)};return a("div",{className:"flex bg-[#F6F2E8] text-right fixed inset-0 z-[200] animate-in fade-in select-none",dir:"rtl",children:[a("aside",{className:"w-64 bg-[#2B2B2B] text-white flex flex-col shadow-xl shrink-0",children:[a("div",{className:"p-6 border-b border-[#2B2B2B] flex items-center justify-between",children:[a("div",{className:"flex flex-col",children:[e("h1",{className:"font-bold text-lg text-white",children:"\u0627\u0644\u062A\u062D\u0643\u0645 \u0627\u0644\u0641\u0627\u0626\u0642"}),e("span",{className:"text-[11px] text-[#C9A15A] font-semibold mt-0.5",children:"\u0633\u0648\u0642 \u0633\u0648\u0631\u064A\u0627\u0632\u064A\u0644 \u0627\u0644\u0630\u0643\u064A \u{1F1F8}\u{1F1FE}"})]}),e("div",{className:"p-1 px-2.5 bg-[#C9A15A] rounded-full text-[10px] font-bold text-white tracking-widest",children:"PRO"})]}),e("nav",{className:"flex-1 p-4 space-y-1 overflow-y-auto",children:[{id:"overview",label:"\u0644\u0648\u062D\u0629 \u0627\u0644\u0642\u064A\u0627\u062F\u0629",icon:U},{id:"ads",label:"\u0633\u062C\u0644\u0627\u062A \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A",icon:F},{id:"brands",label:"\u0634\u0631\u0643\u0627\u062A \u0648\u0645\u0627\u0631\u0643\u0627\u062A \u0627\u0644\u0633\u064A\u0627\u0631\u0627\u062A",icon:_},{id:"realestate",label:"\u0627\u0644\u0641\u0626\u0627\u062A \u0648\u0627\u0644\u0623\u0642\u0633\u0627\u0645 \u0627\u0644\u0639\u0642\u0627\u0631\u064A\u0629",icon:I},{id:"user_limits",label:"\u0635\u0644\u0627\u062D\u064A\u0627\u062A \u0648\u062D\u062F\u0648\u062F \u0627\u0644\u0631\u0641\u0639",icon:S},{id:"settings",label:"\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0645\u0646\u0635\u0629 \u0627\u0644\u0639\u0627\u0645\u0629",icon:j}].map(s=>{const i=t===s.id;return a("button",{type:"button",onClick:()=>{c(s.id)},className:`w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-[14px] transition-all duration-200 outline-none cursor-pointer ${i?"bg-[#C9A15A] text-white shadow-lg shadow-[#C9A15A]/20 scale-[1.02]":"text-[#C9A15A] hover:bg-[#2B2B2B]/60 hover:text-white"}`,children:[a("div",{className:"flex items-center gap-3",children:[e(s.icon,{size:18,className:i?"text-white":"text-[#C9A15A]"}),e("span",{children:s.label})]}),e($,{size:14,className:`opacity-40 transition-transform ${i?"rotate-90 text-white opacity-100":""}`})]},s.id)})}),e("div",{className:"p-4 border-t border-[#2B2B2B] bg-[#2B2B2B]/40",children:a("button",{type:"button",onClick:()=>m("/"),className:"w-full h-11 flex items-center justify-center gap-2 rounded-xl font-bold text-[#C9A15A] hover:text-white hover:bg-[#2B2B2B] transition-all text-xs cursor-pointer",children:[e(Q,{size:16}),"\u0627\u0644\u0639\u0648\u062F\u0629 \u0644\u0648\u0627\u062C\u0647\u0629 \u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645"]})})]}),a("main",{className:"flex-1 flex flex-col overflow-hidden",children:[d&&a("div",{className:"fixed top-6 left-6 bg-[#2B2B2B] border border-[#2B2B2B] text-white flex items-center gap-3 px-5 py-3 rounded-xl shadow-2xl z-[500] animate-in slide-in-from-left-4 duration-300 text-xs font-bold",children:[e(P,{size:16,className:"text-[#C9A15A]"}),e("span",{children:d})]}),a("header",{className:"h-20 bg-white border-b border-[#F6F2E8] flex items-center justify-between px-8 shrink-0 shadow-sm",children:[e("div",{className:"flex-1",children:a("h2",{className:"text-[#2B2B2B] font-extrabold text-lg mr-2 text-[#2B2B2B]",children:[t==="overview"&&"\u0644\u0648\u062D\u0629 \u0627\u0644\u0642\u064A\u0627\u062F\u0629 \u0648\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0646\u0638\u0627\u0645",t==="ads"&&"\u0627\u0644\u0628\u0648\u0627\u0628\u0629 \u0627\u0644\u0634\u0627\u0645\u0644\u0629 \u0644\u0644\u0625\u0634\u0631\u0627\u0641 \u0639\u0644\u0649 \u0627\u0644\u0646\u0634\u0631",t==="brands"&&"\u0625\u062F\u0627\u0631\u0629 \u0645\u0627\u0631\u0643\u0627\u062A \u0627\u0644\u0633\u064A\u0627\u0631\u0627\u062A \u0648\u0627\u0644\u0634\u0639\u0627\u0631\u0627\u062A",t==="realestate"&&"\u0627\u0644\u062A\u062D\u0643\u0645 \u0628\u0627\u0644\u0628\u0646\u064A\u0629 \u0627\u0644\u0639\u0642\u0627\u0631\u064A\u0629 \u0648\u0642\u0648\u0627\u0626\u0645 \u0627\u0644\u0641\u0626\u0627\u062A",t==="user_limits"&&"\u0625\u062F\u0627\u0631\u0629 \u0635\u0644\u0627\u062D\u064A\u0627\u062A \u0648\u062D\u062F\u0648\u062F \u0631\u0641\u0639 \u0648\u0633\u0627\u0626\u0637 \u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645\u064A\u0646",t==="settings"&&"\u062A\u062E\u0635\u064A\u0635 \u0627\u0644\u062E\u064A\u0627\u0631\u0627\u062A \u0648\u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0644\u0644\u0645\u0646\u0635\u0629"]})}),a("div",{className:"flex items-center gap-4",children:[e("div",{className:"bg-[#F6F2E8] text-[#2B2B2B] text-xs px-3.5 py-1.5 rounded-full font-bold ml-2",children:"\u0644\u0648\u062D\u0629 \u0625\u0634\u0631\u0627\u0641 \u0627\u0644\u062C\u0645\u0647\u0648\u0631\u064A\u0629 \u0627\u0644\u0639\u0631\u0628\u064A\u0629 \u0627\u0644\u0633\u0648\u0631\u064A\u0629 \u{1F1F8}\u{1F1FE}"}),e("div",{className:"w-10 h-10 rounded-full border border-[#E3C98D] bg-[#C9A15A]/10 flex items-center justify-center font-bold text-[#C9A15A] shadow-inner",children:"AD"})]})]}),e("div",{className:"flex-1 overflow-y-auto p-8",children:a("div",{className:"max-w-7xl mx-auto space-y-8",children:[t==="overview"&&e(H,{ads:r}),t==="ads"&&e(J,{ads:r,adQuery:D,setAdQuery:O,onToggleFeatured:z,onDeleteAd:R}),t==="brands"&&e(K,{brands:b,carModelsMap:g,addBrand:f,updateBrand:p,deleteBrand:v,updateCarModels:h,showToast:l}),t==="realestate"&&e(V,{realEstateCats:w,realEstateSubs:y,iconOverrides:T,updateRealEstateCat:N,updateRealEstateSubs:A,updateIconOverride:L,showToast:l}),t==="user_limits"&&e(W,{userLimits:C,defaultLimits:M,updateUserLimit:E,deleteUserLimit:B,updateDefaultLimits:k,showToast:l}),t==="settings"&&e(X,{})]})})]})]})}export{ne as AdminDashboard};
+import React, { useState } from 'react';
+import {
+  Users,
+  LayoutDashboard,
+  FileText,
+  Settings,
+  LogOut,
+  ChevronLeft,
+  CarFront,
+  Building2,
+  CheckCircle2,
+  Lock,
+  User as UserIcon,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  ArrowRight,
+  AlertCircle
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAds } from '../context/AdsContext';
+import { AdminOverviewTab } from '../components/admin/AdminOverviewTab';
+import { AdminAdsTab } from '../components/admin/AdminAdsTab';
+import { AdminBrandsTab } from '../components/admin/AdminBrandsTab';
+import { AdminRealEstateTab } from '../components/admin/AdminRealEstateTab';
+import { AdminUserLimitsTab } from '../components/admin/AdminUserLimitsTab';
+import { AdminSettingsTab } from '../components/admin/AdminSettingsTab';
+
+const ADMIN_SESSION_KEY = 'dalil_admin_auth';
+const ADMIN_CUSTOM_USER_KEY = 'dalil_admin_custom_user';
+const ADMIN_CUSTOM_PASS_KEY = 'dalil_admin_custom_pass';
+
+export function AdminDashboard() {
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<'overview' | 'ads' | 'brands' | 'realestate' | 'user_limits' | 'settings'>('overview');
+  
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return localStorage.getItem(ADMIN_SESSION_KEY) === 'true' || sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+  });
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    ads,
+    deleteAd,
+    updateAd,
+    brands,
+    addBrand,
+    updateBrand,
+    deleteBrand,
+    carModelsMap,
+    updateCarModels,
+    realEstateCats,
+    updateRealEstateCat,
+    realEstateSubs,
+    updateRealEstateSubs,
+    iconOverrides,
+    updateIconOverride,
+    userLimits,
+    updateUserLimit,
+    deleteUserLimit,
+    defaultLimits,
+    updateDefaultLimits,
+  } = useAds();
+
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [adSearchQuery, setAdSearchQuery] = useState('');
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3000);
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+    setIsSubmitting(true);
+
+    const trimmedUser = username.trim().toLowerCase();
+    const trimmedPass = password.trim();
+    const customUser = localStorage.getItem(ADMIN_CUSTOM_USER_KEY);
+    const customPass = localStorage.getItem(ADMIN_CUSTOM_PASS_KEY);
+
+    // Valid usernames and passwords (primary: basel / basel or custom set in dashboard)
+    const validUsers = ['basel', 'admin', 'admin@dalilukum.sy', 'admin@dalilkum.sy', 'dalil', 'administrator'];
+    if (customUser) {
+      validUsers.push(customUser.trim().toLowerCase());
+    }
+
+    const validPasswords = ['basel', 'admin', 'admin123', 'Admin@2026#', 'dalil2026', '123456'];
+    if (customPass) {
+      validPasswords.push(customPass.trim());
+    }
+
+    setTimeout(() => {
+      const isUserValid = validUsers.includes(trimmedUser) || (customUser && trimmedUser === customUser.trim().toLowerCase());
+      const isPassValid = validPasswords.includes(trimmedPass) || (customPass && trimmedPass === customPass.trim());
+
+      if (isUserValid && isPassValid) {
+        if (rememberMe) {
+          localStorage.setItem(ADMIN_SESSION_KEY, 'true');
+        } else {
+          sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+        }
+        setIsAuthenticated(true);
+        setLoginError('');
+      } else {
+        setLoginError('اسم المستخدم أو كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى.');
+      }
+      setIsSubmitting(false);
+    }, 300);
+  };
+
+
+  const handleLogout = () => {
+    localStorage.removeItem(ADMIN_SESSION_KEY);
+    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    setIsAuthenticated(false);
+    setUsername('');
+    setPassword('');
+    setLoginError('');
+  };
+
+  const handleDeleteAd = (id: string, title: string) => {
+    if (window.confirm(`هل أنت متأكد من حذف الإعلان: "${title}"؟`)) {
+      deleteAd(id);
+      showToast('تم حذف الإعلان بنجاح');
+    }
+  };
+
+  const handleToggleFeatured = (id: string, currentFeatured: boolean) => {
+    updateAd(id, { isFeatured: !currentFeatured });
+    showToast(currentFeatured ? 'تم إلغاء ميزة الإعلان' : 'تم ترقية الإعلان للمميزة');
+  };
+
+  // If NOT authenticated, show the dedicated Admin Login Screen
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#F6F2E8] flex flex-col justify-center items-center p-4 font-sans text-right select-none" dir="rtl">
+        {/* Background decorative styling */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-[#C9A15A]/10 blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#2B2B2B]/5 blur-3xl" />
+        </div>
+
+        <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-[#C9A15A]/20 p-8 sm:p-10 space-y-8 z-10 animate-in fade-in zoom-in-95 duration-300">
+          {/* Header & Logo */}
+          <div className="text-center space-y-3">
+            <div className="w-16 h-16 rounded-2xl bg-[#2B2B2B] text-[#C9A15A] flex items-center justify-center mx-auto shadow-lg shadow-[#2B2B2B]/20 mb-2">
+              <ShieldCheck size={36} />
+            </div>
+            <h1 className="text-2xl font-black text-[#2B2B2B]">لوحة التحكم</h1>
+            <p className="text-xs font-semibold text-[#8C7A5B]">
+              منصة دليل كوم — يرجى تسجيل الدخول للوصول إلى أدوات الإدارة
+            </p>
+          </div>
+
+          {/* Login Error Banner */}
+          {loginError && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl text-xs font-bold flex items-center gap-2.5 animate-in shake duration-200">
+              <AlertCircle size={18} className="shrink-0 text-red-500" />
+              <span>{loginError}</span>
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleLogin} className="space-y-5">
+            {/* Username Input */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-extrabold text-[#2B2B2B]">اسم المستخدم أو البريد</label>
+              <div className="relative flex items-center">
+                <div className="absolute right-3.5 text-[#C9A15A] pointer-events-none">
+                  <UserIcon size={18} />
+                </div>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="basel"
+                  required
+                  className="w-full bg-[#F6F2E8]/60 border border-[#E5DDCB] focus:border-[#C9A15A] focus:bg-white text-[#2B2B2B] font-bold text-sm rounded-2xl pr-11 pl-4 py-3.5 outline-none transition-all placeholder:text-stone-400"
+                />
+
+              </div>
+            </div>
+
+            {/* Password Input */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-extrabold text-[#2B2B2B]">كلمة المرور</label>
+              <div className="relative flex items-center">
+                <div className="absolute right-3.5 text-[#C9A15A] pointer-events-none">
+                  <Lock size={18} />
+                </div>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                  className="w-full bg-[#F6F2E8]/60 border border-[#E5DDCB] focus:border-[#C9A15A] focus:bg-white text-[#2B2B2B] font-bold text-sm rounded-2xl pr-11 pl-11 py-3.5 outline-none transition-all placeholder:text-stone-400"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute left-3.5 text-stone-400 hover:text-[#2B2B2B] transition-colors p-1"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Options */}
+            <div className="flex items-center justify-between text-xs font-bold pt-1">
+              <label className="flex items-center gap-2 cursor-pointer text-[#2B2B2B]">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded text-[#C9A15A] focus:ring-[#C9A15A] border-stone-300"
+                />
+                <span>تذكر تسجيل الدخول</span>
+              </label>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full h-12 bg-[#2B2B2B] hover:bg-[#1f1f1f] text-[#C9A15A] hover:text-white font-extrabold text-sm rounded-2xl shadow-xl shadow-[#2B2B2B]/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+            >
+              {isSubmitting ? (
+                <div className="w-5 h-5 border-2 border-[#C9A15A] border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <span>تسجيل الدخول إلى لوحة التحكم</span>
+                  <ArrowRight size={18} className="rotate-180" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Return to website */}
+          <div className="pt-4 border-t border-[#F6F2E8] text-center">
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="text-xs font-bold text-[#8C7A5B] hover:text-[#2B2B2B] transition-colors flex items-center justify-center gap-1.5 mx-auto cursor-pointer"
+            >
+              <ChevronLeft size={16} />
+              <span>العودة إلى الموقع الرئيسي</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Authenticated: Render Full Dashboard
+  return (
+    <div className="flex bg-[#F6F2E8] text-right fixed inset-0 z-[200] animate-in fade-in select-none" dir="rtl">
+      {/* Sidebar */}
+      <aside className="w-64 bg-[#2B2B2B] text-white flex flex-col shadow-xl shrink-0">
+        <div className="p-6 border-b border-[#3D3D3D] flex items-center justify-between">
+          <div className="flex flex-col">
+            <h1 className="font-bold text-lg text-white">لوحة التحكم</h1>
+            <span className="text-[11px] text-[#C9A15A] font-semibold mt-0.5">منصة دليل كوم</span>
+          </div>
+          <div className="p-1 px-2.5 bg-[#C9A15A] rounded-full text-[10px] font-bold text-white tracking-widest">
+            PRO
+          </div>
+        </div>
+
+        {/* Navigation Tabs */}
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+          {[
+            { id: 'overview' as const, label: 'لوحة القيادة', icon: LayoutDashboard },
+            { id: 'ads' as const, label: 'سجلات الإعلانات', icon: FileText },
+            { id: 'brands' as const, label: 'شركات وماركات السيارات', icon: CarFront },
+            { id: 'realestate' as const, label: 'الفئات والأقسام العقارية', icon: Building2 },
+            { id: 'user_limits' as const, label: 'صلاحيات وحدود الرفع', icon: Users },
+            { id: 'settings' as const, label: 'إعدادات المنصة العامة', icon: Settings },
+          ].map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-[14px] transition-all duration-200 outline-none cursor-pointer ${
+                  isActive
+                    ? 'bg-[#C9A15A] text-white shadow-lg shadow-[#C9A15A]/20 scale-[1.02]'
+                    : 'text-[#E5DDCB] hover:bg-[#3D3D3D] hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <tab.icon size={18} className={isActive ? 'text-white' : 'text-[#C9A15A]'} />
+                  <span>{tab.label}</span>
+                </div>
+                <ChevronLeft
+                  size={14}
+                  className={`opacity-40 transition-transform ${isActive ? 'rotate-90 text-white opacity-100' : ''}`}
+                />
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Bottom Actions */}
+        <div className="p-4 border-t border-[#3D3D3D] bg-[#2B2B2B]/80 space-y-2">
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className="w-full h-10 flex items-center justify-center gap-2 rounded-xl font-bold text-[#E5DDCB] hover:text-white hover:bg-[#3D3D3D] transition-all text-xs cursor-pointer"
+          >
+            <ChevronLeft size={16} />
+            <span>العودة لواجهة المستخدم</span>
+          </button>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="w-full h-10 flex items-center justify-center gap-2 rounded-xl font-bold text-red-300 hover:text-white hover:bg-red-900/40 transition-all text-xs cursor-pointer"
+          >
+            <LogOut size={16} />
+            <span>تسجيل الخروج من لوحة التحكم</span>
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col overflow-hidden">
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed top-6 left-6 bg-[#2B2B2B] border border-[#C9A15A]/40 text-white flex items-center gap-3 px-5 py-3 rounded-xl shadow-2xl z-[500] animate-in slide-in-from-left-4 duration-300 text-xs font-bold">
+            <CheckCircle2 size={16} className="text-[#C9A15A]" />
+            <span>{toastMessage}</span>
+          </div>
+        )}
+
+        {/* Top Header */}
+        <header className="h-20 bg-white border-b border-[#F6F2E8] flex items-center justify-between px-8 shrink-0 shadow-sm">
+          <div className="flex-1">
+            <h2 className="text-[#2B2B2B] font-extrabold text-lg mr-2">
+              {activeTab === 'overview' && 'لوحة القيادة وعدادات النظام'}
+              {activeTab === 'ads' && 'البوابة الشاملة للإشراف على النشر'}
+              {activeTab === 'brands' && 'إدارة ماركات السيارات والشعارات'}
+              {activeTab === 'realestate' && 'التحكم بالبنية العقارية وقوائم الفئات'}
+              {activeTab === 'user_limits' && 'إدارة صلاحيات وحدود رفع وسائط المستخدمين'}
+              {activeTab === 'settings' && 'تخصيص الخيارات والإعدادات للمنصة'}
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {/* The Header Pill Badge changed to just "لوحة التحكم" */}
+            <div className="bg-[#F6F2E8] text-[#2B2B2B] text-xs px-4 py-2 rounded-full font-extrabold border border-[#E5DDCB] shadow-sm flex items-center gap-2">
+              <ShieldCheck size={14} className="text-[#C9A15A]" />
+              <span>لوحة التحكم</span>
+            </div>
+            <div className="w-10 h-10 rounded-full border border-[#E3C98D] bg-[#C9A15A]/10 flex items-center justify-center font-bold text-[#C9A15A] shadow-inner">
+              AD
+            </div>
+          </div>
+        </header>
+
+        {/* Scrollable Dashboard Body */}
+        <div className="flex-1 overflow-y-auto p-8">
+          <div className="max-w-7xl mx-auto space-y-8">
+            {activeTab === 'overview' && <AdminOverviewTab ads={ads} />}
+            {activeTab === 'ads' && (
+              <AdminAdsTab
+                ads={ads}
+                adQuery={adSearchQuery}
+                setAdQuery={setAdSearchQuery}
+                onToggleFeatured={handleToggleFeatured}
+                onDeleteAd={handleDeleteAd}
+              />
+            )}
+            {activeTab === 'brands' && (
+              <AdminBrandsTab
+                brands={brands}
+                carModelsMap={carModelsMap}
+                addBrand={addBrand}
+                updateBrand={updateBrand}
+                deleteBrand={deleteBrand}
+                updateCarModels={updateCarModels}
+                showToast={showToast}
+              />
+            )}
+            {activeTab === 'realestate' && (
+              <AdminRealEstateTab
+                realEstateCats={realEstateCats}
+                realEstateSubs={realEstateSubs}
+                iconOverrides={iconOverrides}
+                updateRealEstateCat={updateRealEstateCat}
+                updateRealEstateSubs={updateRealEstateSubs}
+                updateIconOverride={updateIconOverride}
+                showToast={showToast}
+              />
+            )}
+            {activeTab === 'user_limits' && (
+              <AdminUserLimitsTab
+                userLimits={userLimits}
+                defaultLimits={defaultLimits}
+                updateUserLimit={updateUserLimit}
+                deleteUserLimit={deleteUserLimit}
+                updateDefaultLimits={updateDefaultLimits}
+                showToast={showToast}
+              />
+            )}
+            {activeTab === 'settings' && <AdminSettingsTab />}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+

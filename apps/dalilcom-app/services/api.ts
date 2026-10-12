@@ -9,11 +9,12 @@ interface RequestOptions {
 type ApiError = { message: string; details?: unknown };
 type Paginated<T> = { data: T[] };
 
-const productionBaseUrl = 'https://daleel-com-api.onrender.com/api';
+const productionBaseUrl = 'https://dalilukum.sy/api';
 const envBaseUrl = process.env.EXPO_PUBLIC_API_URL || productionBaseUrl;
 const isDevRuntime = typeof __DEV__ !== 'undefined' && __DEV__;
 const isLocalApiUrl = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/i.test(envBaseUrl);
 const baseUrl = (isLocalApiUrl && !isDevRuntime ? productionBaseUrl : envBaseUrl).replace(/\/$/, '');
+
 
 export const apiBaseUrl = baseUrl;
 

@@ -18,3 +18,14 @@ release/
 !**/storage/framework/views/.gitignore
 !**/storage/framework/sessions/.gitignore
 **/bootstrap/cache/*.php
+
+# Expo prebuild (regenerated via expo prebuild)
+/apps/dalilcom-app/android/
+/apps/dalilcom-app/ios/
+
+# Monorepo shims (generated, not source)
+index.js
+metro.config.js
+
+# Debug artifact
+web-brand-check.png

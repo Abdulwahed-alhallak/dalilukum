@@ -1,4 +1,10 @@
-const API_BASE = ((import.meta as any).env?.VITE_API_URL || 'https://daleel-com-api.onrender.com/api');
+const isProduction = Boolean((import.meta as any).env?.PROD);
+const rawApiUrl = (import.meta as any).env?.VITE_API_URL;
+const isLocalUrl = typeof rawApiUrl === 'string' && /^(https?:\/\/)?(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/i.test(rawApiUrl);
+
+const API_BASE = (isProduction || isLocalUrl || !rawApiUrl ? '/api' : rawApiUrl).replace(/\/$/, '');
+
+
 
 type ApiResponse<T> = { success: boolean; data: T };
 type Paginated<T> = { data: T[] };

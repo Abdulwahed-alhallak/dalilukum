@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Home, Sparkles as Star, Bell, UserRound as UserIcon, PlusCircle, Search, ChevronRight, Heart, Calculator, TrendingUp } from 'lucide-react';
+import { Home, Sparkles as Star, Bell, UserRound as UserIcon, PlusCircle, Search, ChevronRight, Heart, Calculator, TrendingUp, Download, Smartphone } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useAuth } from '../context/AuthContext';
 import { useAds } from '../context/AdsContext';
@@ -26,6 +26,8 @@ export function Layout() {
     { to: "/notifications", icon: Bell, label: "الإشعارات" },
     { to: "/favorites", icon: Heart, label: "المفضلة" },
   ];
+
+
 
   return (
     <div className="flex flex-col min-h-screen pb-20 md:pb-0 relative bg-[var(--color-bg-secondary)]">
@@ -56,23 +58,30 @@ export function Layout() {
           <div className="max-w-7xl mx-auto flex justify-between items-center h-12">
             
             {/* Right side (RTL): Logo & Navigation */}
-            <div className="w-full md:w-auto flex justify-center md:justify-start items-center gap-6 lg:gap-10">
+            <div className="w-full md:w-auto flex justify-between md:justify-start items-center gap-4 md:gap-6 lg:gap-10">
               {/* Logo */}
               <div 
-                className="flex items-center cursor-pointer transition-opacity hover:opacity-90 bg-[#F6F2E8] px-4 py-1.5 rounded-lg shadow-sm"
+                className="flex items-center cursor-pointer transition-opacity hover:opacity-90 bg-[#F6F2E8] px-3.5 py-1.5 rounded-lg shadow-sm"
                 onClick={() => navigate('/')}
                 dir="ltr"
               >
                 {/* Mobile App Logo */}
-                <div className="shrink-0 flex items-center mr-3">
-                  <img src="/logo-mark.png" alt="Dalilcom Logo" className="h-11 w-32 object-contain" />
-                </div>
-                
-                <div className="hidden">
-                  <span className="text-[20px] font-extrabold tracking-tight text-[#0D3B46] leading-none mb-1 text-right" style={{ fontFamily: 'Tajawal, sans-serif' }}>دليل كوم</span>
-                  <span className="text-[10px] text-[#0D3B46] tracking-wider font-bold leading-none text-right" style={{ fontFamily: 'Tajawal, sans-serif' }}>عقارات . فرص أكثر</span>
+                <div className="shrink-0 flex items-center mr-2">
+                  <img src="/logo-mark.png" alt="Dalilcom Logo" className="h-10 w-28 md:h-11 md:w-32 object-contain" />
                 </div>
               </div>
+
+              {/* Mobile Download Button in Header */}
+              <a
+                href="/dalilukum-v15.apk"
+                download="dalilukum-v15.apk"
+
+                className="md:hidden flex items-center gap-1.5 bg-[#C9A15A] hover:bg-[#b58f4a] text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-sm active:scale-95 transition-all"
+                title="تحميل تطبيق الأندرويد"
+              >
+                <Download size={14} />
+                <span>تحميل التطبيق</span>
+              </a>
 
               {/* Desktop Navigation Links */}
               <nav className="hidden md:flex items-center gap-6">
@@ -99,8 +108,20 @@ export function Layout() {
               </nav>
             </div>
 
-             {/* Left side (RTL): Actions */}
-            <div className="hidden md:flex items-center gap-3 sm:gap-5">
+            {/* Left side (RTL): Actions */}
+            <div className="hidden md:flex items-center gap-3 sm:gap-4">
+              {/* Download App Button */}
+              <a
+                href="/dalilukum-v15.apk"
+                download="dalilukum-v15.apk"
+
+                className="flex items-center gap-2 bg-[#C9A15A] hover:bg-[#b58f4a] text-white px-3.5 py-2 rounded-lg font-bold text-[13px] transition-all shadow-sm active:scale-95 cursor-pointer select-none"
+                title="تحميل تطبيق الأندرويد APK"
+              >
+                <Download size={16} />
+                <span>تحميل التطبيق</span>
+              </a>
+
               {/* User Profile */}
               <div 
                 className="flex items-center gap-1.5 text-[15px] font-medium cursor-pointer hover:text-white/80 transition-colors hidden sm:flex"
@@ -113,7 +134,7 @@ export function Layout() {
               {/* Add Ad Button */}
               <button 
                 onClick={() => navigate('/create-ad')}
-                className="hidden sm:flex items-center gap-1.5 bg-[#F6F2E8] text-[#0D3B46] px-4 py-2 rounded-md font-bold text-[14px] hover:bg-[#F6F2E8] transition-colors shadow-sm"
+                className="hidden sm:flex items-center gap-1.5 bg-[#F6F2E8] text-[#0D3B46] px-4 py-2 rounded-lg font-bold text-[14px] hover:bg-[#F6F2E8]/90 transition-colors shadow-sm cursor-pointer"
               >
                 <PlusCircle size={18} />
                 أضف إعلان
@@ -128,8 +149,6 @@ export function Layout() {
         <Outlet />
         <ComparisonTray />
       </main>
-
-
 
       {/* Bottom Navigation for Mobile */}
       <nav className="fixed bottom-0 w-full bg-white border-t border-[#F6F2E8] pb-safe z-50 md:hidden shadow-[0_-4px_10px_rgba(0,0,0,0.02)]">
@@ -176,6 +195,8 @@ export function Layout() {
                       </span>
                     )}
                   </>
+
+
                 )}
               </NavLink>
             );

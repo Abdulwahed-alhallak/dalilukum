@@ -9,6 +9,7 @@ export default defineConfig(() => ({
     alias: {
       '@': path.resolve(__dirname, '.'),
     },
+    dedupe: ['react', 'react-dom', 'react-router-dom', 'react-router', '@remix-run/router'],
   },
   server: {
     hmr: false,
@@ -22,10 +23,20 @@ export default defineConfig(() => ({
           if (id.includes('lucide-react')) return 'vendor-icons';
           if (id.includes('recharts')) return 'vendor-charts';
           if (id.includes('motion')) return 'vendor-motion';
-          if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) return 'vendor-react';
+          if (
+            id.includes('react') ||
+            id.includes('react-dom') ||
+            id.includes('react-router-dom') ||
+            id.includes('react-router') ||
+            id.includes('@remix-run') ||
+            id.includes('scheduler')
+          ) {
+            return 'vendor-react';
+          }
           return undefined;
         },
       },
     },
   },
 }));
+

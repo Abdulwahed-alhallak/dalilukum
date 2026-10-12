@@ -16,18 +16,19 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.dalilcom.app",
+      "bundleIdentifier": "com.dalilukum.app",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "نستخدم موقعك الحالي فقط عند إنشاء الإعلان لحفظ نقطة الموقع الدقيقة على الخريطة."
-      }
+      },
+      "buildNumber": "15"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#0D3B46"
       },
-      "package": "com.dalilkum.app",
-      "versionCode": 13,
+      "package": "com.dalilukum.app",
+      "versionCode": 15,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION"
