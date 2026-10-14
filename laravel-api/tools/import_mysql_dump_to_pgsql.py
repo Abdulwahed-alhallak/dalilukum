@@ -1,22 +1,18 @@
 """
-Import dalilukum.sql (MariaDB dump) into PostgreSQL.
+Import dalilukum.sql (MariaDB dump) into PostgreSQL safely.
 
 Usage:
-  # عبر DATABASE_URL
+  # Safe upsert into existing Laravel-migrated schema (DEFAULT):
   DATABASE_URL=postgresql://user:pass@host:5432/db python tools/import_mysql_dump_to_pgsql.py
 
-  # أو عبر متغيرات منفصلة
-  PGHOST=179.236.255.47 PGPORT=5432 PGDATABASE=dalilukum PGUSER=dalilukum PGPASSWORD=xxx python tools/import_mysql_dump_to_pgsql.py
+  # Or via separate PG* variables:
+  PGHOST=127.0.0.1 PGPORT=5432 PGDATABASE=dalilukum PGUSER=dalilukum PGPASSWORD=xxx python tools/import_mysql_dump_to_pgsql.py
 
-  # معاينة جافة (لا يكتب):
+  # Dry run (no writes):
   python tools/import_mysql_dump_to_pgsql.py --dry-run
 
-The script:
-  - يقرأ dalilukum.sql
-  - يحول CREATE TABLE إلى صيغة PostgreSQL (TEXT, INTEGER, REAL -> proper pgsql types)
-  - يحول enum -> TEXT + CHECK
-  - يحول INSERT INTO ليكون متوافقاً مع pgsql (backticks -> double quotes)
-  - يعيد إنشاء الجداول ويدخل البيانات
+  # Destructive recreate (ONLY for empty scratch DBs without Laravel migrations):
+  python tools/import_mysql_dump_to_pgsql.py --recreate-schema
 """
 import re
 import sys
@@ -25,10 +21,10 @@ from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 ROOT = Path(__file__).resolve().parents[1]
-DUMP = ROOT.parent / "dalilukum.sql"
-# Fallback للتوافق مع الاسم القديم
+REPO_ROOT = ROOT.parents[1] if (ROOT.parents[1] / "dalilukum.sql").exists() else ROOT.parent
+DUMP = REPO_ROOT / "dalilukum.sql"
 if not DUMP.exists():
-    _legacy = ROOT.parent / "syrialzeel.sql"
+    _legacy = REPO_ROOT / "syrialzeel.sql"
     if _legacy.exists():
         DUMP = _legacy
 
@@ -72,8 +68,6 @@ def get_connection(params: dict):
     )
 
 
-# ---------- SQL conversion ----------
-
 def split_statements(sql: str):
     statements = []
     current = []
@@ -112,7 +106,6 @@ def strip_comments(sql: str):
 def convert_column(line: str) -> str:
     line = line.strip().rstrip(",")
     line = line.replace("`", '"')
-    # enum -> TEXT (pg enum requires explicit type; TEXT is simpler for now)
     line = re.sub(r"enum\([^)]*\)", "TEXT", line, flags=re.I)
     line = re.sub(r"\b(bigint|int|tinyint)\s*\(\d+\)", "INTEGER", line, flags=re.I)
     line = re.sub(r"\b(decimal|double|float)\s*\([^)]*\)", "NUMERIC", line, flags=re.I)
@@ -121,7 +114,6 @@ def convert_column(line: str) -> str:
     line = re.sub(r"\b(date|datetime|timestamp)\b", "TEXT", line, flags=re.I)
     line = re.sub(r"DEFAULT current_timestamp\(\)", "DEFAULT CURRENT_TIMESTAMP", line, flags=re.I)
     line = re.sub(r"ON UPDATE CURRENT_TIMESTAMP(?:\(\))?", "", line, flags=re.I)
-    # AUTO_INCREMENT -> handled via SERIAL / keep as INTEGER
     line = re.sub(r"\bAUTO_INCREMENT\b", "", line, flags=re.I)
     return line.strip().rstrip(",")
 
@@ -143,20 +135,22 @@ def convert_create(statement: str):
         if upper.startswith(("PRIMARY KEY", "KEY ", "UNIQUE KEY", "CONSTRAINT", "FOREIGN KEY", "INDEX")):
             continue
         columns.append(convert_column(line))
-    # Remove empty entries
     columns = [c for c in columns if c and c != ","]
     return f'CREATE TABLE IF NOT EXISTS "{table}" (\n  ' + ",\n  ".join(columns) + "\n)"
 
 
-def convert_insert(statement: str) -> str:
+def convert_insert(statement: str, upsert: bool = True) -> str:
     statement = statement.replace("`", '"')
     statement = re.sub(r"\\'", "''", statement)
-    # MySQL uses \' for single quote escape; pgsql uses ''
+    statement = statement.replace('\\"', '"')
+    if upsert:
+        statement = re.sub(r";\s*$", " ON CONFLICT DO NOTHING;", statement)
     return statement
 
 
 def main():
     dry_run = "--dry-run" in sys.argv
+    recreate_schema = "--recreate-schema" in sys.argv
     params = get_conn_params()
 
     sql = strip_comments(DUMP.read_text(encoding="utf-8", errors="replace"))
@@ -171,9 +165,9 @@ def main():
             if converted:
                 creates.append(converted)
         elif upper.startswith("INSERT INTO"):
-            inserts.append(convert_insert(stmt))
+            inserts.append(convert_insert(stmt, upsert=not recreate_schema))
 
-    print(f"Found {len(creates)} CREATE TABLE, {len(inserts)} INSERT statements")
+    print(f"Found {len(creates)} CREATE TABLE, {len(inserts)} INSERT statements (mode={'recreate' if recreate_schema else 'safe-upsert'})")
     if dry_run:
         for c in creates[:2]:
             print(c[:500])
@@ -184,23 +178,23 @@ def main():
     conn.autocommit = False
     cur = conn.cursor()
     try:
-        # Drop existing tables in reverse order (respect FKs)
-        cur.execute("""
-            DO $$ DECLARE r RECORD; BEGIN
-              FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP
-                EXECUTE 'DROP TABLE IF EXISTS \"' || r.tablename || '\" CASCADE';
-              END LOOP;
-            END $$;
-        """)
-        for stmt in creates:
-            cur.execute(stmt)
+        if recreate_schema:
+            cur.execute("""
+                DO $$ DECLARE r RECORD; BEGIN
+                  FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname='public') LOOP
+                    EXECUTE 'DROP TABLE IF EXISTS \"' || r.tablename || '\" CASCADE';
+                  END LOOP;
+                END $$;
+            """)
+            for stmt in creates:
+                cur.execute(stmt)
         for stmt in inserts:
             cur.execute(stmt)
         conn.commit()
 
         cur.execute("SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename")
         tables = [r[0] for r in cur.fetchall()]
-        print(f"Imported {len(tables)} tables:")
+        print(f"Verified {len(tables)} tables:")
         for t in tables:
             cur.execute(f'SELECT COUNT(*) FROM "{t}"')
             print(f"  {t}: {cur.fetchone()[0]}")

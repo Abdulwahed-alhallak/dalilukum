@@ -4,9 +4,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DUMP = ROOT.parent / "dalilukum.sql"
+REPO_ROOT = ROOT.parents[1] if (ROOT.parents[1] / "dalilukum.sql").exists() else ROOT.parent
+DUMP = REPO_ROOT / "dalilukum.sql"
 if not DUMP.exists():
-    _legacy = ROOT.parent / "syrialzeel.sql"
+    _legacy = REPO_ROOT / "syrialzeel.sql"
     if _legacy.exists():
         DUMP = _legacy
 DB = ROOT / "database" / "database.sqlite"
@@ -85,6 +86,7 @@ def convert_create(statement: str):
 def convert_insert(statement: str):
     statement = statement.replace("`", '"')
     statement = re.sub(r"\\'", "''", statement)
+    statement = statement.replace('\\"', '"')
     return statement
 
 

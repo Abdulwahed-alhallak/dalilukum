@@ -27,5 +27,8 @@ release/
 index.js
 metro.config.js
 
-# Debug artifact
+# Debug artifact & local dev helpers
 web-brand-check.png
+__pycache__/
+*.pyc
+run-local-dalilcom.ps1
