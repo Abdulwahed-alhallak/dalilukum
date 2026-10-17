@@ -8,6 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Countries (referenced by users.country_id)
+        if (!Schema::hasTable('countries')) {
+            Schema::create('countries', function (Blueprint $table) {
+                $table->id();
+                $table->string('name', 120);
+                $table->string('phone_code', 12);
+                $table->string('flag', 16)->nullable();
+                $table->string('phone_mask', 40)->nullable();
+            });
+        }
+
         // Car brands
         Schema::create('car_brands', function (Blueprint $table) {
             $table->id();

@@ -18,7 +18,7 @@ export function LocationStep({ form, setField }: Props) {
   const openMap = () => {
     const query = `${form.city} ${form.neighborhood}`.trim();
     const url = form.mapUrl.trim() || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-    Linking.openURL(url);
+    Linking.openURL(url).catch(() => Alert.alert('تنبيه', 'تعذر فتح تطبيق الخرائط'));
   };
 
   const usePreciseLocation = async () => {
@@ -31,13 +31,19 @@ export function LocationStep({ form, setField }: Props) {
       }
 
       const current = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Highest,
-      });
+        accuracy: Location.Accuracy.Balanced,
+      }).catch(() => Location.getLastKnownPositionAsync());
+
+      if (!current?.coords) {
+        Alert.alert('تعذر تحديد الموقع', 'تأكد من تشغيل GPS والإنترنت ثم حاول مرة ثانية.');
+        return;
+      }
+
       const { latitude, longitude } = current.coords;
       const mapUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
       setField('mapUrl', mapUrl);
       Alert.alert('تم تحديد الموقع', 'تم حفظ موقعك الحالي بدقة داخل الإعلان.');
-    } catch (error) {
+    } catch {
       Alert.alert('تعذر تحديد الموقع', 'تأكد من تشغيل GPS والإنترنت ثم حاول مرة ثانية.');
     } finally {
       setLocating(false);

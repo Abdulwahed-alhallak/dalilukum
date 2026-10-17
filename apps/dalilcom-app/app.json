@@ -1,59 +1,39 @@
 {
   "expo": {
-    "name": "دليل كوم",
-    "slug": "dalilcom-app",
-    "version": "1.0.12",
+    "name": "دليلكم",
+    "slug": "dalilukum",
+    "version": "1.0.14",
     "orientation": "portrait",
-    "icon": "./assets/images/logo.png",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/logo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0D3B46"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.dalilukum.app",
-      "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "نستخدم موقعك الحالي فقط عند إنشاء الإعلان لحفظ نقطة الموقع الدقيقة على الخريطة."
-      },
-      "buildNumber": "15"
-    },
+    "scheme": "com.dalilukum.app",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/images/logo-square.png",
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/logo.png",
-        "backgroundColor": "#0D3B46"
-      },
       "package": "com.dalilukum.app",
-      "versionCode": 15,
+      "versionCode": 17,
+      "usesCleartextTraffic": true,
       "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE",
         "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION"
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "VIBRATE"
       ]
+    },
+    "ios": {
+      "bundleIdentifier": "com.dalilukum.app",
+      "supportsTablet": true,
+      "buildNumber": "17"
     },
     "plugins": [
-      "expo-asset",
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos to let you share them."
-        }
-      ],
-      [
-        "expo-location",
-        {
-          "locationWhenInUsePermission": "نستخدم موقعك الحالي فقط عند إنشاء الإعلان لحفظ نقطة الموقع الدقيقة على الخريطة."
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "d4e35eb0-f5a0-41e9-b09d-554cc458aa76"
-      }
-    },
-    "owner": "yousef2006alsabbagh"
+      "expo-router",
+      "expo-location",
+      "expo-image-picker"
+    ]
   }
 }

@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { LoginSuccessView } from './LoginSuccessView';
 
 interface CountryItem {
+  id?: number;
   name: string;
   code: string;
   flag?: string;
@@ -13,6 +14,7 @@ interface CountryItem {
 }
 
 const mapCountry = (row: any): CountryItem => ({
+  id: row.id ? Number(row.id) : undefined,
   name: row.name,
   code: row.phone_code,
   flag: row.flag,
@@ -44,25 +46,40 @@ export function LoginPage() {
     if (!country || phone.length < 5 || !accepted) return;
     setLoading(true);
     const fullPhone = `${country.code} ${phone}`;
-    await api.post('/users', { phone: fullPhone }).catch(() => null);
-    login(fullPhone);
-    setLoading(false);
-    navigate('/');
+    try {
+      const res: any = await api.post('/auth/login', {
+        phone: fullPhone,
+        country_id: country.id || null,
+      });
+      const userData = res?.data || res;
+      login(fullPhone, userData?.id ? Number(userData.id) : undefined, country.id);
+    } catch {
+      login(fullPhone, undefined, country.id);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (user) {
-    return <LoginSuccessView phone={user.phone} onCreateAd={() => navigate('/create-ad')} onLogout={logout} />;
+    return (
+      <LoginSuccessView
+        phone={user.phone}
+        userId={user.id}
+        onCreateAd={() => navigate('/create-ad')}
+        onLogout={logout}
+      />
+    );
   }
 
   return (
     <div className="max-w-md mx-auto mt-4 sm:mt-8 pb-10">
       <div className="bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#F6F2E8]/80">
-        <div className="bg-[#0fbc83] text-white p-8 pb-7 text-center relative overflow-hidden">
+        <div className="bg-[#0D3B46] text-white p-8 pb-7 text-center relative overflow-hidden">
           <div className="w-[56px] h-[56px] bg-white/15 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
             <MessageSquare size={30} />
           </div>
           <h2 className="text-2xl font-bold mb-1 tracking-tight">تسجيل الدخول</h2>
-          <p className="text-white/85 text-[14px] font-medium">سجل دخولك باستخدام رقم الهاتف</p>
+          <p className="text-white/85 text-[14px] font-medium">سجل دخولك باستخدام رقم الهاتف لإدارة إعلاناتك</p>
         </div>
         <form onSubmit={submit} className="p-6 sm:p-8 flex flex-col" dir="rtl">
           <label className="text-[13px] font-bold text-[#C9A15A] mb-2">رقم الهاتف</label>
@@ -96,16 +113,16 @@ export function LoginPage() {
               </div>
             )}
           </div>
-          <button type="button" onClick={() => setAccepted(!accepted)} className="flex items-center gap-2 mb-6 text-right">
-            <span className="w-[18px] h-[18px] border rounded flex items-center justify-center bg-white">
-              {accepted && <Check size={12} className="text-[#0fbc83]" />}
+          <button type="button" onClick={() => setAccepted(!accepted)} className="flex items-center gap-2 mb-6 text-right cursor-pointer">
+            <span className="w-[18px] h-[18px] border border-[#E3C98D] rounded flex items-center justify-center bg-white">
+              {accepted && <Check size={12} className="text-[#0D3B46]" />}
             </span>
-            <span className="text-[13px] text-[#C9A15A] font-medium">أوافق على سياسة الاستخدام والخصوصية</span>
+            <span className="text-[13px] text-[#0D3B46] font-medium">أوافق على سياسة الاستخدام والخصوصية</span>
           </button>
           <button
             type="submit"
             disabled={!country || phone.length < 5 || !accepted || loading}
-            className="w-full h-13 rounded-xl bg-[#0fbc83] text-white font-bold text-[16px] disabled:opacity-50"
+            className="w-full h-13 rounded-xl bg-[#0D3B46] hover:bg-[#122538] text-white font-bold text-[16px] disabled:opacity-50 cursor-pointer transition-colors"
           >
             {loading ? 'جاري الدخول...' : 'تسجيل الدخول'}
           </button>

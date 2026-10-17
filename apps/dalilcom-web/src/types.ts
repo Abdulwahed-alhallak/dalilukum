@@ -2,6 +2,7 @@ export type Category = 'real-estate' | 'cars';
 
 export interface AdItem {
   id: string;
+  ownerUserId?: number | string;
   title: string;
   price: number;
   currency: string;
@@ -17,7 +18,7 @@ export interface AdItem {
   whatsappPhone?: string;
   mapUrl?: string;
   description?: string;
-  // Structured classification fields for perfect filtering
+  // Structured classification fields for filtering
   subCategory?: string;
   carBrand?: string;
   carModel?: string;
@@ -54,7 +55,7 @@ export interface AdItem {
   bathrooms?: number;
   areaSize?: number;
   purpose?: string;
-  
+
   // Real estate project specific fields
   projectStatus?: string;
   deliveryYear?: string;
@@ -63,6 +64,7 @@ export interface AdItem {
   projectFinishing?: string;
   projectLandArea?: number | '';
   projectUnitsCount?: number | '';
+  paymentPlan?: string;
   projectFacilities?: string[];
   projectAmenities?: string[];
 }
@@ -76,6 +78,8 @@ export interface NotificationItem {
 }
 
 export interface User {
+  id?: number;
   phone: string;
+  countryId?: number;
   isLoggedIn: boolean;
 }

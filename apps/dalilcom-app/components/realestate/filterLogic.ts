@@ -84,6 +84,16 @@ function hasPurpose(source: string, purpose: string) {
   return source.includes(purpose);
 }
 
+function extractArea(ad: AdItem): number | null {
+  if (ad.reNetArea) {
+    const num = Number(ad.reNetArea);
+    if (!isNaN(num) && num > 0) return num;
+  }
+  const areaStr = ad.reArea || (ad.details || []).find(d => d.includes('متر') || d.includes('م²') || d.includes('مساحة')) || '';
+  const match = areaStr.match(/(\d+)/);
+  return match ? Number(match[1]) : null;
+}
+
 export function applyEstateFilters(ads: AdItem[], selectedCategory: string | null, filters: EstateFilters) {
   return ads.filter(ad => {
     const source = sourceFor(ad);
@@ -96,6 +106,11 @@ export function applyEstateFilters(ads: AdItem[], selectedCategory: string | nul
     if (filters.baths !== 'الكل' && !source.includes(filters.baths)) return false;
     if (filters.minPrice && ad.price < Number(filters.minPrice)) return false;
     if (filters.maxPrice && ad.price > Number(filters.maxPrice)) return false;
+    if (filters.minArea || filters.maxArea) {
+      const areaVal = extractArea(ad);
+      if (filters.minArea && areaVal !== null && areaVal < Number(filters.minArea)) return false;
+      if (filters.maxArea && areaVal !== null && areaVal > Number(filters.maxArea)) return false;
+    }
     return true;
   });
 }

@@ -26,7 +26,7 @@ export function SuccessReport({
 
       <div>
         <h2 className="text-lg sm:text-xl font-black text-[#2B2B2B]">مبارك! تم إشهار ونشر إعلانك بنجاح!</h2>
-        <p className="text-xs text-[#C9A15A] mt-1 font-semibold">إعلانك منشور الآن ومتاح لكافة مشتري وزوار منصة سوريازيل بالوطن والبلاد</p>
+        <p className="text-xs text-[#C9A15A] mt-1 font-semibold">إعلانك منشور الآن ومتاح لكافة مشتري وزوار منصة دليلكم</p>
       </div>
 
       <div className="bg-[#F6F2E8] p-4 rounded-2xl max-w-md mx-auto text-right text-xs space-y-2 border border-[#F6F2E8]">

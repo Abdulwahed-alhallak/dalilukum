@@ -31,7 +31,7 @@ export function MediaCarousel({ images, videos = [] }: Props) {
         {videos.map((url, idx) => (
           <View key={`vid-${idx}`} style={[styles.slide, styles.videoContainer, { width: containerWidth || '100%' }]}>
             <NativeIcon name="play-circle-outline" size={64} color={COLORS.white} />
-            <TouchableOpacity style={styles.playBtn} onPress={() => Linking.openURL(url)}>
+            <TouchableOpacity style={styles.playBtn} onPress={() => Linking.openURL(url).catch(() => null)}>
               <Text style={styles.playText}>تشغيل الفيديو</Text>
             </TouchableOpacity>
           </View>

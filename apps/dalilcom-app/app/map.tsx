@@ -12,12 +12,14 @@ function getMapUrl(ad: AdItem) {
 
 export default function MapPage() {
   const router = useRouter();
-  const { getFilteredAds, refresh } = useApp();
+  const { state, getFilteredAds, refresh } = useApp();
   const ads = getFilteredAds({ category: 'real-estate' });
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    if (state.ads.length === 0) {
+      refresh();
+    }
+  }, [refresh, state.ads.length]);
 
   const renderItem = ({ item }: { item: AdItem }) => (
     <View style={styles.card}>
@@ -27,7 +29,7 @@ export default function MapPage() {
         <Text style={styles.location} numberOfLines={1}>{item.location}</Text>
         <Text style={styles.price}>{item.price.toLocaleString('ar-SY')} {item.currency}</Text>
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.mapBtn} onPress={() => Linking.openURL(getMapUrl(item))}>
+          <TouchableOpacity style={styles.mapBtn} onPress={() => Linking.openURL(getMapUrl(item)).catch(() => null)}>
             <Text style={styles.mapText}>فتح على الخريطة</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.detailBtn} onPress={() => router.push(`/details/property/${item.id}` as any)}>

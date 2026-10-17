@@ -37,8 +37,11 @@ export default function PropertyDetail() {
   const videos = ad.videos || [];
 
   const openUrl = (url?: string, fallback = 'الرابط غير متاح') => {
-    if (url) Linking.openURL(url);
-    else Alert.alert('تنبيه', fallback);
+    if (url) {
+      Linking.openURL(url).catch(() => Alert.alert('تنبيه', fallback));
+    } else {
+      Alert.alert('تنبيه', fallback);
+    }
   };
 
   return (

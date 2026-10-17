@@ -12,7 +12,7 @@ import { AppHeaderLogo, BottomBackButton } from '../../../components/common/AppH
 export default function CategoryResultsPage() {
   const router = useRouter();
   const { id, title } = useLocalSearchParams<{ id: string; title?: string }>();
-  const { getFilteredAds, refresh } = useApp();
+  const { state, getFilteredAds, refresh } = useApp();
   const [filters, setFilters] = useState<EstateFilters>(initialEstateFilters);
   const [filterOpen, setFilterOpen] = useState(false);
   const categoryId = id || 'all';
@@ -21,8 +21,10 @@ export default function CategoryResultsPage() {
   const filteredAds = applyEstateFilters(ads, categoryId, filters);
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    if (state.ads.length === 0) {
+      refresh();
+    }
+  }, [refresh, state.ads.length]);
 
   const renderItem = ({ item }: { item: AdItem }) => (
     <EstateCard item={item} onPress={() => router.push(`/details/property/${item.id}` as any)} />

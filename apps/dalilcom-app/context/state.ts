@@ -1,9 +1,13 @@
 import { AppState } from './types';
-import { fallbackAds } from './fallbackAds';
 
 export const initialState: AppState = {
-  ads: fallbackAds,
+  ads: [],
   favorites: [],
+  notifications: [],
+  carBrands: [],
+  carModels: [],
+  user: null,
+  carsEnabled: true,
   loading: false,
   error: null,
 };

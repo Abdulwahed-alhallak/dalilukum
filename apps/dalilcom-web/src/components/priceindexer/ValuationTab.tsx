@@ -1,2 +1,313 @@
-// @ts-nocheck
-import{Fragment as m,jsx as e,jsxs as a}from"react/jsx-runtime";import{useState as l,useEffect as j}from"react";import{Sparkles as A,Gauge as D}from"lucide-react";import{NEIGHBORHOODS as O,CAR_BRANDS as V,evaluateHeuristic as L}from"./valuationHelpers";function G({onSaveReport:f}){const[o,g]=l("real-estate"),[n,N]=l("\u0644.\u0633"),[i,y]=l("\u062A\u0648\u064A\u0648\u062A\u0627"),[r,h]=l("2022"),[d,w]=l(45e3),[c,k]=l("excellent"),[x,C]=l("\u062F\u0645\u0634\u0642, \u0645\u0634\u0631\u0648\u0639 \u062F\u0645\u0631"),[b,$]=l("\u0634\u0642\u0629"),[u,R]=l("3 \u063A\u0631\u0641"),[p,P]=l(125),[v,S]=l(""),[s,B]=l(null),T=()=>{const t=L({valType:o,currency:n,carBrand:i,carYear:r,carMileage:d,carCondition:c,locNeighborhood:x,reArea:p,userAskingPrice:v});B(t)};return j(()=>{T()},[o,n,i,r,d,c,x,b,u,p]),a("div",{className:"grid grid-cols-1 lg:grid-cols-12 gap-8 text-right",dir:"rtl",children:[a("div",{className:"lg:col-span-6 bg-white border border-[#E3C98D] rounded-3xl p-5 sm:p-6 shadow-sm space-y-5",children:[a("div",{className:"flex items-center justify-between border-b border-[#F6F2E8] pb-3",children:[a("span",{className:"font-extrabold text-xs text-[#0D3B46] flex items-center gap-1.5",children:[e(D,{size:14,className:"text-[#0D3B46] animate-spin"}),"\u062A\u062E\u0635\u064A\u0635 \u0645\u0648\u0627\u0635\u0641\u0627\u062A \u0648\u0645\u0648\u0642\u0639 \u0627\u0644\u062A\u0642\u064A\u064A\u0645"]}),e("div",{className:"flex bg-[#F6F2E8] p-0.5 rounded-lg shrink-0",children:["\u0644.\u0633","$"].map(t=>e("button",{onClick:()=>N(t),className:`px-3 py-1 text-xs font-black rounded-md ${n===t?"bg-[#0D3B46] text-white":"text-[#C9A15A]"}`,children:t},t))})]}),a("div",{className:"grid grid-cols-2 gap-2 bg-[#F6F2E8] p-1 rounded-xl",children:[e("button",{onClick:()=>g("real-estate"),className:`py-2 text-[11px] sm:text-xs font-black rounded-lg ${o==="real-estate"?"bg-[#0D3B46] text-white":"text-[#0D3B46]"}`,children:"\u0642\u0633\u0645 \u0627\u0644\u0639\u0642\u0627\u0631\u0627\u062A \u0648\u0627\u0644\u0645\u0634\u0627\u0631\u064A\u0639"}),e("button",{onClick:()=>g("cars"),className:`py-2 text-[11px] sm:text-xs font-black rounded-lg ${o==="cars"?"bg-[#0D3B46] text-white":"text-[#0D3B46]"}`,children:"\u0642\u0633\u0645 \u0627\u0644\u0645\u0631\u0643\u0628\u0627\u062A \u0648\u0627\u0644\u0633\u064A\u0627\u0631\u0627\u062A"})]}),a("div",{className:"space-y-4",children:[o==="cars"?a(m,{children:[a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0627\u0644\u0639\u0644\u0627\u0645\u0629 \u0627\u0644\u062A\u062C\u0627\u0631\u064A\u0629"}),e("select",{value:i,onChange:t=>y(t.target.value),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none",children:V.map(t=>e("option",{value:t.value,children:t.label},t.value))})]}),a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0633\u0646\u0629 \u0627\u0644\u0635\u0646\u0639"}),e("select",{value:r,onChange:t=>h(t.target.value),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none",children:["2026","2025","2024","2023","2022","2021","2020","2019","2018","2015"].map(t=>e("option",{value:t,children:t},t))})]}),a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0627\u0644\u0645\u0645\u0634\u0649 \u0627\u0644\u062A\u0631\u0627\u0643\u0645\u064A (\u0643\u0645)"}),e("input",{type:"number",step:"5000",value:d,onChange:t=>w(Math.max(0,Number(t.target.value))),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-bold font-mono outline-none focus:border-[#C9A15A]"})]}),a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0627\u0644\u062D\u0627\u0644\u0629 \u0627\u0644\u0639\u0627\u0645\u0629 \u0644\u0644\u0622\u0644\u064A\u0629"}),e("div",{className:"grid grid-cols-3 gap-2 text-center",children:[{id:"excellent",name:"\u0645\u0645\u062A\u0627\u0632 \u062E\u0627\u0644\u064A\u0629 \u0627\u0644\u0639\u0644\u0627\u0645"},{id:"good",name:"\u062C\u064A\u062F \u0646\u0638\u064A\u0641"},{id:"fair",name:"\u0645\u0642\u0628\u0648\u0644 \u0645\u0633\u062A\u0639\u0645\u0644"}].map(t=>e("button",{onClick:()=>k(t.id),className:`py-2 px-1 text-[10px] font-bold rounded-lg border transition-all ${c===t.id?"border-[#C9A15A] bg-[#C9A15A]/10 text-[#0D3B46] font-extrabold":"border-[#E3C98D] bg-[#F6F2E8] text-[#C9A15A]"}`,children:t.name},t.id))})]})]}):a(m,{children:[a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0645\u0648\u0642\u0639 \u0627\u0644\u0639\u0642\u0627\u0631 \u0648\u0627\u0644\u0645\u0646\u0637\u0642\u0629 \u0627\u0644\u0633\u0643\u0646\u064A\u0629"}),e("select",{value:x,onChange:t=>C(t.target.value),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none",children:O.map(t=>e("option",{value:t.value,children:t.label},t.value))})]}),a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46] font-sans",children:"\u0627\u0644\u0645\u0633\u0627\u062D\u0629 \u0627\u0644\u0625\u062C\u0645\u0627\u0644\u064A\u0629 (\u0645\u062A\u0631 \u0645\u0631\u0628\u0639)"}),e("input",{type:"number",value:p,onChange:t=>P(Math.max(10,Number(t.target.value))),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-bold font-mono outline-none focus:border-[#0D3B46]"})]}),a("div",{className:"grid grid-cols-2 gap-4",children:[a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0639\u062F\u062F \u0627\u0644\u063A\u0631\u0641 \u0648\u0635\u0627\u0644\u0648\u0646\u0627\u062A"}),a("select",{value:u,onChange:t=>R(t.target.value),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none",children:[e("option",{value:"1 \u063A\u0631\u0641",children:"\u063A\u0631\u0641\u0629 \u0648\u0627\u062D\u062F\u0629 / \u0633\u062A\u0648\u062F\u064A\u0648"}),e("option",{value:"2 \u063A\u0631\u0641",children:"\u063A\u0631\u0641\u062A\u064A\u0646 \u0648\u0635\u0627\u0644\u0629"}),e("option",{value:"3 \u063A\u0631\u0641",children:"3 \u063A\u0631\u0641 \u0648\u0635\u0627\u0644\u0629 \u0645\u0631\u064A\u062D\u0629"}),e("option",{value:"4 \u063A\u0631\u0641",children:"4 \u063A\u0631\u0641 \u0648\u0635\u0627\u0644\u0629 \u0645\u0639\u064A\u0634\u0629 \u0643\u0628\u064A\u0631\u0629"})]})]}),a("div",{className:"space-y-1.5",children:[e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0646\u0648\u0639 \u0627\u0644\u0645\u0644\u0643\u064A\u0629"}),a("select",{value:b,onChange:t=>$(t.target.value),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none",children:[e("option",{value:"\u0634\u0642\u0629",children:"\u0634\u0642\u0629 \u0633\u0643\u0646\u064A\u0629 \u0639\u0627\u062F\u064A\u0629"}),e("option",{value:"\u0628\u0646\u062A\u0647\u0627\u0648\u0633",children:"\u0628\u0646\u062A\u0647\u0627\u0648\u0633 Penthouse"}),e("option",{value:"\u0641\u064A\u0644\u0651\u0627",children:"\u0641\u064A\u0644\u0651\u0627 \u0643\u0627\u0645\u0644\u0629 \u0645\u0633\u062A\u0642\u0631\u0629"}),e("option",{value:"\u0645\u0643\u062A\u0628",children:"\u0645\u0643\u062A\u0628 \u062A\u062C\u0627\u0631\u064A \u0645\u062E\u062F\u0645"})]})]})]})]}),a("div",{className:"space-y-1.5 pt-2",children:[a("div",{className:"flex justify-between items-baseline",children:[e("span",{className:"text-[10px] text-[#C9A15A] font-semibold",children:"\u0645\u0642\u0627\u0631\u0646\u062A\u0647\u0627 \u0645\u0639 \u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0645\u0639\u0631\u0648\u0636 \u0628\u0645\u0643\u0627\u0646 \u0622\u062E\u0631 \u0644\u062A\u0642\u064A\u064A\u0645 \u0635\u0641\u0642\u062A\u0647"}),e("label",{className:"text-xs font-bold text-[#0D3B46]",children:"\u0633\u0639\u0631 \u0637\u0631\u062D \u0645\u0633\u062A\u0647\u062F\u0641 (\u0645\u0633\u062A\u062D\u0628 \u0645\u0642\u0627\u0631\u0646\u062A\u0647)"})]}),e("input",{type:"number",placeholder:`\u0645\u062B\u0627\u0644: \u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0645\u0637\u0644\u0648\u0628 \u0644\u0645\u0639\u0631\u0641\u0629 \u0639\u062F\u0627\u0644\u062A\u0647 \u0628\u0640 ${n}`,value:v,onChange:t=>S(t.target.value?Number(t.target.value):""),className:"w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-bold font-mono outline-none focus:border-[#C9A15A]"})]})]})]}),e("div",{className:"lg:col-span-6 space-y-6",children:s&&a(m,{children:[a("div",{className:"bg-[#2B2B2B] border border-[#2B2B2B] text-white rounded-3xl p-5 sm:p-6 shadow-xl space-y-4",children:[a("div",{className:"flex justify-between items-center text-xs",children:[e("span",{className:"bg-[#C9A15A] text-white px-2.5 py-0.5 rounded-full font-sans text-[10px] font-black",children:"\u062F\u0642\u0629 \u062E\u0648\u0627\u0631\u0632\u0645\u064A\u0627\u062A \u0627\u0644\u062A\u0642\u064A\u064A\u0645 \u0639\u0627\u0644\u064A"}),e("span",{className:"text-[#C9A15A] font-bold",children:"\u0627\u0644\u0642\u064A\u0645\u0629 \u0627\u0644\u062A\u0642\u062F\u064A\u0631\u064A\u0629 \u0627\u0644\u0645\u0642\u062F\u0631\u0629 \u0633\u0648\u0631\u064A\u0627\u0632\u064A\u0644"})]}),a("div",{children:[a("h2",{className:"text-3xl font-black text-[#C9A15A] font-mono tracking-tight leading-none text-left",children:[s.fairValue.toLocaleString()," ",n]}),a("div",{className:"flex justify-between text-[11px] font-bold text-[#C9A15A] mt-2",children:[a("span",{children:["\u0627\u0644\u062D\u062F \u0627\u0644\u0623\u0639\u0644\u0649 \u0627\u0644\u0645\u0645\u0643\u0646 \u0627\u0644\u0634\u0631\u0627\u0621 \u0628\u0647: ",s.maxBounds.toLocaleString()," ",n]}),a("span",{children:["\u0627\u0644\u062D\u062F \u0627\u0644\u0623\u062F\u0646\u0649: ",s.minBounds.toLocaleString()," ",n]})]})]}),s.askingDiffPerc!==null&&a("div",{className:`p-3 rounded-2xl flex items-center justify-between font-bold text-xs ${s.isOverpriced?"bg-[#C9A15A]/10 border border-[#C9A15A]/20 text-[#C9A15A]":"bg-[#C9A15A]/10 border border-[#C9A15A]/30 text-[#C9A15A]"}`,children:[e("span",{className:"text-[10px]",children:s.isOverpriced?"\u26A0\uFE0F \u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0645\u0637\u0644\u0648\u0628 \u0645\u062A\u0628\u0627\u0639\u062F \u0648\u0645\u0646\u062A\u0641\u062E \u0639\u0646 \u0645\u0633\u062D \u0633\u0648\u0642 \u0627\u0644\u0628\u064A\u0627\u0646\u0627\u062A \u0633\u0648\u0631\u064A\u0627\u0632\u064A\u0644":"\u2714\uFE0F \u0627\u0644\u0633\u0639\u0631 \u0627\u0644\u0645\u0637\u0644\u0648\u0628 \u0639\u0627\u062F\u0644 \u0648\u0645\u0646\u0627\u0641\u0633 \u0648\u0645\u0637\u0627\u0628\u0642 \u0644\u0643\u0641\u0627\u0621\u0627\u062A \u0627\u0644\u0633\u0648\u0642"}),a("span",{className:"font-mono",children:[s.askingDiffPerc>0?`+${s.askingDiffPerc}`:s.askingDiffPerc,"%"]})]})]}),a("div",{className:"bg-white border border-[#E3C98D] rounded-3xl p-4 space-y-4",children:[a("div",{className:"flex justify-between items-center",children:[e("span",{className:"text-[11px] text-[#C9A15A] font-semibold",children:"\u062A\u0623\u0645\u064A\u0646 \u0627\u0644\u062A\u0642\u0631\u064A\u0631 \u0628\u0633\u062C\u0644\u0627\u062A \u0633\u0648\u0631\u064A\u0627\u0632\u064A\u0644 \u0627\u0644\u062F\u0627\u0626\u0645\u0629 \u0644\u0644\u0639\u0648\u062F\u0629 \u0625\u0644\u064A\u0647\u0627"}),e("span",{className:"text-xs font-black text-[#0D3B46]",children:"\u0623\u062F\u0648\u0627\u062A \u062D\u0641\u0638 \u0627\u0644\u062A\u0642\u0627\u0631\u064A\u0631"})]}),a("button",{onClick:()=>f({type:o,title:o==="cars"?`${i} ${r}`:`${b} \u0641\u064A ${x}`,specs:o==="cars"?`\u0633\u0646\u0629 ${r} \u2022 \u0645\u0645\u0634\u0649 ${d.toLocaleString()} \u0643\u0645 \u2022 \u062D\u0627\u0644\u0629 ${c==="excellent"?"\u0645\u0645\u062A\u0627\u0632\u0629":"\u0645\u0633\u062A\u0639\u0645\u0644\u0629 \u0646\u0638\u064A\u0641\u0629"}`:`${b} \u2022 ${p} \u0645\xB2 \u2022 ${u}`,estimatedPrice:s.fairValue,priceRange:[s.minBounds,s.maxBounds]}),className:"w-full h-11 bg-[#0D3B46] hover:bg-[#122538] text-white rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer",children:[e(A,{size:13,className:"text-[#C9A15A]"}),"\u062D\u0641\u0638 \u0627\u0644\u062A\u0642\u0631\u064A\u0631 \u0627\u0644\u062D\u0627\u0644\u064A \u0628\u0627\u0644\u0623\u0631\u0634\u064A\u0641 \u0627\u0644\u0645\u0631\u062C\u0639\u064A \u0644\u0644\u062F\u0631\u0627\u0633\u0629"]})]})]})})]})}export{G as ValuationTab};
+import React, { useState, useEffect } from 'react';
+import { Sparkles, Gauge } from 'lucide-react';
+import { SYRIAN_NEIGHBORHOODS, evaluateMarketValue } from './valuationHelpers';
+import { useAds } from '../../context/AdsContext';
+
+interface ValuationTabProps {
+  onSaveReport: (rep: {
+    type: 'cars' | 'real-estate';
+    title: string;
+    specs: string;
+    estimatedPrice: number;
+    priceRange: [number, number];
+  }) => void;
+}
+
+export function ValuationTab({ onSaveReport }: ValuationTabProps) {
+  const { ads, brands } = useAds();
+  const [valType, setValType] = useState<'cars' | 'real-estate'>('real-estate');
+  const [currency, setCurrency] = useState<'ل.س' | '$'>('$');
+  const [carBrand, setCarBrand] = useState('تويوتا');
+  const [carYear, setCarYear] = useState('2024');
+  const [carMileage, setCarMileage] = useState(35000);
+  const [carCondition, setCarCondition] = useState<'excellent' | 'good' | 'fair'>('excellent');
+  const [locNeighborhood, setLocNeighborhood] = useState(SYRIAN_NEIGHBORHOODS[0].value);
+  const [propType, setPropType] = useState('شقة');
+  const [rooms, setRooms] = useState('3 غرف');
+  const [reArea, setReArea] = useState(140);
+  const [userAskingPrice, setUserAskingPrice] = useState<number | ''>('');
+  const [result, setResult] = useState<ReturnType<typeof evaluateMarketValue> | null>(null);
+
+  useEffect(() => {
+    if (brands.length > 0 && !brands.some(b => b.ar === carBrand)) {
+      setCarBrand(brands[0].ar);
+    }
+  }, [brands]);
+
+  useEffect(() => {
+    const evaluated = evaluateMarketValue({
+      valType,
+      currency,
+      carBrand,
+      carYear,
+      carMileage,
+      carCondition,
+      locNeighborhood,
+      reArea,
+      userAskingPrice,
+      ads,
+    });
+    setResult(evaluated);
+  }, [valType, currency, carBrand, carYear, carMileage, carCondition, locNeighborhood, propType, rooms, reArea, userAskingPrice, ads]);
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-right" dir="rtl">
+      <div className="lg:col-span-6 bg-white border border-[#E3C98D] rounded-3xl p-5 sm:p-6 shadow-sm space-y-5">
+        <div className="flex items-center justify-between border-b border-[#F6F2E8] pb-3">
+          <span className="font-extrabold text-xs text-[#0D3B46] flex items-center gap-1.5">
+            <Gauge size={14} className="text-[#0D3B46]" />
+            تخصيص مواصفات وموقع التقييم
+          </span>
+          <div className="flex bg-[#F6F2E8] p-0.5 rounded-lg shrink-0">
+            {(['$', 'ل.س'] as const).map(curr => (
+              <button
+                key={curr}
+                type="button"
+                onClick={() => setCurrency(curr)}
+                className={`px-3 py-1 text-xs font-black rounded-md cursor-pointer ${
+                  currency === curr ? 'bg-[#0D3B46] text-white' : 'text-[#C9A15A]'
+                }`}
+              >
+                {curr}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 bg-[#F6F2E8] p-1 rounded-xl">
+          <button
+            type="button"
+            onClick={() => setValType('real-estate')}
+            className={`py-2 text-[11px] sm:text-xs font-black rounded-lg cursor-pointer ${
+              valType === 'real-estate' ? 'bg-[#0D3B46] text-white' : 'text-[#0D3B46]'
+            }`}
+          >
+            قسم العقارات والمشاريع
+          </button>
+          <button
+            type="button"
+            onClick={() => setValType('cars')}
+            className={`py-2 text-[11px] sm:text-xs font-black rounded-lg cursor-pointer ${
+              valType === 'cars' ? 'bg-[#0D3B46] text-white' : 'text-[#0D3B46]'
+            }`}
+          >
+            قسم المركبات والسيارات
+          </button>
+        </div>
+
+        <div className="space-y-4">
+          {valType === 'cars' ? (
+            <>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#0D3B46]">العلامة التجارية</label>
+                <select
+                  value={carBrand}
+                  onChange={e => setCarBrand(e.target.value)}
+                  className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none"
+                >
+                  {brands.map(b => (
+                    <option key={b.en} value={b.ar}>
+                      {b.ar} ({b.en})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#0D3B46]">سنة الصنع</label>
+                <select
+                  value={carYear}
+                  onChange={e => setCarYear(e.target.value)}
+                  className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none"
+                >
+                  {['2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2016', '2014', '2012', '2010'].map(y => (
+                    <option key={y} value={y}>
+                      {y}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#0D3B46]">الممشى التراكمي (كم)</label>
+                <input
+                  type="number"
+                  step={5000}
+                  value={carMileage}
+                  onChange={e => setCarMileage(Math.max(0, Number(e.target.value)))}
+                  className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-bold font-mono outline-none focus:border-[#C9A15A]"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#0D3B46]">الحالة العامة للآلية</label>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  {[
+                    { id: 'excellent' as const, name: 'ممتازة خالية العلام' },
+                    { id: 'good' as const, name: 'جيدة نظيفة' },
+                    { id: 'fair' as const, name: 'مقبولة مستعملة' },
+                  ].map(cond => (
+                    <button
+                      key={cond.id}
+                      type="button"
+                      onClick={() => setCarCondition(cond.id)}
+                      className={`py-2 px-1 text-[10px] font-bold rounded-lg border transition-all cursor-pointer ${
+                        carCondition === cond.id
+                          ? 'border-[#C9A15A] bg-[#C9A15A]/10 text-[#0D3B46] font-extrabold'
+                          : 'border-[#E3C98D] bg-[#F6F2E8] text-[#C9A15A]'
+                      }`}
+                    >
+                      {cond.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#0D3B46]">موقع العقار والمنطقة</label>
+                <select
+                  value={locNeighborhood}
+                  onChange={e => setLocNeighborhood(e.target.value)}
+                  className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none"
+                >
+                  {SYRIAN_NEIGHBORHOODS.map(item => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[#0D3B46]">المساحة الإجمالية (متر مربع)</label>
+                <input
+                  type="number"
+                  value={reArea}
+                  onChange={e => setReArea(Math.max(10, Number(e.target.value)))}
+                  className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-bold font-mono outline-none focus:border-[#0D3B46]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#0D3B46]">عدد الغرف</label>
+                  <select
+                    value={rooms}
+                    onChange={e => setRooms(e.target.value)}
+                    className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none"
+                  >
+                    <option value="1 غرف">غرفة واحدة / ستوديو</option>
+                    <option value="2 غرف">غرفتين وصالة</option>
+                    <option value="3 غرف">3 غرف وصالة</option>
+                    <option value="4 غرف">4 غرف وصالة</option>
+                    <option value="5+ غرف">5 غرف فأكثر</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#0D3B46]">نوع الملكية</label>
+                  <select
+                    value={propType}
+                    onChange={e => setPropType(e.target.value)}
+                    className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-semibold outline-none"
+                  >
+                    <option value="شقة">شقة سكنية</option>
+                    <option value="بنتهاوس">بنتهاوس</option>
+                    <option value="فيلا">فيلا مستقلة</option>
+                    <option value="مكتب">مكتب تجاري</option>
+                  </select>
+                </div>
+              </div>
+            </>
+          )}
+
+          <div className="space-y-1.5 pt-2">
+            <div className="flex justify-between items-baseline">
+              <label className="text-xs font-bold text-[#0D3B46]">سعر العرض المقترح للمقارنة (اختياري)</label>
+              <span className="text-[10px] text-[#C9A15A] font-semibold">لمقارنته مع متوسط السوق</span>
+            </div>
+            <input
+              type="number"
+              placeholder={`أدخل السعر المطلوب بـ ${currency}`}
+              value={userAskingPrice}
+              onChange={e => setUserAskingPrice(e.target.value ? Number(e.target.value) : '')}
+              className="w-full h-10 px-3 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl text-xs font-bold font-mono outline-none focus:border-[#C9A15A]"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="lg:col-span-6 space-y-6">
+        {result && (
+          <>
+            <div className="bg-[#2B2B2B] border border-[#2B2B2B] text-white rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
+              <div className="flex justify-between items-center text-xs">
+                <span className="bg-[#C9A15A] text-white px-2.5 py-0.5 rounded-full font-sans text-[10px] font-black">
+                  بناءً على {result.sampleCount} إعلان مرجعي
+                </span>
+                <span className="text-[#C9A15A] font-bold">القيمة التقديرية في دليلكم</span>
+              </div>
+
+              <div>
+                <h2 className="text-3xl font-black text-[#C9A15A] font-mono tracking-tight leading-none text-left">
+                  {result.fairValue.toLocaleString('en-US')} {currency}
+                </h2>
+                <div className="flex justify-between text-[11px] font-bold text-[#C9A15A] mt-2">
+                  <span>
+                    الحد الأعلى: {result.maxBounds.toLocaleString('en-US')} {currency}
+                  </span>
+                  <span>
+                    الحد الأدنى: {result.minBounds.toLocaleString('en-US')} {currency}
+                  </span>
+                </div>
+              </div>
+
+              {result.askingDiffPerc !== null && (
+                <div className="p-3 rounded-2xl flex items-center justify-between font-bold text-xs bg-[#C9A15A]/10 border border-[#C9A15A]/30 text-[#C9A15A]">
+                  <span className="text-[10px]">
+                    {result.isOverpriced
+                      ? 'السعر المطلوب أعلى من متوسط السوق في دليلكم'
+                      : 'السعر المطلوب عادل ومطابق لمتوسط السوق في دليلكم'}
+                  </span>
+                  <span className="font-mono">
+                    {result.askingDiffPerc > 0 ? `+${result.askingDiffPerc}` : result.askingDiffPerc}%
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <div className="bg-white border border-[#E3C98D] rounded-3xl p-4 space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-black text-[#0D3B46]">حفظ التقرير في قاعدة البيانات</span>
+                <span className="text-[11px] text-[#C9A15A] font-semibold">أرشيف التقييمات المرجعية</span>
+              </div>
+              <button
+                type="button"
+                onClick={() =>
+                  onSaveReport({
+                    type: valType,
+                    title: valType === 'cars' ? `${carBrand} ${carYear}` : `${propType} في ${locNeighborhood}`,
+                    specs:
+                      valType === 'cars'
+                        ? `سنة ${carYear} - ممشى ${carMileage.toLocaleString('en-US')} كم - حالة ${
+                            carCondition === 'excellent' ? 'ممتازة' : carCondition === 'good' ? 'جيدة' : 'مقبولة'
+                          }`
+                        : `${propType} - ${reArea} م² - ${rooms}`,
+                    estimatedPrice: result.fairValue,
+                    priceRange: [result.minBounds, result.maxBounds],
+                  })
+                }
+                className="w-full h-11 bg-[#0D3B46] hover:bg-[#122538] text-white rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+              >
+                <Sparkles size={13} className="text-[#C9A15A]" />
+                حفظ التقرير في الأرشيف المرجعي
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}

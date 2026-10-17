@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Field, Choice, ChoiceWrap, SelectField } from './Controls';
 import { CreateAdForm } from './data';
+import { useApp } from '../../context/AppContext';
 
 type Props = {
   form: CreateAdForm;
@@ -79,12 +80,53 @@ function RealEstateFields({ form, setField }: Props) {
 }
 
 function CarFields({ form, setField }: Props) {
+  const { state } = useApp();
   const set = (key: keyof CreateAdForm) => (value: string) => setField(key, value);
+  const brandOptions = state.carBrands.map(b => b.ar).filter(Boolean);
+  const effectiveBrand = form.carBrand || brandOptions[0] || '';
+  const selectedBrandEn = state.carBrands.find(b => b.ar === effectiveBrand || b.en === effectiveBrand)?.en;
+  const modelOptions = selectedBrandEn
+    ? state.carModels.filter(m => m.brandEn.toLowerCase() === selectedBrandEn.toLowerCase()).map(m => m.ar).filter(Boolean)
+    : [];
+
+  React.useEffect(() => {
+    if (!form.carBrand && brandOptions.length > 0) {
+      setField('carBrand', brandOptions[0]);
+    }
+  }, [form.carBrand, brandOptions, setField]);
+
+  React.useEffect(() => {
+    if (!form.carModel && modelOptions.length > 0) {
+      setField('carModel', modelOptions[0]);
+    }
+  }, [form.carModel, modelOptions, setField]);
+
   return (
     <View>
       <ChoiceWrap>{purposes.map(v => <Choice key={v} label={v} active={form.carType === v} onPress={() => setField('carType', v)} />)}</ChoiceWrap>
-      <Field label="الماركة" value={form.carBrand} onChangeText={set('carBrand')} placeholder="مثال: تويوتا" />
-      <Field label="الموديل" value={form.carModel} onChangeText={set('carModel')} placeholder="مثال: كورولا" />
+      {brandOptions.length > 0 ? (
+        <SelectField
+          label="الماركة"
+          value={form.carBrand || brandOptions[0]}
+          options={brandOptions}
+          onChange={(val) => {
+            setField('carBrand', val);
+            setField('carModel', '');
+          }}
+        />
+      ) : (
+        <Field label="الماركة" value={form.carBrand} onChangeText={set('carBrand')} placeholder="مثال: تويوتا" />
+      )}
+      {modelOptions.length > 0 ? (
+        <SelectField
+          label="الموديل"
+          value={form.carModel || modelOptions[0]}
+          options={modelOptions}
+          onChange={set('carModel')}
+        />
+      ) : (
+        <Field label="الموديل" value={form.carModel} onChangeText={set('carModel')} placeholder="مثال: كورولا" />
+      )}
       <Field label="سنة الصنع" value={form.carYear} onChangeText={set('carYear')} keyboardType="numeric" />
       <ChoiceWrap>{gears.map(v => <Choice key={v} label={v} active={form.carGear === v} onPress={() => setField('carGear', v)} />)}</ChoiceWrap>
       <ChoiceWrap>{fuels.map(v => <Choice key={v} label={v} active={form.carFuel === v} onPress={() => setField('carFuel', v)} />)}</ChoiceWrap>

@@ -17,14 +17,22 @@ export default function CreateTab() {
   const { editId } = useLocalSearchParams<{ editId?: string }>();
   const { addAd, updateAd, state } = useApp();
   const editingAd = editId ? state.ads.find(ad => ad.id === editId) : undefined;
-  const [form, setForm] = useState<CreateAdForm>(initialForm);
+  const [form, setForm] = useState<CreateAdForm>(() => ({
+    ...initialForm,
+    ownerPhone: state.user?.phone || '',
+    whatsappPhone: state.user?.phone || '',
+  }));
   const [step, setStep] = useState(0);
   const [saving, setSaving] = useState(false);
   const setField = (key: keyof CreateAdForm, value: any) => setForm(prev => ({ ...prev, [key]: value }));
 
   useEffect(() => {
     if (!editId) {
-      setForm(initialForm);
+      setForm({
+        ...initialForm,
+        ownerPhone: state.user?.phone || '',
+        whatsappPhone: state.user?.phone || '',
+      });
       setStep(0);
       return;
     }
@@ -32,7 +40,7 @@ export default function CreateTab() {
       setForm(formFromAd(editingAd));
       setStep(0);
     }
-  }, [editId, editingAd]);
+  }, [editId, editingAd, state.user?.phone]);
 
   const stepView = useMemo(() => {
     const props = { form, setField };
@@ -63,10 +71,14 @@ export default function CreateTab() {
   const submit = async () => {
     setSaving(true);
     try {
-      const payload = buildPayload(form, editingAd?.id);
+      const payload = buildPayload(form, editingAd?.id, state.user?.id);
       const ad = editingAd ? await updateAd(editingAd.id, payload) : await addAd(payload);
       const path = form.category === 'cars' ? `/details/car/${ad.id}` : `/details/property/${ad.id}`;
-      setForm(initialForm);
+      setForm({
+        ...initialForm,
+        ownerPhone: state.user?.phone || '',
+        whatsappPhone: state.user?.phone || '',
+      });
       setStep(0);
       router.replace(path as any);
     } catch (error: any) {
@@ -92,7 +104,7 @@ export default function CreateTab() {
   );
 }
 
-function buildPayload(form: CreateAdForm, existingId?: string) {
+function buildPayload(form: CreateAdForm, existingId?: string, ownerUserId?: number) {
   const price = Number(form.price.replace(/[^\d.]/g, '')) || 0;
   const image = form.imageUrl.trim();
   const specs = form.category === 'cars' ? carSpecs(form) : realEstateSpecs(form);
@@ -104,15 +116,17 @@ function buildPayload(form: CreateAdForm, existingId?: string) {
     price,
     currency: form.currency,
     location: `${form.city}، ${form.neighborhood.trim()}`,
+    map_url: form.mapUrl.trim() || null,
     subcategory: form.subcategory,
     purpose: form.category === 'cars' ? form.carType : form.reType,
     cover_image_url: image,
     published_on: new Date().toISOString().slice(0, 10),
     images: form.images.length > 0 ? form.images : [image],
     videos: form.videos.length > 0 ? form.videos : (form.videoUrl.trim() ? [form.videoUrl.trim()] : []),
+    owner_user_id: ownerUserId || null,
     owner_phone: form.ownerPhone.trim(),
-    whatsapp_phone: form.whatsappPhone.trim(),
-    details: [...Object.values(specs).filter(Boolean).map(String), form.mapUrl.trim() ? `map_url:${form.mapUrl.trim()}` : ''].filter(Boolean),
+    whatsapp_phone: form.whatsappPhone.trim() || form.ownerPhone.trim(),
+    details: Object.values(specs).filter(Boolean).map(String),
     specs,
   };
 }
@@ -174,8 +188,8 @@ function formFromAd(ad: AdItem): CreateAdForm {
 
 function presetImageFor(category: CreateAdForm['category']) {
   return category === 'cars'
-    ? 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900'
-    : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900';
+    ? 'https://dalilukum.sy/images/ads/local_ad_a9655fd3f1d2.jpg'
+    : 'https://dalilukum.sy/images/ads/local_ad_938d86b249f0.jpg';
 }
 
 function realEstateSpecs(form: CreateAdForm) {

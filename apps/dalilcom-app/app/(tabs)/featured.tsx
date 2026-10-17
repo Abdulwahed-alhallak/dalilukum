@@ -8,10 +8,14 @@ import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../../constants/them
 export default function FeaturedTab() {
   const router = useRouter();
   const { state } = useApp();
-  const ads = state.ads.filter(ad => ad.category === 'real-estate' && ad.isFeatured);
+  const ads = state.ads.filter(ad => ad.isFeatured && (state.carsEnabled || ad.category !== 'cars'));
 
   const renderItem = ({ item }: { item: AdItem }) => (
-    <TouchableOpacity style={styles.card} activeOpacity={0.85} onPress={() => router.push(`/details/property/${item.id}` as any)}>
+    <TouchableOpacity
+      style={styles.card}
+      activeOpacity={0.85}
+      onPress={() => router.push(item.category === 'cars' ? `/details/car/${item.id}` as any : `/details/property/${item.id}` as any)}
+    >
       {item.imageUrl ? <Image source={{ uri: item.imageUrl }} style={styles.image} /> : <View style={styles.image} />}
       <View style={styles.body}>
         <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
@@ -23,7 +27,7 @@ export default function FeaturedTab() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}><Text style={styles.headerTitle}>الإعلانات المميزة</Text></View>
+      <View style={styles.header}><Text style={styles.headerTitle}>الإعلانات المميزة ({ads.length})</Text></View>
       <FlatList
         data={ads}
         keyExtractor={item => item.id}

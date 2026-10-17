@@ -1,2 +1,364 @@
-// @ts-nocheck
-import{jsx as t,jsxs as a}from"react/jsx-runtime";import{useState as n}from"react";import{Plus as L,Trash2 as P,Layers as O,Sparkles as T,CarFront as W,HelpCircle as Z,AlertCircle as q}from"lucide-react";import*as J from"lucide-react";function Q({name:m,size:s=18,className:u}){const d=J[m]||Z;return t(d,{size:s,className:u})}function ee({brands:m,carModelsMap:s,addBrand:u,updateBrand:d,deleteBrand:U,updateCarModels:y,showToast:i}){const[l,_]=n(null),[b,w]=n(!1),[f,C]=n(""),[v,B]=n(""),[z,k]=n(100),[F,S]=n(""),[j,A]=n("CarFront"),[I,M]=n(""),[h,$]=n(""),[N,E]=n(""),H=e=>{if(e.preventDefault(),!f||!v){alert("\u0627\u0644\u0631\u062C\u0627\u0621 \u062A\u0639\u0628\u0626\u0629 \u0627\u0644\u0627\u0633\u0645 \u0628\u0627\u0644\u0639\u0631\u0628\u064A \u0648\u0627\u0644\u0625\u0646\u062C\u0644\u064A\u0632\u064A");return}u({ar:f,en:v,count:Number(z),domain:F||void 0,icon:j||void 0,image:I||void 0}),C(""),B(""),k(100),S(""),A("CarFront"),M(""),w(!1),i("\u062A\u0645\u062A \u0625\u0636\u0627\u0641\u0629 \u0645\u0627\u0631\u0643\u0629 \u0627\u0644\u0633\u064A\u0627\u0631\u0627\u062A \u0628\u0646\u062C\u0627\u062D")},G=e=>{if(e.preventDefault(),!l)return;if(!h||!N){alert("\u0627\u0644\u0631\u062C\u0627\u0621 \u0643\u062A\u0627\u0628\u0629 \u0627\u0633\u0645 \u0627\u0644\u0645\u0648\u062F\u064A\u0644 \u0628\u0627\u0644\u0639\u0631\u0628\u064A\u0629 \u0648\u0627\u0644\u0625\u0646\u062C\u0644\u064A\u0632\u064A\u0629");return}const g=[...s[l]||[],{ar:h,en:N}];y(l,g);const x=m.findIndex(c=>c.en===l);if(x!==-1){const c=m[x];d(x,{...c,count:c.count+5})}$(""),E(""),i("\u062A\u0645 \u0625\u0636\u0627\u0641\u0629 \u0645\u0648\u062F\u064A\u0644 \u0627\u0644\u0633\u064A\u0627\u0631\u0629 \u0627\u0644\u062C\u062F\u064A\u062F")},K=(e,o)=>{const x=(s[e]||[]).filter((c,r)=>r!==o);y(e,x),i("\u062A\u0645 \u0625\u0632\u0627\u0644\u0629 \u0627\u0644\u0645\u0648\u062F\u064A\u0644")};return a("div",{className:"space-y-8 text-right font-sans",dir:"rtl",children:[a("div",{className:"bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm",children:[a("div",{className:"flex items-center justify-between pb-4 border-b border-[#F6F2E8] mb-6",children:[a("div",{className:"flex flex-col",children:[t("h3",{className:"font-extrabold text-sm text-[#2B2B2B]",children:"\u0645\u0627\u0631\u0643\u0627\u062A \u0627\u0644\u0634\u0631\u0643\u0627\u062A \u0648\u0627\u0644\u0648\u0643\u0627\u0644\u0627\u062A"}),t("p",{className:"text-[11px] text-[#C9A15A] font-medium",children:"\u0625\u0636\u0627\u0641\u0629 \u0634\u0631\u0643\u0627\u062A \u0633\u064A\u0627\u0631\u0627\u062A \u062C\u062F\u064A\u062F\u0629 \u0648\u0631\u0635\u062F \u0646\u0637\u0627\u0642\u0627\u062A\u0647\u0627 \u0648\u0634\u0639\u0627\u0631\u0627\u062A\u0647\u0627 \u0627\u0644\u062A\u0644\u0642\u0627\u0626\u064A\u0629 \u0648\u0627\u0644\u064A\u062F\u0648\u064A\u0629"})]}),a("button",{type:"button",onClick:()=>w(!b),className:"flex items-center gap-1.5 bg-[#C9A15A] hover:bg-[#0D3B46] text-white text-xs px-4 py-2.5 rounded-xl font-bold border border-[#C9A15A] shadow-md outline-none transition-all cursor-pointer",children:[t(L,{size:16}),b?"\u0625\u0644\u063A\u0627\u0621 \u0627\u0644\u0646\u0645\u0648\u0630\u062C":"\u0625\u0636\u0627\u0641\u0629 \u0645\u0627\u0631\u0643\u0629 \u062C\u062F\u064A\u062F\u0629"]})]}),b&&a("form",{onSubmit:H,className:"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-in slide-in-from-top-4 duration-300",children:[a("div",{className:"flex flex-col gap-1.5",children:[t("label",{className:"text-[11px] font-bold text-[#0D3B46]",children:"\u0627\u0644\u0627\u0633\u0645 \u0628\u0627\u0644\u0639\u0631\u0628\u064A\u0629"}),t("input",{type:"text",placeholder:"\u0645\u062B\u0627\u0644: \u062A\u0648\u064A\u0648\u062A\u0627",value:f,onChange:e=>C(e.target.value),className:"h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"})]}),a("div",{className:"flex flex-col gap-1.5",children:[t("label",{className:"text-[11px] font-bold text-[#0D3B46]",children:"\u0627\u0644\u0627\u0633\u0645 \u0628\u0627\u0644\u0625\u0646\u062C\u0644\u064A\u0632\u064A\u0629 (\u0645\u0641\u062A\u0627\u062D \u0627\u0644\u0631\u0628\u0637)"}),t("input",{type:"text",placeholder:"\u0645\u062B\u0627\u0644: Toyota",value:v,onChange:e=>B(e.target.value),className:"h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"})]}),a("div",{className:"flex flex-col gap-1.5",children:[t("label",{className:"text-[11px] font-bold text-[#0D3B46]",children:"\u0639\u062F\u062F \u0627\u0644\u0625\u0639\u0644\u0627\u0646\u0627\u062A \u0627\u0644\u0623\u0648\u0644\u064A"}),t("input",{type:"number",value:z,onChange:e=>k(Number(e.target.value)),className:"h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"})]}),a("div",{className:"flex flex-col gap-1.5",children:[t("label",{className:"text-[11px] font-bold text-[#0D3B46]",children:"\u0646\u0637\u0627\u0642 \u0627\u0644\u0645\u0648\u0642\u0639 (\u0644\u062C\u0644\u0628 \u0627\u0644\u0634\u0639\u0627\u0631 \u0627\u0644\u062A\u0644\u0642\u0627\u0626\u064A)"}),t("input",{type:"text",placeholder:"\u0645\u062B\u0627\u0644: toyota.com",value:F,onChange:e=>S(e.target.value),className:"h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"})]}),a("div",{className:"flex flex-col gap-1.5 lg:col-span-2",children:[t("label",{className:"text-[11px] font-bold text-[#0D3B46]",children:"\u0623\u064A\u0642\u0648\u0646\u0629 \u0644\u0648\u062D\u0629 \u0627\u0644\u062A\u062D\u0643\u0645 (\u0645\u062B\u0644 CarFront, Sparkles)"}),t("input",{type:"text",value:j,onChange:e=>A(e.target.value),className:"h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs font-mono text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"})]}),a("div",{className:"flex flex-col gap-1.5 lg:col-span-2",children:[t("label",{className:"text-[11px] font-bold text-[#0D3B46]",children:"\u0631\u0627\u0628\u0637 \u0635\u0648\u0631\u0629/\u0634\u0639\u0627\u0631 \u0627\u0644\u0645\u0627\u0631\u0643\u0629 \u0627\u0644\u0645\u062E\u0635\u0635\u0629 (\u0627\u062E\u062A\u064A\u0627\u0631\u064A)"}),t("input",{type:"text",placeholder:"\u0645\u062B\u0627\u0644: https://example.com/logo.png",value:I,onChange:e=>M(e.target.value),className:"h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"})]}),t("div",{className:"flex items-end lg:col-span-4 mt-2",children:t("button",{type:"submit",className:"w-full h-11 bg-[#2B2B2B] hover:bg-[#2B2B2B] text-white text-xs rounded-xl font-bold transition-all shadow-md cursor-pointer",children:"\u062A\u0623\u0643\u064A\u062F \u062D\u0641\u0638 \u0645\u0635\u0641\u0648\u0641\u0629 \u0627\u0644\u0645\u0627\u0631\u0643\u0629"})})]})]}),a("div",{className:"grid grid-cols-1 lg:grid-cols-3 gap-8",children:[a("div",{className:"bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm overflow-hidden lg:col-span-2",children:[t("h4",{className:"font-extrabold text-xs text-[#2B2B2B] pb-3 border-b border-[#F6F2E8] mb-4",children:"\u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0645\u0627\u0631\u0643\u0627\u062A \u0627\u0644\u0645\u0633\u062C\u0644\u0629"}),t("div",{className:"divide-y divide-[#F6F2E8] max-h-[500px] overflow-y-auto",children:m.map((e,o)=>{const g=l===e.en,c=`https://cdn.jsdelivr.net/gh/filippofg/car-logos-dataset@master/logos/optimized/${e.en.toLowerCase().replace(/[\s_.]/g,"-").replace(/-+/g,"-")}.png`;return a("div",{className:`p-4 flex flex-col gap-3 transition-colors rounded-xl border mb-3 ${g?"bg-[#F6F2E8] border-[#E3C98D]":"border-[#F6F2E8] hover:bg-[#F6F2E8]/50"}`,children:[a("div",{className:"flex items-center justify-between",children:[a("div",{className:"flex items-center gap-3",children:[t("div",{className:"w-10 h-10 rounded-lg bg-[#F6F2E8] flex items-center justify-center border border-[#E3C98D] p-1 overflow-hidden shrink-0",children:e.image?t("img",{src:e.image,alt:e.ar,className:"max-h-full max-w-full object-contain"}):e.icon?t(Q,{name:e.icon,size:22,className:"text-[#2B2B2B]"}):e.domain?t("img",{src:c,alt:e.ar,className:"max-h-full max-w-full object-contain",onError:r=>{r.target.src=`https://www.google.com/s2/favicons?sz=64&domain=${e.domain}`}}):t(W,{className:"text-[#C9A15A]",size:20})}),a("div",{className:"flex flex-col text-right",children:[t("span",{className:"font-bold text-[#2B2B2B] text-xs",children:e.ar}),a("span",{className:"text-[10px] text-[#C9A15A] font-medium",dir:"ltr",children:[e.en," (",e.count," \u0625\u0639\u0644\u0627\u0646)"]})]})]}),a("div",{className:"flex items-center gap-2",children:[a("button",{type:"button",onClick:()=>_(e.en),className:`px-3 py-1.5 rounded-lg font-extrabold text-[11px] transition-all outline-none cursor-pointer ${g?"bg-[#C9A15A] text-white shadow-sm":"bg-[#F6F2E8] text-[#2B2B2B] hover:bg-[#F6F2E8]"}`,children:["\u062A\u062D\u0631\u064A\u0631 \u0627\u0644\u0645\u0648\u062F\u064A\u0644\u0627\u062A \u0627\u0644\u0641\u0631\u0639\u064A\u0629 (",s[e.en]?.length||0,")"]}),t("button",{type:"button",onClick:()=>{window.confirm(`\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0645\u0646 \u062D\u0630\u0641 \u0645\u0627\u0631\u0643\u0629 ${e.ar}\u061F`)&&(U(o),i("\u062A\u0645 \u0625\u0632\u0627\u0644\u0629 \u0645\u0627\u0631\u0643\u0629 \u0627\u0644\u0633\u064A\u0627\u0631\u0629"))},className:"w-8 h-8 rounded-lg bg-[#C9A15A]/10 hover:bg-[#C9A15A]/20 text-[#C9A15A] flex items-center justify-center shrink-0 border border-[#C9A15A]/25 cursor-pointer",children:t(P,{size:13})})]})]}),a("div",{className:"flex flex-col gap-2 border-t border-dashed border-[#F6F2E8] pt-3",children:[a("div",{className:"flex items-center justify-between",children:[a("span",{className:"text-[10px] text-[#C9A15A] font-bold block text-right",children:["\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0634\u0639\u0627\u0631 \u0648\u0627\u0644\u0623\u064A\u0642\u0648\u0646\u0629 \u0644\u0640 (",e.ar,"):"]}),a("div",{className:"flex gap-2",children:[a("button",{type:"button",onClick:()=>{const p=`https://cdn.jsdelivr.net/gh/filippofg/car-logos-dataset@master/logos/optimized/${e.en.toLowerCase().replace(/[\s_.]/g,"-").replace(/-+/g,"-")}.png`;d(o,{...e,image:p,icon:void 0}),i(`\u062A\u0645 \u062A\u0648\u0644\u064A\u062F \u0631\u0627\u0628\u0637 \u0627\u0644\u0634\u0639\u0627\u0631 \u0627\u0644\u062A\u0644\u0642\u0627\u0626\u064A \u0644\u0640 ${e.ar}`)},className:"px-2 py-1 bg-[#C9A15A]/10 hover:bg-[#C9A15A]/20 text-[#0D3B46] border border-[#C9A15A]/35 rounded text-[9px] font-bold transition-all flex items-center gap-1 cursor-pointer",children:[t(T,{size:10}),"\u062A\u0648\u0644\u064A\u062F \u062A\u0644\u0642\u0627\u0626\u064A \u26A1"]}),a("label",{className:"px-2 py-1 bg-[#C9A15A]/10 hover:bg-[#C9A15A]/20 text-[#0D3B46] border border-[#C9A15A]/35 rounded text-[9px] font-bold transition-all flex items-center gap-1 cursor-pointer",children:[t(L,{size:10}),"\u0631\u0641\u0639 \u0634\u0639\u0627\u0631 \u{1F4E4}",t("input",{type:"file",accept:"image/*",className:"hidden",onChange:r=>{const p=r.target.files?.[0];if(p){const D=new FileReader;D.onload=R=>{R.target?.result&&(d(o,{...e,image:String(R.target.result),icon:void 0}),i(`\u062A\u0645 \u0631\u0641\u0639 \u0634\u0639\u0627\u0631 ${e.ar} \u0628\u0646\u062C\u0627\u062D`))},D.readAsDataURL(p)}}})]})]})]}),a("div",{className:"grid grid-cols-6 gap-2",children:[t("input",{type:"text",placeholder:"\u0631\u0627\u0628\u0637 \u0627\u0644\u0634\u0639\u0627\u0631 \u0627\u0644\u0645\u062E\u0635\u0635 (https://...)",value:e.image||"",onChange:r=>{d(o,{...e,image:r.target.value})},className:"col-span-4 h-8 px-2.5 border border-[#E3C98D] rounded-lg text-[10px] bg-white outline-none text-right font-medium text-[#2B2B2B] focus:border-[#C9A15A]"}),t("div",{className:"col-span-2 relative",children:a("select",{value:e.icon||"CarFront",onChange:r=>{d(o,{...e,icon:r.target.value,image:void 0}),i(`\u062A\u0645 \u062A\u0639\u064A\u064A\u0646 \u0627\u0644\u0623\u064A\u0642\u0648\u0646\u0629 \u0644\u0640 ${e.ar}`)},className:"h-8 w-full px-1 border border-[#E3C98D] rounded-lg text-[10px] bg-[#F6F2E8] text-[#2B2B2B] outline-none font-bold",children:[t("option",{value:"CarFront",children:"\u{1F697} \u0633\u064A\u0627\u0631\u0629"}),t("option",{value:"Gauge",children:"\u23F1\uFE0F \u0639\u062F\u0627\u062F \u0633\u0631\u0639\u0629"}),t("option",{value:"Sparkles",children:"\u2728 \u0628\u0631\u064A\u0642"}),t("option",{value:"Flame",children:"\u{1F525} \u0633\u0628\u0627\u0642/\u0633\u0631\u0639\u0629"}),t("option",{value:"Zap",children:"\u26A1 \u0643\u0647\u0631\u0628\u0627\u0621"}),t("option",{value:"Key",children:"\u{1F511} \u0645\u0641\u0627\u062A\u064A\u062D"}),t("option",{value:"Shield",children:"\u{1F6E1}\uFE0F \u0623\u0645\u0627\u0646"}),t("option",{value:"Wrench",children:"\u{1F527} \u0635\u064A\u0627\u0646\u0629"})]})})]})]})]},o)})})]}),a("div",{className:"bg-[#2B2B2B] text-white border border-[#2B2B2B] rounded-2xl p-6 shadow-sm flex flex-col h-full min-h-[400px]",children:[a("h4",{className:"font-extrabold text-xs text-[#C9A15A] pb-3 border-b border-[#2B2B2B] mb-4 flex items-center gap-2",children:[t(O,{size:14}),"\u062A\u062D\u0631\u064A\u0631 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0645\u0648\u062F\u064A\u0644\u0627\u062A \u0627\u0644\u0641\u0631\u0639\u064A\u0629"]}),l?a("div",{className:"space-y-6 flex-1 flex flex-col justify-between",children:[a("div",{children:[a("p",{className:"text-[11px] text-[#C9A15A] font-semibold mb-3",children:["\u0623\u0646\u062A \u062A\u0639\u062F\u0644 \u0645\u0648\u062F\u064A\u0644\u0627\u062A \u0645\u0627\u0631\u0643\u0629: ",t("span",{className:"text-white font-extrabold",children:l})]}),a("div",{className:"space-y-2 max-h-56 overflow-y-auto mb-4 bg-[#2B2B2B] p-2.5 rounded-xl border border-[#2B2B2B]",children:[(s[l]||[]).map((e,o)=>a("div",{className:"p-2 border border-[#2B2B2B] rounded-lg flex items-center justify-between text-right",children:[a("span",{className:"text-[11px] font-bold text-[#F6F2E8]",children:[e.ar," ",a("span",{className:"text-[#C9A15A] font-medium",dir:"ltr",children:["(",e.en,")"]})]}),t("button",{type:"button",onClick:()=>K(l,o),className:"text-[#C9A15A] hover:text-[#C9A15A] p-1",children:t(P,{size:12})})]},o)),(s[l]||[]).length===0&&t("div",{className:"p-3 text-center text-[#C9A15A] text-[11px]",children:"\u0644\u0627 \u062A\u0648\u062C\u062F \u0645\u0648\u062F\u064A\u0644\u0627\u062A \u0641\u0631\u0639\u064A\u0629 \u0645\u0636\u0627\u0641\u0629 \u0628\u0639\u062F."})]})]}),a("form",{onSubmit:G,className:"space-y-3 pt-3 border-t border-[#2B2B2B]",children:[t("h5",{className:"font-extrabold text-[11px] text-white",children:"\u0625\u0636\u0627\u0641\u0629 \u0645\u0648\u062F\u064A\u0644 \u0641\u0631\u0639\u064A \u062C\u062F\u064A\u062F \u0644\u0644\u0634\u0631\u0643\u0629"}),t("input",{type:"text",placeholder:"\u0627\u0644\u0627\u0633\u0645 \u0628\u0627\u0644\u0639\u0631\u0628\u064A (\u0645\u062B\u0627\u0644: \u0641\u0648\u0631\u0646\u062A\u0634\u0631)",value:h,onChange:e=>$(e.target.value),className:"w-full h-9 px-3 bg-[#2B2B2B] border border-[#2B2B2B] rounded-lg outline-none text-xs text-white"}),t("input",{type:"text",placeholder:"\u0627\u0644\u0627\u0633\u0645 \u0628\u0627\u0644\u0625\u0646\u062C\u0644\u064A\u0632\u064A (\u0645\u062B\u0627\u0644: Fortuner)",value:N,onChange:e=>E(e.target.value),className:"w-full h-9 px-3 bg-[#2B2B2B] border border-[#2B2B2B] rounded-lg outline-none text-xs text-white"}),t("button",{type:"submit",className:"w-full h-9 bg-[#C9A15A] hover:bg-[#0D3B46] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer",children:"\u0623\u0636\u0641 \u0627\u0644\u0645\u0648\u062F\u064A\u0644 \u0644\u0644\u0642\u0627\u0626\u0645\u0629"})]})]}):a("div",{className:"flex-1 flex flex-col items-center justify-center text-[#C9A15A] text-center py-20",children:[t(q,{size:36,className:"mb-2 text-[#0D3B46]"}),t("p",{className:"text-[11px] font-semibold",children:"\u0627\u0644\u0631\u062C\u0627\u0621 \u062A\u062D\u062F\u064A\u062F \u0645\u0627\u0631\u0643\u0629 \u0645\u0646 \u0627\u0644\u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0645\u0642\u0627\u0628\u0644\u0629 \u0644\u0628\u062F\u0621 \u062A\u0643\u0648\u064A\u0646 \u0648\u0625\u0636\u0627\u0641\u0629 \u0627\u0644\u0645\u0648\u062F\u064A\u0644\u0627\u062A \u0627\u0644\u0641\u0631\u0639\u064A\u0629."})]})]})]})]})}export{ee as AdminBrandsTab};
+import React, { useState } from 'react';
+import {
+  Plus,
+  Trash2,
+  Layers,
+  Sparkles,
+  CarFront,
+  HelpCircle,
+  AlertCircle,
+} from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
+import { CarBrand } from '../../context/AdsContextTypes';
+
+function DynamicIcon({ name, size = 18, className }: { name?: string; size?: number; className?: string }) {
+  const IconComp = (name && (LucideIcons as any)[name]) || HelpCircle;
+  return <IconComp size={size} className={className} />;
+}
+
+interface AdminBrandsTabProps {
+  brands: CarBrand[];
+  carModelsMap: Record<string, { ar: string; en: string }[]>;
+  addBrand: (brand: CarBrand) => Promise<void>;
+  updateBrand: (index: number, updated: CarBrand) => Promise<void>;
+  deleteBrand: (index: number) => Promise<void>;
+  updateCarModels: (brandEn: string, models: { ar: string; en: string }[]) => Promise<void>;
+  showToast: (msg: string) => void;
+}
+
+export function AdminBrandsTab({
+  brands,
+  carModelsMap,
+  addBrand,
+  updateBrand,
+  deleteBrand,
+  updateCarModels,
+  showToast,
+}: AdminBrandsTabProps) {
+  const [selectedBrandEn, setSelectedBrandEn] = useState<string | null>(null);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [arName, setArName] = useState('');
+  const [enName, setEnName] = useState('');
+  const [domain, setDomain] = useState('');
+  const [icon, setIcon] = useState('CarFront');
+  const [image, setImage] = useState('');
+  const [modelAr, setModelAr] = useState('');
+  const [modelEn, setModelEn] = useState('');
+
+  const handleAddBrand = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!arName.trim() || !enName.trim()) {
+      alert('الرجاء تعبئة الاسم بالعربي والإنجليزي');
+      return;
+    }
+    await addBrand({
+      ar: arName.trim(),
+      en: enName.trim(),
+      count: 0,
+      domain: domain.trim() || undefined,
+      icon: icon || undefined,
+      image: image.trim() || undefined,
+    });
+    setArName('');
+    setEnName('');
+    setDomain('');
+    setIcon('CarFront');
+    setImage('');
+    setShowAddForm(false);
+    showToast('تمت إضافة ماركة السيارات بنجاح');
+  };
+
+  const handleAddModel = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedBrandEn) return;
+    if (!modelAr.trim() || !modelEn.trim()) {
+      alert('الرجاء كتابة اسم الموديل بالعربية والإنجليزية');
+      return;
+    }
+    const nextModels = [...(carModelsMap[selectedBrandEn] || []), { ar: modelAr.trim(), en: modelEn.trim() }];
+    await updateCarModels(selectedBrandEn, nextModels);
+    setModelAr('');
+    setModelEn('');
+    showToast('تم حفظ موديل السيارة في قاعدة البيانات');
+  };
+
+  const handleRemoveModel = async (brandEn: string, modelIndex: number) => {
+    const nextModels = (carModelsMap[brandEn] || []).filter((_, idx) => idx !== modelIndex);
+    await updateCarModels(brandEn, nextModels);
+    showToast('تم حذف الموديل من قاعدة البيانات');
+  };
+
+  return (
+    <div className="space-y-8 text-right font-sans" dir="rtl">
+      <div className="bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm">
+        <div className="flex items-center justify-between pb-4 border-b border-[#F6F2E8] mb-6">
+          <div className="flex flex-col">
+            <h3 className="font-extrabold text-sm text-[#2B2B2B]">ماركات الشركات والوكالات</h3>
+            <p className="text-[11px] text-[#C9A15A] font-medium">
+              إضافة شركات سيارات جديدة وإدارة شعاراتها وموديلاتها الفرعية
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="flex items-center gap-1.5 bg-[#C9A15A] hover:bg-[#0D3B46] text-white text-xs px-4 py-2.5 rounded-xl font-bold border border-[#C9A15A] shadow-md outline-none transition-all cursor-pointer"
+          >
+            <Plus size={16} />
+            {showAddForm ? 'إلغاء النموذج' : 'إضافة ماركة جديدة'}
+          </button>
+        </div>
+
+        {showAddForm && (
+          <form onSubmit={handleAddBrand} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in slide-in-from-top-4 duration-300">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[11px] font-bold text-[#0D3B46]">الاسم بالعربية</label>
+              <input
+                type="text"
+                placeholder="مثال: تويوتا"
+                value={arName}
+                onChange={e => setArName(e.target.value)}
+                className="h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[11px] font-bold text-[#0D3B46]">الاسم بالإنجليزية (مفتاح الربط)</label>
+              <input
+                type="text"
+                placeholder="مثال: Toyota"
+                value={enName}
+                onChange={e => setEnName(e.target.value)}
+                className="h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[11px] font-bold text-[#0D3B46]">نطاق الموقع (لجلب الشعار)</label>
+              <input
+                type="text"
+                placeholder="مثال: toyota.com"
+                value={domain}
+                onChange={e => setDomain(e.target.value)}
+                className="h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[11px] font-bold text-[#0D3B46]">أيقونة بديلة</label>
+              <input
+                type="text"
+                value={icon}
+                onChange={e => setIcon(e.target.value)}
+                className="h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs font-mono text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5 lg:col-span-2">
+              <label className="text-[11px] font-bold text-[#0D3B46]">رابط صورة/شعار الماركة (اختياري)</label>
+              <input
+                type="text"
+                placeholder="https://example.com/logo.png"
+                value={image}
+                onChange={e => setImage(e.target.value)}
+                className="h-10 px-4 bg-[#F6F2E8] border border-[#E3C98D] rounded-xl outline-none text-xs text-[#2B2B2B] focus:bg-white focus:border-[#C9A15A]"
+              />
+            </div>
+            <div className="flex items-end lg:col-span-3 mt-2">
+              <button
+                type="submit"
+                className="w-full h-11 bg-[#2B2B2B] hover:bg-[#1f1f1f] text-white text-xs rounded-xl font-bold transition-all shadow-md cursor-pointer"
+              >
+                حفظ الماركة في قاعدة البيانات
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm overflow-hidden lg:col-span-2">
+          <h4 className="font-extrabold text-xs text-[#2B2B2B] pb-3 border-b border-[#F6F2E8] mb-4">
+            قائمة الماركات المسجلة ({brands.length})
+          </h4>
+          <div className="divide-y divide-[#F6F2E8] max-h-[500px] overflow-y-auto">
+            {brands.map((brand, idx) => {
+              const isSelected = selectedBrandEn === brand.en;
+              const autoLogo = `https://cdn.jsdelivr.net/gh/filippofg/car-logos-dataset@master/logos/optimized/${brand.en.toLowerCase().replace(/[\s_.]/g, '-').replace(/-+/g, '-')}.png`;
+              return (
+                <div
+                  key={brand.id || brand.en}
+                  className={`p-4 flex flex-col gap-3 transition-colors rounded-xl border mb-3 ${
+                    isSelected ? 'bg-[#F6F2E8] border-[#E3C98D]' : 'border-[#F6F2E8] hover:bg-[#F6F2E8]/50'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#F6F2E8] flex items-center justify-center border border-[#E3C98D] p-1 overflow-hidden shrink-0">
+                        {brand.image ? (
+                          <img src={brand.image} alt={brand.ar} className="max-h-full max-w-full object-contain" />
+                        ) : brand.icon ? (
+                          <DynamicIcon name={brand.icon} size={22} className="text-[#2B2B2B]" />
+                        ) : brand.domain ? (
+                          <img
+                            src={autoLogo}
+                            alt={brand.ar}
+                            className="max-h-full max-w-full object-contain"
+                            onError={e => {
+                              (e.target as HTMLImageElement).src = `https://www.google.com/s2/favicons?sz=64&domain=${brand.domain}`;
+                            }}
+                          />
+                        ) : (
+                          <CarFront className="text-[#C9A15A]" size={20} />
+                        )}
+                      </div>
+                      <div className="flex flex-col text-right">
+                        <span className="font-bold text-[#2B2B2B] text-xs">{brand.ar}</span>
+                        <span className="text-[10px] text-[#C9A15A] font-medium" dir="ltr">
+                          {brand.en} ({brand.count} إعلان)
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedBrandEn(brand.en)}
+                        className={`px-3 py-1.5 rounded-lg font-extrabold text-[11px] transition-all outline-none cursor-pointer ${
+                          isSelected ? 'bg-[#C9A15A] text-white shadow-sm' : 'bg-[#F6F2E8] text-[#2B2B2B]'
+                        }`}
+                      >
+                        الموديلات ({carModelsMap[brand.en]?.length || 0})
+                      </button>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (window.confirm(`هل أنت متأكد من حذف ماركة ${brand.ar}؟`)) {
+                            await deleteBrand(idx);
+                            showToast('تم حذف ماركة السيارة');
+                          }
+                        }}
+                        className="w-8 h-8 rounded-lg bg-[#C9A15A]/10 hover:bg-[#C9A15A]/20 text-[#C9A15A] flex items-center justify-center shrink-0 border border-[#C9A15A]/25 cursor-pointer"
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2 border-t border-dashed border-[#F6F2E8] pt-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[#C9A15A] font-bold block text-right">
+                        إعدادات الشعار والأيقونة لـ ({brand.ar}):
+                      </span>
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            await updateBrand(idx, { ...brand, image: autoLogo, icon: undefined });
+                            showToast(`تم توليد رابط الشعار لـ ${brand.ar}`);
+                          }}
+                          className="px-2 py-1 bg-[#C9A15A]/10 hover:bg-[#C9A15A]/20 text-[#0D3B46] border border-[#C9A15A]/35 rounded text-[9px] font-bold transition-all flex items-center gap-1 cursor-pointer"
+                        >
+                          <Sparkles size={10} />
+                          توليد تلقائي
+                        </button>
+                        <label className="px-2 py-1 bg-[#C9A15A]/10 hover:bg-[#C9A15A]/20 text-[#0D3B46] border border-[#C9A15A]/35 rounded text-[9px] font-bold transition-all flex items-center gap-1 cursor-pointer">
+                          <Plus size={10} />
+                          رفع شعار
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={e => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                const reader = new FileReader();
+                                reader.onload = async ev => {
+                                  if (ev.target?.result) {
+                                    await updateBrand(idx, { ...brand, image: String(ev.target.result), icon: undefined });
+                                    showToast(`تم رفع شعار ${brand.ar} بنجاح`);
+                                  }
+                                };
+                                reader.readAsDataURL(file);
+                              }
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="bg-[#2B2B2B] text-white border border-[#2B2B2B] rounded-2xl p-6 shadow-sm flex flex-col h-full min-h-[400px]">
+          <h4 className="font-extrabold text-xs text-[#C9A15A] pb-3 border-b border-[#3D3D3D] mb-4 flex items-center gap-2">
+            <Layers size={14} />
+            تحرير قائمة الموديلات الفرعية
+          </h4>
+          {selectedBrandEn ? (
+            <div className="space-y-6 flex-1 flex flex-col justify-between">
+              <div>
+                <p className="text-[11px] text-[#C9A15A] font-semibold mb-3">
+                  موديلات ماركة: <span className="text-white font-extrabold">{selectedBrandEn}</span>
+                </p>
+                <div className="space-y-2 max-h-56 overflow-y-auto mb-4 bg-[#1F1F1F] p-2.5 rounded-xl border border-[#3D3D3D]">
+                  {(carModelsMap[selectedBrandEn] || []).map((model, mIdx) => (
+                    <div key={`${model.en}-${mIdx}`} className="p-2 border border-[#3D3D3D] rounded-lg flex items-center justify-between text-right">
+                      <span className="text-[11px] font-bold text-[#F6F2E8]">
+                        {model.ar}{' '}
+                        <span className="text-[#C9A15A] font-medium" dir="ltr">
+                          ({model.en})
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveModel(selectedBrandEn, mIdx)}
+                        className="text-[#C9A15A] hover:text-red-400 p-1 cursor-pointer"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
+                  ))}
+                  {(carModelsMap[selectedBrandEn] || []).length === 0 && (
+                    <div className="p-3 text-center text-[#C9A15A] text-[11px]">
+                      لا توجد موديلات فرعية مضافة بعد.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <form onSubmit={handleAddModel} className="space-y-3 pt-3 border-t border-[#3D3D3D]">
+                <h5 className="font-extrabold text-[11px] text-white">إضافة موديل فرعي جديد</h5>
+                <input
+                  type="text"
+                  placeholder="الاسم بالعربي (مثال: كامري)"
+                  value={modelAr}
+                  onChange={e => setModelAr(e.target.value)}
+                  className="w-full h-9 px-3 bg-[#1F1F1F] border border-[#3D3D3D] rounded-lg outline-none text-xs text-white"
+                />
+                <input
+                  type="text"
+                  placeholder="الاسم بالإنجليزي (مثال: Camry)"
+                  value={modelEn}
+                  onChange={e => setModelEn(e.target.value)}
+                  className="w-full h-9 px-3 bg-[#1F1F1F] border border-[#3D3D3D] rounded-lg outline-none text-xs text-white"
+                />
+                <button
+                  type="submit"
+                  className="w-full h-9 bg-[#C9A15A] hover:bg-[#0D3B46] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                >
+                  حفظ الموديل في قاعدة البيانات
+                </button>
+              </form>
+            </div>
+          ) : (
+            <div className="flex-1 flex flex-col items-center justify-center text-[#C9A15A] text-center py-20">
+              <AlertCircle size={36} className="mb-2 text-[#C9A15A]" />
+              <p className="text-[11px] font-semibold">
+                الرجاء تحديد ماركة من القائمة المقابلة لتحرير أو إضافة الموديلات الفرعية.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

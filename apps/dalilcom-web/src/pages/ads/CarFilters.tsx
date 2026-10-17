@@ -20,7 +20,7 @@ export function CarFilters() {
 
   return (
     <div className="space-y-4 animate-in fade-in duration-300">
-      <h4 className="font-bold text-xs text-[#C9A15A] tracking-wider">مواصفات المركبات (دوبيزل)</h4>
+      <h4 className="font-bold text-xs text-[#C9A15A] tracking-wider">مواصفات المركبات (دليلكم)</h4>
       
       {/* Brand */}
       <div className="space-y-1.5">

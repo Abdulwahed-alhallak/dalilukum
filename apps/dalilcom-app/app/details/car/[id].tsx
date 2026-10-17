@@ -56,8 +56,11 @@ export default function CarDetail() {
           <TouchableOpacity
             style={styles.callBtn}
             onPress={() => {
-              if (ad.ownerPhone) Linking.openURL(`tel:${ad.ownerPhone}`);
-              else Alert.alert('تنبيه', 'لا يوجد رقم هاتف متاح');
+              if (ad.ownerPhone) {
+                Linking.openURL(`tel:${ad.ownerPhone}`).catch(() => Alert.alert('تنبيه', 'تعذر فتح تطبيق الاتصال'));
+              } else {
+                Alert.alert('تنبيه', 'لا يوجد رقم هاتف متاح');
+              }
             }}
           >
             <NativeIcon name="call-outline" size={18} color={COLORS.white} />
@@ -67,10 +70,12 @@ export default function CarDetail() {
         <TouchableOpacity
           style={styles.whatsappBtn}
           onPress={() => {
-            const phone = ad.whatsappPhone || ad.ownerPhone;
+            const phone = (ad.whatsappPhone || ad.ownerPhone || '').replace(/[^\d]/g, '');
             if (phone) {
               const msg = encodeURIComponent(`مرحباً، أنا مهتم بإعلانك: ${ad.title}`);
-              Linking.openURL(`https://wa.me/${phone}?text=${msg}`);
+              Linking.openURL(`https://wa.me/${phone}?text=${msg}`).catch(() =>
+                Alert.alert('تنبيه', 'تعذر فتح واتساب على هذا الجهاز'),
+              );
             } else {
               Alert.alert('تنبيه', 'لا يوجد رقم واتساب متاح');
             }

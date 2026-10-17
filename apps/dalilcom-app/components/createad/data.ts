@@ -14,8 +14,8 @@ export const subcategories = {
 };
 
 export const presetImages = {
-  'real-estate': 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900',
-  cars: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900',
+  'real-estate': 'https://dalilukum.sy/images/ads/local_ad_938d86b249f0.jpg',
+  cars: 'https://dalilukum.sy/images/ads/local_ad_a9655fd3f1d2.jpg',
 };
 
 export const initialForm = {

@@ -5,14 +5,13 @@ import { NativeIcon } from '../../components/common/NativeIcon';
 import { useApp } from '../../context/AppContext';
 import { COLORS, SPACING, BORDER_RADIUS } from '../../constants/theme';
 
-const heroImage = 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=900';
+const heroImage = 'https://dalilukum.sy/images/ads/local_ad_938d86b249f0.jpg';
 const logoImage = require('../../assets/images/logo-header.png');
 
 function LogoCard() {
   return (
     <View style={styles.logoCard}>
       <Image source={logoImage} style={styles.logoImage} resizeMode="contain" />
-
     </View>
   );
 }
@@ -60,12 +59,15 @@ export default function HomeTab() {
   const [searchQuery, setSearchQuery] = useState('');
   const realEstate = getFilteredAds({ category: 'real-estate' });
   const cars = getFilteredAds({ category: 'cars' });
-  const latestAds = state.ads.slice(0, 6);
+  const visibleAds = state.ads.filter(ad => state.carsEnabled || ad.category !== 'cars');
+  const latestAds = visibleAds.slice(0, 6);
   const searchResults = useMemo(() => {
     const query = searchQuery.trim();
     if (!query) return [];
-    return getFilteredAds({ category: 'all', query }).slice(0, 8);
-  }, [getFilteredAds, searchQuery]);
+    return getFilteredAds({ category: 'all', query })
+      .filter(ad => state.carsEnabled || ad.category !== 'cars')
+      .slice(0, 8);
+  }, [getFilteredAds, searchQuery, state.carsEnabled]);
 
   useFocusEffect(
     useCallback(() => {
@@ -136,14 +138,16 @@ export default function HomeTab() {
           color="#0D3B46"
           onPress={() => router.push('/real-estate' as any)}
         />
-        <CategoryCard
-          title="السيارات"
-          subtitle="سيارات ومركبات للبيع أو الإيجار"
-          count={cars.length}
-          icon="car"
-          color="#C9A15A"
-          onPress={() => router.push('/cars' as any)}
-        />
+        {state.carsEnabled && (
+          <CategoryCard
+            title="السيارات"
+            subtitle="سيارات ومركبات للبيع أو الإيجار"
+            count={cars.length}
+            icon="car"
+            color="#C9A15A"
+            onPress={() => router.push('/cars' as any)}
+          />
+        )}
 
         <ImageBackground source={{ uri: heroImage }} style={styles.hero} imageStyle={styles.heroImage}>
           <View style={styles.heroOverlay}>
@@ -154,7 +158,8 @@ export default function HomeTab() {
 
         <View style={styles.quickRow}>
           <QuickCard icon="add" title="أضف إعلانك" onPress={() => router.push('/create' as any)} />
-          <QuickCard icon="star" title="الإعلانات المميزة" onPress={() => router.push('/featured' as any)} />
+          <QuickCard icon="star" title="المميزة" onPress={() => router.push('/featured' as any)} />
+          <QuickCard icon="person" title={state.user ? 'إعلاناتي' : 'حسابي'} onPress={() => router.push('/(tabs)/profile' as any)} />
         </View>
 
         <TouchableOpacity style={styles.mapCard} activeOpacity={0.85} onPress={() => router.push('/map' as any)}>
@@ -169,10 +174,19 @@ export default function HomeTab() {
           <TouchableOpacity onPress={refresh} style={styles.refreshButton}>
             <NativeIcon name="refresh" size={18} color={COLORS.white} />
           </TouchableOpacity>
-          <Text style={styles.latestTitle}>آخر الإعلانات ({state.ads.length})</Text>
+          <Text style={styles.latestTitle}>آخر الإعلانات ({visibleAds.length})</Text>
         </View>
 
-        {latestAds.length === 0 ? (
+        {state.error && latestAds.length === 0 ? (
+          <View style={styles.errorBox}>
+            <Text style={styles.errorText}>{state.error}</Text>
+            <TouchableOpacity onPress={refresh} style={styles.retryBtn}>
+              <Text style={styles.retryBtnText}>إعادة المحاولة</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
+
+        {latestAds.length === 0 && !state.error ? (
           <Text style={styles.emptyText}>{state.loading ? 'جاري تحميل الإعلانات...' : 'لا توجد إعلانات حالياً'}</Text>
         ) : null}
 
@@ -222,16 +236,20 @@ const styles = StyleSheet.create({
   heroOverlay: { flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end', padding: SPACING.lg, backgroundColor: 'rgba(13,59,70,0.50)' },
   heroTitle: { color: COLORS.white, fontSize: 24, fontWeight: '900' },
   heroSub: { color: COLORS.white, fontSize: 15, marginTop: 5 },
-  quickRow: { flexDirection: 'row-reverse', gap: SPACING.lg, marginTop: 24 },
-  quickCard: { flex: 1, height: 118, backgroundColor: COLORS.white, borderRadius: BORDER_RADIUS.xl, alignItems: 'center', justifyContent: 'center', gap: SPACING.md, ...shadow },
+  quickRow: { flexDirection: 'row-reverse', gap: SPACING.md, marginTop: 24 },
+  quickCard: { flex: 1, height: 112, backgroundColor: COLORS.white, borderRadius: BORDER_RADIUS.xl, alignItems: 'center', justifyContent: 'center', gap: SPACING.sm, ...shadow },
   quickIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: 'rgba(246,242,232,0.74)', alignItems: 'center', justifyContent: 'center' },
-  quickTitle: { fontSize: 16, fontWeight: '900', color: COLORS.gray900 },
+  quickTitle: { fontSize: 14, fontWeight: '900', color: COLORS.gray900 },
   mapCard: { marginTop: 20, borderRadius: BORDER_RADIUS.xl, backgroundColor: COLORS.white, minHeight: 90, padding: SPACING.lg, flexDirection: 'row-reverse', alignItems: 'center', gap: SPACING.lg, ...shadow },
   mapTitle: { color: COLORS.primary, fontSize: 17, fontWeight: '900', textAlign: 'right' },
   mapSub: { color: COLORS.gray500, fontSize: 13, marginTop: 4, textAlign: 'right' },
   latestHeader: { marginTop: 24, marginBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   latestTitle: { color: COLORS.gray900, fontSize: 20, fontWeight: '900', textAlign: 'right' },
   refreshButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: COLORS.primary, alignItems: 'center', justifyContent: 'center' },
+  errorBox: { backgroundColor: COLORS.white, borderRadius: BORDER_RADIUS.lg, padding: SPACING.md, marginBottom: SPACING.md, alignItems: 'center', borderWidth: 1, borderColor: COLORS.danger },
+  errorText: { color: COLORS.danger, fontSize: 14, fontWeight: '800', textAlign: 'center', marginBottom: SPACING.sm },
+  retryBtn: { backgroundColor: COLORS.primary, borderRadius: BORDER_RADIUS.md, paddingHorizontal: SPACING.lg, paddingVertical: SPACING.sm },
+  retryBtnText: { color: COLORS.white, fontSize: 14, fontWeight: '900' },
   emptyText: { color: COLORS.gray500, backgroundColor: COLORS.white, borderRadius: 10, padding: SPACING.md, textAlign: 'right', fontWeight: '800' },
   adRow: { minHeight: 108, backgroundColor: COLORS.white, borderRadius: BORDER_RADIUS.lg, marginBottom: SPACING.md, padding: SPACING.sm, flexDirection: 'row-reverse', alignItems: 'center', gap: SPACING.md, ...shadow },
   adImage: { width: 92, height: 78, borderRadius: BORDER_RADIUS.md, backgroundColor: COLORS.gray100 },
@@ -241,4 +259,3 @@ const styles = StyleSheet.create({
   adLocation: { color: COLORS.gray500, fontSize: 12, marginTop: 5, textAlign: 'right' },
   adPrice: { color: COLORS.primary, fontSize: 14, fontWeight: '900', marginTop: 6, textAlign: 'right' },
 });
-

@@ -15,36 +15,44 @@ export function MediaStep({ form, setField }: Props) {
   const videos = form.videos || [];
 
   const pickMedia = async (type: 'image' | 'video') => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert('عذراً', 'نحتاج إذن الوصول إلى الوسائط لتتمكن من اختيار ملفات.');
-      return;
-    }
-
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: type === 'image' ? ImagePicker.MediaTypeOptions.Images : ImagePicker.MediaTypeOptions.Videos,
-      allowsMultipleSelection: true,
-      quality: 0.7,
-      base64: true,
-    });
-
-    if (!result.canceled) {
-      const newAssets = result.assets.map(asset => {
-         if (asset.base64 && type === 'image') {
-            return `data:image/jpeg;base64,${asset.base64}`;
-         }
-         return asset.uri;
-      });
-      
-      if (type === 'image') {
-        const updatedImages = [...images.filter(i => !i.includes('images.unsplash.com')), ...newAssets];
-        setField('images', updatedImages);
-        if (updatedImages.length > 0) setField('imageUrl', updatedImages[0]);
-      } else {
-        const updatedVideos = [...videos, ...newAssets];
-        setField('videos', updatedVideos);
-        if (updatedVideos.length > 0) setField('videoUrl', updatedVideos[0]);
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('عذراً', 'نحتاج إذن الوصول إلى الوسائط لتتمكن من اختيار ملفات.');
+        return;
       }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: type === 'image' ? ImagePicker.MediaTypeOptions.Images : ImagePicker.MediaTypeOptions.Videos,
+        allowsMultipleSelection: true,
+        quality: 0.45,
+        base64: type === 'image',
+      });
+
+      if (!result.canceled && Array.isArray(result.assets)) {
+        const newAssets = result.assets.map(asset => {
+          if (asset.base64 && type === 'image') {
+            return `data:image/jpeg;base64,${asset.base64}`;
+          }
+          return asset.uri;
+        });
+
+        if (type === 'image') {
+          const isPreset = (u: string) =>
+            u.includes('images.unsplash.com') ||
+            u.includes('local_ad_938d86b249f0.jpg') ||
+            u.includes('local_ad_a9655fd3f1d2.jpg');
+          const updatedImages = [...images.filter(i => !isPreset(i)), ...newAssets];
+          setField('images', updatedImages);
+          if (updatedImages.length > 0) setField('imageUrl', updatedImages[0]);
+        } else {
+          const updatedVideos = [...videos, ...newAssets];
+          setField('videos', updatedVideos);
+          if (updatedVideos.length > 0) setField('videoUrl', updatedVideos[0]);
+        }
+      }
+    } catch {
+      Alert.alert('تنبيه', 'تعذر فتح معرض الوسائط، يرجى التحقق من صلاحيات التطبيق.');
     }
   };
 

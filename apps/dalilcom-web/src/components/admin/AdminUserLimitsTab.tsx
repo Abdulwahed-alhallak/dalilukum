@@ -1,2 +1,286 @@
-// @ts-nocheck
-import{jsx as e,jsxs as t}from"react/jsx-runtime";import{useState as o}from"react";import{Edit2 as L,Trash2 as I}from"lucide-react";function C({userLimits:c,defaultLimits:u,updateUserLimit:f,deleteUserLimit:h,updateDefaultLimits:v,showToast:i}){const[m,l]=o(""),[g,n]=o(5),[p,d]=o(1),[s,x]=o(!1),[b,N]=o("");return t("div",{className:"space-y-6 text-right font-sans animate-fade-in",dir:"rtl",children:[t("div",{className:"bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm space-y-4",children:[t("div",{className:"pb-3 border-b border-[#F6F2E8]",children:[e("h3",{className:"font-extrabold text-sm text-[#2B2B2B]",children:"\u0635\u064A\u0627\u0646\u0629 \u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A\u0629 \u0644\u0644\u0645\u0646\u0635\u0629 (\u0627\u0644\u0632\u0648\u0627\u0631 \u0648\u0627\u0644\u0639\u0645\u0644\u0627\u0621 \u0628\u062F\u0648\u0646 \u062A\u0645\u064A\u064A\u0632)"}),e("p",{className:"text-[11px] text-[#C9A15A] font-medium",children:"\u062A\u062D\u0643\u0645 \u0628\u062D\u062F\u0648\u062F \u0627\u0644\u0646\u0634\u0631 \u0627\u0644\u0623\u0633\u0627\u0633\u064A\u0629 \u0639\u0646\u062F \u063A\u064A\u0627\u0628 \u0633\u062C\u0644 \u0627\u0633\u062A\u062B\u0646\u0627\u0626\u064A \u0645\u062E\u0635\u0635 \u0644\u0644\u0645\u0633\u062A\u0641\u064A\u062F"})]}),t("form",{onSubmit:a=>{a.preventDefault();const r=a.currentTarget,y=Number(r.elements.namedItem("defaultImgs").value),w=Number(r.elements.namedItem("defaultVids").value);v(y,w),i("\u062A\u0645 \u062D\u0641\u0638 \u0627\u0644\u062D\u062F\u0648\u062F \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A\u0629 \u0644\u0644\u0631\u0641\u0639 \u0628\u0646\u062C\u0627\u062D!")},className:"grid grid-cols-1 sm:grid-cols-3 gap-4 items-end",children:[t("div",{className:"space-y-1.5 text-right font-bold",children:[e("label",{className:"text-xs text-[#2B2B2B]",children:"\u0627\u0644\u062D\u062F \u0627\u0644\u0623\u0642\u0635\u0649 \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A \u0644\u0639\u062F\u062F \u0627\u0644\u0635\u0648\u0631"}),e("input",{name:"defaultImgs",type:"number",defaultValue:u.maxImages,className:"w-full h-11 px-4 text-xs rounded-xl border border-[#E3C98D] outline-none text-center font-bold bg-[#F6F2E8] focus:bg-white focus:border-[#C9A15A]",min:0,required:!0})]}),t("div",{className:"space-y-1.5 text-right font-bold",children:[e("label",{className:"text-xs text-[#2B2B2B]",children:"\u0627\u0644\u062D\u062F \u0627\u0644\u0623\u0642\u0635\u0649 \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A \u0644\u0645\u0642\u0627\u0637\u0639 \u0627\u0644\u0641\u064A\u062F\u064A\u0648"}),e("input",{name:"defaultVids",type:"number",defaultValue:u.maxVideos,className:"w-full h-11 px-4 text-xs rounded-xl border border-[#E3C98D] outline-none text-center font-bold bg-[#F6F2E8] focus:bg-white focus:border-[#C9A15A]",min:0,required:!0})]}),e("button",{type:"submit",className:"h-11 bg-[#2B2B2B] hover:bg-[#2B2B2B] text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm",children:"\u062D\u0641\u0638 \u0627\u0644\u062D\u062F\u0648\u062F \u0627\u0644\u0639\u0627\u0645\u0629 \u{1F4BE}"})]})]}),t("div",{className:"bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm space-y-6",children:[t("div",{className:"pb-3 border-b border-[#F6F2E8] text-right",children:[e("h3",{className:"font-extrabold text-sm text-[#2B2B2B]",children:"\u0625\u062F\u0627\u0631\u0629 \u062A\u062E\u0635\u064A\u0635 \u0627\u0644\u0635\u0644\u0627\u062D\u064A\u0627\u062A \u0627\u0644\u0627\u0633\u062A\u062B\u0646\u0627\u0626\u064A\u0629 \u0644\u0643\u0644 \u0645\u0633\u062A\u062E\u062F\u0645"}),e("p",{className:"text-[11px] text-[#C9A15A] font-medium",children:"\u062D\u062F\u062F \u0631\u064F\u062E\u0635 \u0627\u0644\u0631\u0641\u0639 \u0648\u0627\u0644\u0623\u062D\u062C\u0627\u0645 \u0627\u0644\u0642\u0635\u0648\u0649 \u0645\u0646 \u0635\u0648\u0631 \u0648\u0641\u064A\u062F\u064A\u0648 \u0628\u0631\u0642\u0645 \u0647\u0627\u062A\u0641 \u0627\u0644\u0639\u0645\u064A\u0644"})]}),t("div",{className:"bg-[#F6F2E8]/50 rounded-2xl p-5 border border-[#F6F2E8] space-y-4",children:[e("h4",{className:"text-xs font-extrabold text-[#2B2B2B] text-right",children:s?"\u062A\u0639\u062F\u064A\u0644 \u0627\u0644\u0635\u0644\u0627\u062D\u064A\u0627\u062A \u0627\u0644\u0645\u062D\u062F\u062F\u0629 \u0644\u0644\u062D\u0633\u0627\u0628":"\u0625\u0636\u0627\u0641\u0629 \u062A\u062E\u0635\u064A\u0635 \u062D\u0633\u0627\u0628 \u0639\u0645\u064A\u0644 \u062C\u062F\u064A\u062F \u{1F464}"}),t("form",{onSubmit:a=>{if(a.preventDefault(),!m.trim()){alert("\u0627\u0644\u0631\u062C\u0627\u0621 \u0643\u062A\u0627\u0628\u0629 \u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062A\u0641 \u0623\u0648\u0644\u0627\u064B");return}f(m.trim(),g,p),i(s?"\u062A\u0645 \u062A\u062D\u062F\u064A\u062B \u0635\u0644\u0627\u062D\u064A\u0627\u062A \u0627\u0644\u0639\u0645\u064A\u0644!":"\u062A\u0645\u062A \u0625\u0636\u0627\u0641\u0629 \u0635\u0644\u0627\u062D\u064A\u0629 \u0645\u062E\u0635\u0635\u0629 \u0644\u0644\u0639\u0645\u064A\u0644 \u0627\u0644\u062C\u062F\u064A\u062F!"),l(""),n(5),d(1),x(!1)},className:"grid grid-cols-1 sm:grid-cols-4 gap-4 items-end",children:[t("div",{className:"space-y-1 text-right font-bold",children:[e("span",{className:"text-[11px] text-[#0D3B46] block",children:"\u0631\u0642\u0645 \u0647\u0627\u062A\u0641 \u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645 *"}),e("input",{type:"text",value:m,onChange:a=>l(a.target.value),placeholder:"\u0645\u062B\u0627\u0644: +963 931 111 222",className:"w-full h-11 px-4 text-xs bg-white rounded-xl border border-[#E3C98D] outline-none text-left font-semibold",dir:"ltr",disabled:s,required:!0})]}),t("div",{className:"space-y-1 text-right font-bold",children:[e("span",{className:"text-[11px] text-[#0D3B46] block",children:"\u0623\u0642\u0635\u0649 \u062D\u062F \u0635\u0648\u0631 (\u0639\u062F\u062F) *"}),e("input",{type:"number",value:g,onChange:a=>n(Number(a.target.value)),className:"w-full h-11 px-4 text-xs bg-white rounded-xl border border-[#E3C98D] outline-none text-center font-bold",min:0,required:!0})]}),t("div",{className:"space-y-1 text-right font-bold",children:[e("span",{className:"text-[11px] text-[#0D3B46] block",children:"\u0623\u0642\u0635\u0649 \u062D\u062F \u0641\u064A\u062F\u064A\u0648\u0647\u0627\u062A *"}),e("input",{type:"number",value:p,onChange:a=>d(Number(a.target.value)),className:"w-full h-11 px-4 text-xs bg-white rounded-xl border border-[#E3C98D] outline-none text-center font-bold",min:0,required:!0})]}),t("div",{className:"flex gap-2 font-bold",children:[e("button",{type:"submit",className:"flex-1 h-11 bg-[#C9A15A] hover:bg-[#0D3B46] text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow",children:s?"\u062A\u0639\u062F\u064A\u0644 \u0627\u0644\u062D\u0641\u0638 \u270F\uFE0F":"\u062A\u062E\u0632\u064A\u0646 \u0627\u0644\u0645\u064A\u0632\u0629 \u2795"}),s&&e("button",{type:"button",onClick:()=>{l(""),n(5),d(1),x(!1)},className:"px-4 h-11 bg-[#F6F2E8] hover:bg-[#F6F2E8] text-[#2B2B2B] rounded-xl text-xs font-bold transition-all cursor-pointer",children:"\u0625\u0644\u063A\u0627\u0621"})]})]})]}),t("div",{className:"space-y-3",children:[t("div",{className:"flex items-center justify-between flex-row-reverse",children:[e("h4",{className:"text-xs font-bold text-[#2B2B2B]",children:"\u0633\u062C\u0644 \u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645\u064A\u0646 \u0627\u0644\u0645\u0639\u0631\u0641\u064A\u0646 \u062D\u0627\u0644\u064A\u0627\u064B \u0628\u0627\u0644\u0645\u0646\u0635\u0629:"}),e("input",{type:"text",value:b,onChange:a=>N(a.target.value),placeholder:"\u0627\u0644\u0628\u062D\u062B \u0628\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062A\u0641...",className:"h-9 px-3 w-48 text-[11px] rounded-lg border border-[#E3C98D] outline-none focus:border-[#C9A15A] text-left font-serif",dir:"ltr"})]}),e("div",{className:"border border-[#F6F2E8] rounded-2xl overflow-hidden bg-white max-h-80 overflow-y-auto",children:t("table",{className:"w-full text-right text-xs",children:[e("thead",{className:"bg-[#F6F2E8] text-[#2B2B2B] font-bold border-b border-[#F6F2E8]",children:t("tr",{children:[e("th",{className:"p-3 text-right",children:"\u0631\u0642\u0645 \u0647\u0627\u062A\u0641 \u0627\u0644\u0639\u0645\u064A\u0644"}),e("th",{className:"p-3 text-center",children:"\u0627\u0644\u062D\u062F \u0627\u0644\u0623\u0642\u0635\u0649 \u0644\u0644\u0635\u0648\u0631"}),e("th",{className:"p-3 text-center",children:"\u0627\u0644\u062D\u062F \u0627\u0644\u0623\u0642\u0635\u0649 \u0644\u0644\u0641\u064A\u062F\u064A\u0648\u0647\u0627\u062A"}),e("th",{className:"p-3 text-center",children:"\u0623\u062F\u0648\u0627\u062A \u0627\u0644\u062A\u062D\u0643\u0645"})]})}),t("tbody",{className:"divide-y divide-[#F6F2E8] font-semibold text-[#2B2B2B]",children:[Object.entries(c).filter(([a])=>a.includes(b)).map(([a,r])=>t("tr",{className:"hover:bg-[#F6F2E8]/50",children:[e("td",{className:"p-3 text-right font-mono text-[#2B2B2B]",dir:"ltr",children:a}),t("td",{className:"p-3 text-center font-bold text-[#2B2B2B]",children:[r.maxImages," \u0635\u0648\u0631"]}),t("td",{className:"p-3 text-center font-bold text-[#2B2B2B]",children:[r.maxVideos," \u0641\u064A\u062F\u064A\u0648"]}),e("td",{className:"p-3 text-center",children:t("div",{className:"flex items-center justify-center gap-2",children:[e("button",{type:"button",onClick:()=>{l(a),n(r.maxImages),d(r.maxVideos),x(!0)},className:"p-1.5 text-[#0D3B46] hover:bg-[#C9A15A]/10 rounded-lg transition-colors cursor-pointer border-none bg-transparent",title:"\u062A\u0639\u062F\u064A\u0644 \u0641\u064A \u0642\u064A\u0645 \u0627\u0644\u0631\u0641\u0639",children:e(L,{size:13})}),e("button",{type:"button",onClick:()=>{confirm(`\u0647\u0644 \u0623\u0646\u062A \u0645\u062A\u0623\u0643\u062F \u0645\u0646 \u062D\u0630\u0641 \u0642\u064A\u0648\u062F \u0627\u0644\u0646\u0634\u0631 \u0627\u0644\u062E\u0627\u0635\u0629 \u0628\u0631\u0642\u0645 \u0627\u0644\u0647\u0627\u062A\u0641 ${a}\u061F`)&&(h(a),i("\u062A\u0645 \u062D\u0630\u0641 \u0627\u0644\u062A\u062E\u0635\u064A\u0635 \u0628\u0646\u062C\u0627\u062D!"))},className:"p-1.5 text-[#C9A15A] hover:bg-[#C9A15A]/10 rounded-lg transition-colors cursor-pointer border-none bg-transparent",title:"\u062D\u0630\u0641 \u0648\u0627\u0644\u0639\u0648\u062F\u0629 \u0644\u0644\u0642\u064A\u0645 \u0627\u0644\u0627\u0641\u062A\u0631\u0627\u0636\u064A\u0629",children:e(I,{size:13})})]})})]},a)),Object.entries(c).filter(([a])=>a.includes(b)).length===0&&e("tr",{children:e("td",{colSpan:4,className:"p-8 text-center text-[#C9A15A] font-bold text-xs",children:"\u0644\u0627 \u064A\u0648\u062C\u062F \u0645\u0633\u062A\u062E\u062F\u0645\u0648\u0646 \u0645\u0635\u0646\u0641\u0648\u0646 \u0627\u0633\u062A\u062B\u0646\u0627\u0626\u064A\u0627\u064B \u062D\u0627\u0644\u064A\u0627\u064B \u064A\u0637\u0627\u0628\u0642\u0648\u0646 \u0634\u0631\u0637 \u0627\u0644\u0628\u062D\u062B \u0627\u0644\u062E\u0627\u0635 \u0628\u0643."})})]})]})})]})]})]})}export{C as AdminUserLimitsTab};
+import React, { useState } from 'react';
+import { Edit2, Trash2 } from 'lucide-react';
+
+interface AdminUserLimitsTabProps {
+  userLimits: Record<string, { userId?: number; maxAds: number; maxImages: number; maxVideos: number }>;
+  defaultLimits: { maxAds: number; maxImages: number; maxVideos: number };
+  updateUserLimit: (phone: string, maxImages: number, maxVideos: number, maxAds?: number) => Promise<void>;
+  deleteUserLimit: (phone: string) => Promise<void>;
+  updateDefaultLimits: (maxImages: number, maxVideos: number, maxAds?: number) => Promise<void>;
+  showToast: (msg: string) => void;
+}
+
+export function AdminUserLimitsTab({
+  userLimits,
+  defaultLimits,
+  updateUserLimit,
+  deleteUserLimit,
+  updateDefaultLimits,
+  showToast,
+}: AdminUserLimitsTabProps) {
+  const [phoneInput, setPhoneInput] = useState('');
+  const [maxAdsInput, setMaxAdsInput] = useState(5);
+  const [maxImagesInput, setMaxImagesInput] = useState(5);
+  const [maxVideosInput, setMaxVideosInput] = useState(1);
+  const [isEditing, setIsEditing] = useState(false);
+  const [searchPhone, setSearchPhone] = useState('');
+
+  const handleSaveDefaults = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const defaultAds = Number((form.elements.namedItem('defaultAds') as HTMLInputElement).value);
+    const defaultImgs = Number((form.elements.namedItem('defaultImgs') as HTMLInputElement).value);
+    const defaultVids = Number((form.elements.namedItem('defaultVids') as HTMLInputElement).value);
+    await updateDefaultLimits(defaultImgs, defaultVids, defaultAds);
+    showToast('تم حفظ الحدود الافتراضية للرفع بنجاح');
+  };
+
+  const handleSaveUserLimit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!phoneInput.trim()) {
+      alert('الرجاء كتابة رقم الهاتف أولاً');
+      return;
+    }
+    await updateUserLimit(phoneInput.trim(), maxImagesInput, maxVideosInput, maxAdsInput);
+    showToast(isEditing ? 'تم تحديث صلاحيات العميل' : 'تمت إضافة صلاحية مخصصة للعميل');
+    setPhoneInput('');
+    setMaxAdsInput(5);
+    setMaxImagesInput(5);
+    setMaxVideosInput(1);
+    setIsEditing(false);
+  };
+
+  const entries = Object.entries(userLimits).filter(([phone]) => phone.includes(searchPhone));
+
+  return (
+    <div className="space-y-6 text-right font-sans animate-fade-in" dir="rtl">
+      <div className="bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm space-y-4">
+        <div className="pb-3 border-b border-[#F6F2E8]">
+          <h3 className="font-extrabold text-sm text-[#2B2B2B]">
+            الإعدادات الافتراضية للمنصة (للمستخدمين بدون تخصيص)
+          </h3>
+          <p className="text-[11px] text-[#C9A15A] font-medium">
+            تحكم بحدود النشر الأساسية عند عدم وجود سجل استثنائي مخصص للمستخدم
+          </p>
+        </div>
+
+        <form onSubmit={handleSaveDefaults} className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
+          <div className="space-y-1.5 text-right font-bold">
+            <label className="text-xs text-[#2B2B2B]">الحد الأقصى للإعلانات</label>
+            <input
+              name="defaultAds"
+              type="number"
+              key={`def-ads-${defaultLimits.maxAds}`}
+              defaultValue={defaultLimits.maxAds}
+              className="w-full h-11 px-4 text-xs rounded-xl border border-[#E3C98D] outline-none text-center font-bold bg-[#F6F2E8] focus:bg-white focus:border-[#C9A15A]"
+              min={1}
+              required
+            />
+          </div>
+          <div className="space-y-1.5 text-right font-bold">
+            <label className="text-xs text-[#2B2B2B]">الحد الأقصى للصور</label>
+            <input
+              name="defaultImgs"
+              type="number"
+              key={`def-imgs-${defaultLimits.maxImages}`}
+              defaultValue={defaultLimits.maxImages}
+              className="w-full h-11 px-4 text-xs rounded-xl border border-[#E3C98D] outline-none text-center font-bold bg-[#F6F2E8] focus:bg-white focus:border-[#C9A15A]"
+              min={0}
+              required
+            />
+          </div>
+          <div className="space-y-1.5 text-right font-bold">
+            <label className="text-xs text-[#2B2B2B]">الحد الأقصى للفيديو</label>
+            <input
+              name="defaultVids"
+              type="number"
+              key={`def-vids-${defaultLimits.maxVideos}`}
+              defaultValue={defaultLimits.maxVideos}
+              className="w-full h-11 px-4 text-xs rounded-xl border border-[#E3C98D] outline-none text-center font-bold bg-[#F6F2E8] focus:bg-white focus:border-[#C9A15A]"
+              min={0}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="h-11 bg-[#2B2B2B] hover:bg-[#1f1f1f] text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm"
+          >
+            حفظ الحدود العامة
+          </button>
+        </form>
+      </div>
+
+      <div className="bg-white border border-[#F6F2E8] rounded-2xl p-6 shadow-sm space-y-6">
+        <div className="pb-3 border-b border-[#F6F2E8] text-right">
+          <h3 className="font-extrabold text-sm text-[#2B2B2B]">
+            تخصيص الصلاحيات الاستثنائية لكل مستخدم
+          </h3>
+          <p className="text-[11px] text-[#C9A15A] font-medium">
+            حدد حدود الإعلانات والصور والفيديو برقم هاتف العميل مباشرة
+          </p>
+        </div>
+
+        <div className="bg-[#F6F2E8]/50 rounded-2xl p-5 border border-[#F6F2E8] space-y-4">
+          <h4 className="text-xs font-extrabold text-[#2B2B2B] text-right">
+            {isEditing ? 'تعديل الصلاحيات المحددة للحساب' : 'إضافة تخصيص حساب عميل جديد'}
+          </h4>
+          <form onSubmit={handleSaveUserLimit} className="grid grid-cols-1 sm:grid-cols-5 gap-4 items-end">
+            <div className="space-y-1 text-right font-bold">
+              <span className="text-[11px] text-[#0D3B46] block">رقم هاتف المستخدم *</span>
+              <input
+                type="text"
+                value={phoneInput}
+                onChange={e => setPhoneInput(e.target.value)}
+                placeholder="+963 931 111 222"
+                className="w-full h-11 px-4 text-xs bg-white rounded-xl border border-[#E3C98D] outline-none text-left font-semibold"
+                dir="ltr"
+                disabled={isEditing}
+                required
+              />
+            </div>
+            <div className="space-y-1 text-right font-bold">
+              <span className="text-[11px] text-[#0D3B46] block">أقصى عدد إعلانات *</span>
+              <input
+                type="number"
+                value={maxAdsInput}
+                onChange={e => setMaxAdsInput(Number(e.target.value))}
+                className="w-full h-11 px-4 text-xs bg-white rounded-xl border border-[#E3C98D] outline-none text-center font-bold"
+                min={1}
+                required
+              />
+            </div>
+            <div className="space-y-1 text-right font-bold">
+              <span className="text-[11px] text-[#0D3B46] block">أقصى حد صور *</span>
+              <input
+                type="number"
+                value={maxImagesInput}
+                onChange={e => setMaxImagesInput(Number(e.target.value))}
+                className="w-full h-11 px-4 text-xs bg-white rounded-xl border border-[#E3C98D] outline-none text-center font-bold"
+                min={0}
+                required
+              />
+            </div>
+            <div className="space-y-1 text-right font-bold">
+              <span className="text-[11px] text-[#0D3B46] block">أقصى حد فيديو *</span>
+              <input
+                type="number"
+                value={maxVideosInput}
+                onChange={e => setMaxVideosInput(Number(e.target.value))}
+                className="w-full h-11 px-4 text-xs bg-white rounded-xl border border-[#E3C98D] outline-none text-center font-bold"
+                min={0}
+                required
+              />
+            </div>
+            <div className="flex gap-2 font-bold">
+              <button
+                type="submit"
+                className="flex-1 h-11 bg-[#C9A15A] hover:bg-[#0D3B46] text-white rounded-xl text-xs font-bold transition-all cursor-pointer shadow"
+              >
+                {isEditing ? 'حفظ التعديل' : 'إضافة الصلاحية'}
+              </button>
+              {isEditing && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPhoneInput('');
+                    setMaxAdsInput(5);
+                    setMaxImagesInput(5);
+                    setMaxVideosInput(1);
+                    setIsEditing(false);
+                  }}
+                  className="px-4 h-11 bg-[#F6F2E8] text-[#2B2B2B] rounded-xl text-xs font-bold transition-all cursor-pointer"
+                >
+                  إلغاء
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between flex-row-reverse">
+            <h4 className="text-xs font-bold text-[#2B2B2B]">سجل المستخدمين المخصصين:</h4>
+            <input
+              type="text"
+              value={searchPhone}
+              onChange={e => setSearchPhone(e.target.value)}
+              placeholder="البحث برقم الهاتف..."
+              className="h-9 px-3 w-48 text-[11px] rounded-lg border border-[#E3C98D] outline-none focus:border-[#C9A15A] text-left"
+              dir="ltr"
+            />
+          </div>
+
+          <div className="border border-[#F6F2E8] rounded-2xl overflow-hidden bg-white max-h-80 overflow-y-auto">
+            <table className="w-full text-right text-xs">
+              <thead className="bg-[#F6F2E8] text-[#2B2B2B] font-bold border-b border-[#F6F2E8]">
+                <tr>
+                  <th className="p-3 text-right">رقم هاتف العميل</th>
+                  <th className="p-3 text-center">حد الإعلانات</th>
+                  <th className="p-3 text-center">حد الصور</th>
+                  <th className="p-3 text-center">حد الفيديو</th>
+                  <th className="p-3 text-center">الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#F6F2E8] font-semibold text-[#2B2B2B]">
+                {entries.map(([phone, lim]) => (
+                  <tr key={phone} className="hover:bg-[#F6F2E8]/50">
+                    <td className="p-3 text-right font-mono text-[#2B2B2B]" dir="ltr">
+                      {phone}
+                    </td>
+                    <td className="p-3 text-center font-bold text-[#2B2B2B]">
+                      {lim.maxAds ?? 5} إعلانات
+                    </td>
+                    <td className="p-3 text-center font-bold text-[#2B2B2B]">
+                      {lim.maxImages} صور
+                    </td>
+                    <td className="p-3 text-center font-bold text-[#2B2B2B]">
+                      {lim.maxVideos} فيديو
+                    </td>
+                    <td className="p-3 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setPhoneInput(phone);
+                            setMaxAdsInput(lim.maxAds ?? 5);
+                            setMaxImagesInput(lim.maxImages);
+                            setMaxVideosInput(lim.maxVideos);
+                            setIsEditing(true);
+                          }}
+                          className="p-1.5 text-[#0D3B46] hover:bg-[#C9A15A]/10 rounded-lg transition-colors cursor-pointer"
+                          title="تعديل"
+                        >
+                          <Edit2 size={13} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            if (window.confirm(`هل أنت متأكد من حذف التخصيص لرقم الهاتف ${phone}؟`)) {
+                              await deleteUserLimit(phone);
+                              showToast('تم حذف التخصيص بنجاح');
+                            }
+                          }}
+                          className="p-1.5 text-[#C9A15A] hover:bg-[#C9A15A]/10 rounded-lg transition-colors cursor-pointer"
+                          title="حذف"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {entries.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="p-8 text-center text-[#C9A15A] font-bold text-xs">
+                      لا يوجد مستخدمون مخصصون حالياً.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

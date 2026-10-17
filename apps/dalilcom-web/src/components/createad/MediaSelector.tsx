@@ -9,8 +9,10 @@ interface MediaSelectorProps {
   setImageUrl: (url: string) => void;
   imageUrls: string[];
   setImageUrls: Dispatch<SetStateAction<string[]>>;
-  videoUrl: string;
-  setVideoUrl: (url: string) => void;
+  videoUrls?: string[];
+  setVideoUrls?: Dispatch<SetStateAction<string[]>>;
+  videoUrl?: string;
+  setVideoUrl?: (url: string) => void;
   currentMaxImages: number;
   currentMaxVideos: number;
   PRESET_CAR_IMAGES: PresetImage[];
@@ -24,16 +26,28 @@ const readFile = (file: File) => new Promise<string>((resolve) => {
 });
 
 export function MediaSelector({
-  category, imageUrl, setImageUrl, imageUrls, setImageUrls, videoUrl, setVideoUrl,
-  currentMaxImages, currentMaxVideos, PRESET_CAR_IMAGES, PRESET_HOME_IMAGES,
+  category,
+  imageUrl,
+  setImageUrl,
+  imageUrls,
+  setImageUrls,
+  videoUrls = [],
+  setVideoUrls,
+  videoUrl,
+  setVideoUrl,
+  currentMaxImages,
+  currentMaxVideos,
+  PRESET_CAR_IMAGES,
+  PRESET_HOME_IMAGES,
 }: MediaSelectorProps) {
   const presets = category === 'cars' ? PRESET_CAR_IMAGES : PRESET_HOME_IMAGES;
+  const activeVideoUrl = videoUrls[0] || videoUrl || '';
 
   const addImage = (url: string) => {
     if (imageUrls.length >= currentMaxImages) return alert(`الحد الأقصى ${currentMaxImages} صور.`);
     if (imageUrls.includes(url)) return;
     setImageUrls(prev => [...prev, url]);
-    if (!imageUrl || imageUrl === presets[0]?.url) setImageUrl(url);
+    if (!imageUrl) setImageUrl(url);
   };
 
   const uploadImages = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,8 +55,8 @@ export function MediaSelector({
     for (const file of files) {
       if (imageUrls.length >= currentMaxImages) return alert(`الحد الأقصى ${currentMaxImages} صور.`);
       const dataUrl = await readFile(file);
-      setImageUrls(prev => prev.includes(dataUrl) ? prev : [...prev, dataUrl]);
-      if (!imageUrl || imageUrl === presets[0]?.url) setImageUrl(dataUrl);
+      setImageUrls(prev => (prev.includes(dataUrl) ? prev : [...prev, dataUrl]));
+      if (!imageUrl) setImageUrl(dataUrl);
     }
     event.target.value = '';
   };
@@ -52,8 +66,19 @@ export function MediaSelector({
     if (!file) return;
     if (currentMaxVideos <= 0) return alert('ليس لديك صلاحية لإضافة فيديو.');
     if (!file.type.startsWith('video/')) return alert('الرجاء اختيار ملف فيديو صحيح.');
-    setVideoUrl(await readFile(file));
+    const dataUrl = await readFile(file);
+    if (setVideoUrls) {
+      setVideoUrls([dataUrl]);
+    }
+    if (setVideoUrl) {
+      setVideoUrl(dataUrl);
+    }
     event.target.value = '';
+  };
+
+  const clearVideo = () => {
+    if (setVideoUrls) setVideoUrls([]);
+    if (setVideoUrl) setVideoUrl('');
   };
 
   const removeImage = (index: number) => {
@@ -72,8 +97,17 @@ export function MediaSelector({
         </p>
       </div>
 
+      <div className="bg-white border border-dashed border-[#E3C98D] p-6 rounded-3xl text-center space-y-3 hover:border-[#C9A15A] relative cursor-pointer group">
+        <input type="file" accept="image/*" multiple onChange={uploadImages} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <div className="w-12 h-12 rounded-2xl bg-[#C9A15A]/10 text-[#0D3B46] flex items-center justify-center"><Upload size={22} /></div>
+          <p className="text-xs font-black text-[#2B2B2B]">اضغط هنا لرفع الصور من جهازك</p>
+          <p className="text-[10px] font-bold text-[#0D3B46]">اختر الصور وسيتم إرفاقها بالإعلان تلقائياً.</p>
+        </div>
+      </div>
+
       <div className="bg-white border border-[#F6F2E8] p-4 rounded-3xl space-y-3">
-        <label className="text-xs font-bold text-[#2B2B2B] block">اختر من الصور الجاهزة:</label>
+        <label className="text-xs font-bold text-[#2B2B2B] block">أو اختر من الصور التوضيحية:</label>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {presets.map(item => {
             const selected = imageUrls.includes(item.url);
@@ -86,15 +120,6 @@ export function MediaSelector({
               </button>
             );
           })}
-        </div>
-      </div>
-
-      <div className="bg-white border border-dashed border-[#E3C98D] p-6 rounded-3xl text-center space-y-3 hover:border-[#C9A15A] relative cursor-pointer group">
-        <input type="file" accept="image/*" multiple onChange={uploadImages} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-        <div className="flex flex-col items-center justify-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-[#C9A15A]/10 text-[#0D3B46] flex items-center justify-center"><Upload size={22} /></div>
-          <p className="text-xs font-black text-[#2B2B2B]">اضغط هنا لرفع الصور من جهازك</p>
-          <p className="text-[10px] font-bold text-[#0D3B46]">اختر الصور وسيتم إرفاقها بالإعلان تلقائياً.</p>
         </div>
       </div>
 
@@ -123,10 +148,10 @@ export function MediaSelector({
           <p className="text-xs font-black text-[#2B2B2B]">اضغط لاختيار ملف فيديو</p>
           <p className="text-[10px] text-[#C9A15A] font-semibold">سيتم رفعه وحفظه مع الإعلان، بدون روابط خارجية.</p>
         </div>
-        {videoUrl && (
+        {activeVideoUrl && (
           <div className="space-y-2">
-            <video src={videoUrl} controls className="w-full max-h-56 rounded-2xl bg-[#2B2B2B]" />
-            <button type="button" onClick={() => setVideoUrl('')} className="bg-[#C9A15A]/10 text-[#C9A15A] rounded-xl px-3 py-2 text-xs font-bold">حذف الفيديو</button>
+            <video src={activeVideoUrl} controls className="w-full max-h-56 rounded-2xl bg-[#2B2B2B]" />
+            <button type="button" onClick={clearVideo} className="bg-[#C9A15A]/10 text-[#C9A15A] rounded-xl px-3 py-2 text-xs font-bold">حذف الفيديو</button>
           </div>
         )}
       </div>

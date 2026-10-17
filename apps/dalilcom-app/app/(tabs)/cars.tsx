@@ -64,7 +64,7 @@ function BrandCard({ brand, count, onPress }: { brand: Brand; count: number; onP
 
 export default function CarsTab() {
   const router = useRouter();
-  const { getFilteredAds, refresh } = useApp();
+  const { state, getFilteredAds, refresh } = useApp();
   const [brands, setBrands] = useState<Brand[]>([]);
   const [carModelsMap, setCarModelsMap] = useState<Record<string, { ar: string; en: string }[]>>({});
   const [query, setQuery] = useState('');
@@ -73,22 +73,49 @@ export default function CarsTab() {
   const cars = getFilteredAds({ category: 'cars' });
 
   useEffect(() => {
+    let mounted = true;
     async function loadCarsData() {
       const [brandRows, modelRows] = await Promise.all([
         listApi<Brand>('/car-brands', { per_page: '200' }).catch(() => []),
         listApi<CarModel>('/car-models', { per_page: '1000' }).catch(() => []),
       ]);
-      setBrands(brandRows);
-      const models = modelRows.reduce<Record<string, { ar: string; en: string }[]>>((acc, row) => {
-        const brand = brandRows.find(item => String(item.id) === String(row.brand_id));
-        if (brand) acc[brand.en_name] = [...(acc[brand.en_name] || []), { ar: row.ar_name, en: row.en_name }];
-        return acc;
-      }, {});
-      setCarModelsMap(models);
+      if (!mounted) return;
+      if (brandRows.length > 0) {
+        setBrands(brandRows);
+      } else if (state.carBrands.length > 0) {
+        setBrands(
+          state.carBrands.map((b, idx) => ({
+            id: b.id ?? idx + 1,
+            ar_name: b.ar,
+            en_name: b.en,
+          })),
+        );
+      }
+      if (modelRows.length > 0 && brandRows.length > 0) {
+        const models = modelRows.reduce<Record<string, { ar: string; en: string }[]>>((acc, row) => {
+          const brand = brandRows.find(item => String(item.id) === String(row.brand_id));
+          if (brand) acc[brand.en_name] = [...(acc[brand.en_name] || []), { ar: row.ar_name, en: row.en_name }];
+          return acc;
+        }, {});
+        setCarModelsMap(models);
+      } else if (state.carModels.length > 0) {
+        const models = state.carModels.reduce<Record<string, { ar: string; en: string }[]>>((acc, row) => {
+          if (row.brandEn) {
+            acc[row.brandEn] = [...(acc[row.brandEn] || []), { ar: row.ar, en: row.en }];
+          }
+          return acc;
+        }, {});
+        setCarModelsMap(models);
+      }
     }
     loadCarsData();
-    refresh();
-  }, [refresh]);
+    if (state.ads.length === 0) {
+      refresh();
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [refresh, state.ads.length, state.carBrands, state.carModels]);
 
   const brandOptions = useMemo(() => brands.map(brand => ({ ar: brand.ar_name, en: brand.en_name })), [brands]);
   const filteredCars = useMemo(() => applyCarFilters(cars, { ...filters, query: query || filters.query }, brandOptions, carModelsMap), [cars, filters, query, brandOptions, carModelsMap]);

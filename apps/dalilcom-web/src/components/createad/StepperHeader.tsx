@@ -12,7 +12,6 @@ export function StepperHeader({ currentStep, steps }: StepperHeaderProps) {
   const navigate = useNavigate();
   return (
     <>
-      {/* Header Bar */}
       <div className="bg-[#0D3B46] text-white" dir="rtl">
         <div className="flex items-center px-4 h-16 max-w-7xl mx-auto w-full">
           <button 
@@ -23,12 +22,11 @@ export function StepperHeader({ currentStep, steps }: StepperHeaderProps) {
             <span className="text-sm font-semibold">إلغاء الرجوع</span>
           </button>
           <div className="flex-1 text-center font-bold text-base sm:text-lg pr-4">
-            تأسيس ونشر إعلان جديد سوريازيل
+            إضافة إعلان جديد — دليلكم
           </div>
         </div>
       </div>
 
-      {/* Stepper Status Indicators */}
       {currentStep <= 5 && (
         <div className="bg-white border-b border-[#E3C98D] py-3 overflow-x-auto text-right" dir="rtl">
           <div className="flex items-center justify-center max-w-4xl mx-auto px-4 gap-2.5 sm:gap-4">

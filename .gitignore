@@ -32,3 +32,11 @@ web-brand-check.png
 __pycache__/
 *.pyc
 run-local-dalilcom.ps1
+
+# Serena / IDE helpers
+.serena/
+
+# Large binary assets (served via Hostinger, not Git)
+*.apk
+*.aab
+*.ipa

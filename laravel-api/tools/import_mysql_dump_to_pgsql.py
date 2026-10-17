@@ -139,10 +139,58 @@ def convert_create(statement: str):
     return f'CREATE TABLE IF NOT EXISTS "{table}" (\n  ' + ",\n  ".join(columns) + "\n)"
 
 
+_BOOL_COLS = {"is_featured", "is_cover", "is_read", "has_warranty", "has_elevator", "has_parking", "is_active"}
+
 def convert_insert(statement: str, upsert: bool = True) -> str:
+    # Extract column list to know which positions are boolean — support backticks
+    col_match = re.search(r'INSERT INTO\s+[`"\']?\w+[`"\']?\s*\(([^)]+)\)', statement, re.I)
+    bool_indices: set[int] = set()
+    if col_match:
+        cols = [c.strip().strip('"').strip('`').strip("'").lower() for c in col_match.group(1).split(',')]
+        bool_indices = {i for i, c in enumerate(cols) if c in _BOOL_COLS}
+
     statement = statement.replace("`", '"')
     statement = re.sub(r"\\'", "''", statement)
     statement = statement.replace('\\"', '"')
+
+    if bool_indices:
+        parts = re.split(r'\bVALUES\b', statement, flags=re.I, maxsplit=1)
+        if len(parts) == 2:
+            prefix, values_part = parts[0] + 'VALUES', parts[1]
+
+            def fix_tuple(m: re.Match) -> str:
+                vals_str = m.group(1)
+                vals: list[str] = []
+                cur: list[str] = []
+                in_q = False
+                q_char: str | None = None
+                for ch in vals_str:
+                    if in_q:
+                        cur.append(ch)
+                        if ch == q_char:
+                            in_q = False
+                    elif ch in ("'", '"'):
+                        in_q = True
+                        q_char = ch
+                        cur.append(ch)
+                    elif ch == ',':
+                        vals.append(''.join(cur).strip())
+                        cur = []
+                    else:
+                        cur.append(ch)
+                vals.append(''.join(cur).strip())
+                for idx in bool_indices:
+                    if idx < len(vals):
+                        v = vals[idx].strip()
+                        if v == '0':
+                            vals[idx] = 'false'
+                        elif v == '1':
+                            vals[idx] = 'true'
+                return '(' + ', '.join(vals) + ')'
+
+            values_part = re.sub(r'\(([^)]+)\)', fix_tuple, values_part)
+            statement = prefix + values_part
+
     if upsert:
         statement = re.sub(r";\s*$", " ON CONFLICT DO NOTHING;", statement)
     return statement

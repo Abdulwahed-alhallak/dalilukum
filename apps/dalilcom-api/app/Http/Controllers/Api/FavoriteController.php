@@ -10,7 +10,11 @@ class FavoriteController extends Controller
 {
     public function index(Request $request)
     {
-        $userId = $this->userId($request);
+        $userId = $this->resolveUserId($request, false);
+        if (!$userId) {
+            return response()->json(['success' => true, 'data' => []]);
+        }
+
         $rows = DB::table('favorites')
             ->where('user_id', $userId)
             ->orderByDesc('created_at')
@@ -24,7 +28,9 @@ class FavoriteController extends Controller
         $adId = $request->input('ad_id');
         abort_if(! $adId, 422, 'ad_id is required');
 
-        $userId = $this->userId($request);
+        $userId = $this->resolveUserId($request, true);
+        abort_if(! $userId, 422, 'user_id or phone is required');
+
         DB::table('favorites')->updateOrInsert(
             ['user_id' => $userId, 'ad_id' => $adId],
             ['created_at' => now()]
@@ -38,8 +44,13 @@ class FavoriteController extends Controller
 
     public function destroy(Request $request, string $adId)
     {
+        $userId = $this->resolveUserId($request, true);
+        if (!$userId) {
+            return response()->json(['success' => true, 'data' => ['deleted' => false]]);
+        }
+
         $deleted = DB::table('favorites')
-            ->where('user_id', $this->userId($request))
+            ->where('user_id', $userId)
             ->where('ad_id', $adId)
             ->delete();
 
@@ -48,11 +59,40 @@ class FavoriteController extends Controller
         ]]);
     }
 
-    private function userId(Request $request): int
+    private function resolveUserId(Request $request, bool $fallbackIfEmpty = false): ?int
     {
         $requested = $request->integer('user_id');
-        if ($requested) return $requested;
+        if ($requested && DB::table('users')->where('id', $requested)->exists()) {
+            return $requested;
+        }
 
-        return (int) DB::table('users')->orderBy('id')->value('id') ?: 1;
+        if ($request->filled('phone')) {
+            $phone = trim((string) $request->input('phone'));
+            if ($phone !== '') {
+                $byPhone = DB::table('users')->where('phone', $phone)->value('id');
+                if ($byPhone) {
+                    return (int) $byPhone;
+                }
+                $countryId = DB::table('countries')->where('phone_code', '+963')->value('id')
+                    ?? DB::table('countries')->orderBy('id')->value('id');
+                try {
+                    return (int) DB::table('users')->insertGetId([
+                        'phone' => $phone,
+                        'country_id' => $countryId,
+                        'is_active' => true,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                } catch (\Throwable $e) {
+                    return (int) DB::table('users')->where('phone', $phone)->value('id') ?: null;
+                }
+            }
+        }
+
+        if ($fallbackIfEmpty) {
+            return (int) DB::table('users')->orderBy('id')->value('id') ?: null;
+        }
+
+        return null;
     }
 }

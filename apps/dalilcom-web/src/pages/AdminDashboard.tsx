@@ -15,10 +15,11 @@ import {
   EyeOff,
   ShieldCheck,
   ArrowRight,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAds } from '../context/AdsContext';
+import { api } from '../lib/api';
 import { AdminOverviewTab } from '../components/admin/AdminOverviewTab';
 import { AdminAdsTab } from '../components/admin/AdminAdsTab';
 import { AdminBrandsTab } from '../components/admin/AdminBrandsTab';
@@ -27,14 +28,11 @@ import { AdminUserLimitsTab } from '../components/admin/AdminUserLimitsTab';
 import { AdminSettingsTab } from '../components/admin/AdminSettingsTab';
 
 const ADMIN_SESSION_KEY = 'dalil_admin_auth';
-const ADMIN_CUSTOM_USER_KEY = 'dalil_admin_custom_user';
-const ADMIN_CUSTOM_PASS_KEY = 'dalil_admin_custom_pass';
 
 export function AdminDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'ads' | 'brands' | 'realestate' | 'user_limits' | 'settings'>('overview');
-  
-  // Authentication State
+
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem(ADMIN_SESSION_KEY) === 'true' || sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
   });
@@ -79,32 +77,17 @@ export function AdminDashboard() {
     }, 3000);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
     setIsSubmitting(true);
 
-    const trimmedUser = username.trim().toLowerCase();
-    const trimmedPass = password.trim();
-    const customUser = localStorage.getItem(ADMIN_CUSTOM_USER_KEY);
-    const customPass = localStorage.getItem(ADMIN_CUSTOM_PASS_KEY);
-
-    // Valid usernames and passwords (primary: basel / basel or custom set in dashboard)
-    const validUsers = ['basel', 'admin', 'admin@dalilukum.sy', 'admin@dalilkum.sy', 'dalil', 'administrator'];
-    if (customUser) {
-      validUsers.push(customUser.trim().toLowerCase());
-    }
-
-    const validPasswords = ['basel', 'admin', 'admin123', 'Admin@2026#', 'dalil2026', '123456'];
-    if (customPass) {
-      validPasswords.push(customPass.trim());
-    }
-
-    setTimeout(() => {
-      const isUserValid = validUsers.includes(trimmedUser) || (customUser && trimmedUser === customUser.trim().toLowerCase());
-      const isPassValid = validPasswords.includes(trimmedPass) || (customPass && trimmedPass === customPass.trim());
-
-      if (isUserValid && isPassValid) {
+    try {
+      const res = await api.post<any>('/admin/login', {
+        username: username.trim(),
+        password: password.trim(),
+      });
+      if (res?.authenticated) {
         if (rememberMe) {
           localStorage.setItem(ADMIN_SESSION_KEY, 'true');
         } else {
@@ -113,12 +96,14 @@ export function AdminDashboard() {
         setIsAuthenticated(true);
         setLoginError('');
       } else {
-        setLoginError('اسم المستخدم أو كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى.');
+        setLoginError('اسم المستخدم أو كلمة المرور غير صحيحة');
       }
+    } catch {
+      setLoginError('اسم المستخدم أو كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى');
+    } finally {
       setIsSubmitting(false);
-    }, 300);
+    }
   };
-
 
   const handleLogout = () => {
     localStorage.removeItem(ADMIN_SESSION_KEY);
@@ -141,29 +126,25 @@ export function AdminDashboard() {
     showToast(currentFeatured ? 'تم إلغاء ميزة الإعلان' : 'تم ترقية الإعلان للمميزة');
   };
 
-  // If NOT authenticated, show the dedicated Admin Login Screen
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[#F6F2E8] flex flex-col justify-center items-center p-4 font-sans text-right select-none" dir="rtl">
-        {/* Background decorative styling */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-[#C9A15A]/10 blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#2B2B2B]/5 blur-3xl" />
         </div>
 
         <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-[#C9A15A]/20 p-8 sm:p-10 space-y-8 z-10 animate-in fade-in zoom-in-95 duration-300">
-          {/* Header & Logo */}
           <div className="text-center space-y-3">
             <div className="w-16 h-16 rounded-2xl bg-[#2B2B2B] text-[#C9A15A] flex items-center justify-center mx-auto shadow-lg shadow-[#2B2B2B]/20 mb-2">
               <ShieldCheck size={36} />
             </div>
             <h1 className="text-2xl font-black text-[#2B2B2B]">لوحة التحكم</h1>
             <p className="text-xs font-semibold text-[#8C7A5B]">
-              منصة دليل كوم — يرجى تسجيل الدخول للوصول إلى أدوات الإدارة
+              منصة دليلكم — تسجيل الدخول إلى أدوات الإدارة
             </p>
           </div>
 
-          {/* Login Error Banner */}
           {loginError && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl text-xs font-bold flex items-center gap-2.5 animate-in shake duration-200">
               <AlertCircle size={18} className="shrink-0 text-red-500" />
@@ -171,11 +152,9 @@ export function AdminDashboard() {
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleLogin} className="space-y-5">
-            {/* Username Input */}
             <div className="space-y-1.5">
-              <label className="block text-xs font-extrabold text-[#2B2B2B]">اسم المستخدم أو البريد</label>
+              <label className="block text-xs font-extrabold text-[#2B2B2B]">اسم المستخدم</label>
               <div className="relative flex items-center">
                 <div className="absolute right-3.5 text-[#C9A15A] pointer-events-none">
                   <UserIcon size={18} />
@@ -184,15 +163,13 @@ export function AdminDashboard() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="basel"
+                  placeholder="اسم المستخدم"
                   required
                   className="w-full bg-[#F6F2E8]/60 border border-[#E5DDCB] focus:border-[#C9A15A] focus:bg-white text-[#2B2B2B] font-bold text-sm rounded-2xl pr-11 pl-4 py-3.5 outline-none transition-all placeholder:text-stone-400"
                 />
-
               </div>
             </div>
 
-            {/* Password Input */}
             <div className="space-y-1.5">
               <label className="block text-xs font-extrabold text-[#2B2B2B]">كلمة المرور</label>
               <div className="relative flex items-center">
@@ -217,7 +194,6 @@ export function AdminDashboard() {
               </div>
             </div>
 
-            {/* Options */}
             <div className="flex items-center justify-between text-xs font-bold pt-1">
               <label className="flex items-center gap-2 cursor-pointer text-[#2B2B2B]">
                 <input
@@ -230,7 +206,6 @@ export function AdminDashboard() {
               </label>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -247,7 +222,6 @@ export function AdminDashboard() {
             </button>
           </form>
 
-          {/* Return to website */}
           <div className="pt-4 border-t border-[#F6F2E8] text-center">
             <button
               type="button"
@@ -263,7 +237,6 @@ export function AdminDashboard() {
     );
   }
 
-  // Authenticated: Render Full Dashboard
   return (
     <div className="flex bg-[#F6F2E8] text-right fixed inset-0 z-[200] animate-in fade-in select-none" dir="rtl">
       {/* Sidebar */}
@@ -271,7 +244,7 @@ export function AdminDashboard() {
         <div className="p-6 border-b border-[#3D3D3D] flex items-center justify-between">
           <div className="flex flex-col">
             <h1 className="font-bold text-lg text-white">لوحة التحكم</h1>
-            <span className="text-[11px] text-[#C9A15A] font-semibold mt-0.5">منصة دليل كوم</span>
+            <span className="text-[11px] text-[#C9A15A] font-semibold mt-0.5">منصة دليلكم</span>
           </div>
           <div className="p-1 px-2.5 bg-[#C9A15A] rounded-full text-[10px] font-bold text-white tracking-widest">
             PRO
@@ -336,7 +309,6 @@ export function AdminDashboard() {
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        {/* Toast Notification */}
         {toastMessage && (
           <div className="fixed top-6 left-6 bg-[#2B2B2B] border border-[#C9A15A]/40 text-white flex items-center gap-3 px-5 py-3 rounded-xl shadow-2xl z-[500] animate-in slide-in-from-left-4 duration-300 text-xs font-bold">
             <CheckCircle2 size={16} className="text-[#C9A15A]" />
@@ -358,7 +330,6 @@ export function AdminDashboard() {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* The Header Pill Badge changed to just "لوحة التحكم" */}
             <div className="bg-[#F6F2E8] text-[#2B2B2B] text-xs px-4 py-2 rounded-full font-extrabold border border-[#E5DDCB] shadow-sm flex items-center gap-2">
               <ShieldCheck size={14} className="text-[#C9A15A]" />
               <span>لوحة التحكم</span>
@@ -421,4 +392,3 @@ export function AdminDashboard() {
     </div>
   );
 }
-

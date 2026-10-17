@@ -105,7 +105,7 @@ export function DetailsTab({ item }: DetailsTabProps) {
             <span className="text-2xl font-black text-[#C9A15A]">{price}</span>
           </div>
           {item.isFeatured && (
-            <span className="bg-[#C9A15A] text-[#C9A15A] border border-[#C9A15A] rounded-full px-3 py-1 text-[11px] font-bold">
+            <span className="bg-[#C9A15A] text-white border border-[#C9A15A] rounded-full px-3 py-1 text-[11px] font-bold">
               إعلان مميز
             </span>
           )}

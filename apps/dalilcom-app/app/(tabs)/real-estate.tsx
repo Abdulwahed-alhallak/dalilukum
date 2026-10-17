@@ -27,20 +27,35 @@ function CategoryRow({ item, count, onPress }: {
   );
 }
 
+const defaultCategories: RealEstateCategory[] = [
+  { id: 'residential', ar_name: 'عقارات سكنية' },
+  { id: 'commercial', ar_name: 'عقارات تجارية' },
+  { id: 'lands', ar_name: 'أراضي وعقارات زراعية' },
+  { id: 'villas', ar_name: 'فلل وقصور' },
+  { id: 'offices', ar_name: 'مكاتب وعيادات' },
+  { id: 'projects', ar_name: 'مشاريع عقارية' },
+];
+
 export default function RealEstateTab() {
   const router = useRouter();
-  const { getFilteredAds, refresh } = useApp();
-  const [categories, setCategories] = useState<RealEstateCategory[]>([]);
+  const { state, getFilteredAds, refresh } = useApp();
+  const [categories, setCategories] = useState<RealEstateCategory[]>(defaultCategories);
   const ads = getFilteredAds({ category: 'real-estate' });
   const counts = categoryCounts(ads);
   const allCategory = { id: 'all', ar_name: 'عرض الكل' };
 
   useEffect(() => {
     listApi<RealEstateCategory>('/real-estate/categories', { per_page: '50' })
-      .then(setCategories)
-      .catch(() => setCategories([]));
-    refresh();
-  }, [refresh]);
+      .then(rows => {
+        if (Array.isArray(rows) && rows.length > 0) {
+          setCategories(rows);
+        }
+      })
+      .catch(() => {});
+    if (state.ads.length === 0) {
+      refresh();
+    }
+  }, [refresh, state.ads.length]);
 
   const openCategory = (item: RealEstateCategory) => {
     router.push({
