@@ -45,11 +45,8 @@ systemctl restart postgresql-16
 
 ```bash
 cd /home
-# TODO: بعد نقل المستودع — استبدل بالرابط الجديد:
-# git clone https://github.com/<NEW_ORG>/dalilukum.git dalilukum
-# مؤقتاً:
-git clone https://github.com/yousefalsabbagh10-tech/daleel-com.git dalilukum
-cd dalilukum/syrialzeel/laravel-api
+git clone https://github.com/Abdulwahed-alhallak/dalilukum.git dalilukum
+cd dalilukum/laravel-api
 
 dnf install -y php php-pgsql php-mbstring php-xml php-curl php-zip php-bcmath php-tokenizer php-fileinfo unzip git
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -94,7 +91,7 @@ chmod -R 775 storage bootstrap/cache
 ## 5) بناء الواجهة
 
 ```bash
-cd /home/dalilukum/syrialzeel
+cd /home/dalilukum
 npm install
 npm run build:web
 # انسخ dist إلى /home/dalilukum.sy/public_html
@@ -105,7 +102,7 @@ npm run build:web
 ## 6) التطبيق (Expo)
 
 ```bash
-cd syrialzeel/apps/dalilcom-app
+cd dalilukum/apps/dalilcom-app
 npx eas build --platform android --profile preview      # APK
 npx eas build --platform android --profile production   # AAB
 npx eas build --platform ios --profile production        # IPA (يحتاج Apple Developer)
