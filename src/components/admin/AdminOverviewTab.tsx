@@ -104,7 +104,7 @@ export function AdminOverviewTab({ ads }: AdminOverviewTabProps) {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart
                 data={[
-                  { name: 'سيريازيل', 'السيارات': ads.filter(a => a.category === 'cars').length, 'العقارات': ads.filter(a => a.category === 'real-estate').length },
+                  { name: 'دليلكم', 'السيارات': ads.filter(a => a.category === 'cars').length, 'العقارات': ads.filter(a => a.category === 'real-estate').length },
                 ]}
                 margin={{ top: 0, right: 0, left: -40, bottom: 0 }}
               >

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS syrialzeel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE syrialzeel;
+CREATE DATABASE IF NOT EXISTS dalilukum CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE dalilukum;
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS comparison_items,comparisons,favorites,notifications,notification_preferences,project_amenities,project_facilities,project_specs,real_estate_specs,car_specs,ad_details,ad_videos,ad_images,ads,real_estate_subcategories,real_estate_categories,car_models,car_brands,user_limits,default_limits,users,countries,icon_overrides,app_settings;
 SET FOREIGN_KEY_CHECKS=1;

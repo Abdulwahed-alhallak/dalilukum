@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Syrialzeel API</title>
+    <title>دليلكم API</title>
     <style>
         body { font-family: Tahoma, Arial, sans-serif; background: #f8fafc; color: #0f172a; }
         main { max-width: 720px; margin: 80px auto; background: white; padding: 32px; border-radius: 16px; }

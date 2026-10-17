@@ -99,11 +99,11 @@ export interface AdsContextType {
   updateDefaultLimits: (maxImages: number, maxVideos: number) => void;
 }
 
-export const STORAGE_KEY = 'syriazeel_user_ads_v2';
-export const BRANDS_STORAGE_KEY = 'syriazeel_custom_brands_v1';
-export const MODELS_STORAGE_KEY = 'syriazeel_custom_models_v1';
-export const RE_CATS_STORAGE_KEY = 'syriazeel_custom_re_cats_v1';
-export const RE_SUBS_STORAGE_KEY = 'syriazeel_custom_re_subs_v1';
-export const ICONS_STORAGE_KEY = 'syriazeel_custom_icons_v1';
-export const FAVS_STORAGE_KEY = 'syriazeel_favs_v1';
-export const COMPS_STORAGE_KEY = 'syriazeel_comps_v1';
+export const STORAGE_KEY = 'dalilukum_user_ads_v2';
+export const BRANDS_STORAGE_KEY = 'dalilukum_custom_brands_v1';
+export const MODELS_STORAGE_KEY = 'dalilukum_custom_models_v1';
+export const RE_CATS_STORAGE_KEY = 'dalilukum_custom_re_cats_v1';
+export const RE_SUBS_STORAGE_KEY = 'dalilukum_custom_re_subs_v1';
+export const ICONS_STORAGE_KEY = 'dalilukum_custom_icons_v1';
+export const FAVS_STORAGE_KEY = 'dalilukum_favs_v1';
+export const COMPS_STORAGE_KEY = 'dalilukum_comps_v1';
