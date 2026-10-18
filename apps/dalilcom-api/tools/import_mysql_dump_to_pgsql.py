@@ -24,8 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = ROOT.parents[1] if (ROOT.parents[1] / "dalilukum.sql").exists() else ROOT.parent
 DUMP = REPO_ROOT / "dalilukum.sql"
 if not DUMP.exists():
-    print("ERROR: dalilukum.sql not found.")
-    import sys; sys.exit(1)
+    print("ERROR: dalilukum.sql not found. Run with dalilukum.sql in the repo root.")
+    sys.exit(1)
 
 
 def parse_db_url(url: str) -> dict:
