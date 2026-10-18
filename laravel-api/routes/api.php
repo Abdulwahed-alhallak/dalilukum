@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AdController;
+use App\Http\Controllers\Api\AppUpdateController;
 use App\Http\Controllers\Api\CrudController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\SystemController;
@@ -26,6 +27,8 @@ $resources = [
 
 Route::get('health', [SystemController::class, 'health']);
 Route::get('stats', [SystemController::class, 'stats']);
+Route::get('app/update-check', [AppUpdateController::class, 'check']);
+Route::post('app/update-report', [AppUpdateController::class, 'report']);
 Route::apiResource('ads', AdController::class);
 Route::get('favorites', [FavoriteController::class, 'index']);
 Route::post('favorites', [FavoriteController::class, 'store']);
