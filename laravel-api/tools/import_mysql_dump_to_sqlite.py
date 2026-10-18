@@ -7,9 +7,8 @@ ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = ROOT.parents[1] if (ROOT.parents[1] / "dalilukum.sql").exists() else ROOT.parent
 DUMP = REPO_ROOT / "dalilukum.sql"
 if not DUMP.exists():
-    _legacy = REPO_ROOT / "syrialzeel.sql"
-    if _legacy.exists():
-        DUMP = _legacy
+    print("ERROR: dalilukum.sql not found.")
+    import sys; sys.exit(1)
 DB = ROOT / "database" / "database.sqlite"
 
 
