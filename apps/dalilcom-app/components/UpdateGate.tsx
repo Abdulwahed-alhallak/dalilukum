@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking, Modal, ActivityIndicator, Platform } from 'react-native';
 import { COLORS } from '../constants/theme';
 
-// Fallback version — must match app.json versionCode/buildNumber (single source: dalilukum.sy/CLAUDE.md 1.0.14/17)
-const APP_VERSION_CODE = 17;
+// Fallback version — must match app.json versionCode/buildNumber (single source: dalilukum.sy/CLAUDE.md 1.0.15/18)
+const APP_VERSION_CODE = 18;
 
 const API_BASE = (process.env.EXPO_PUBLIC_API_URL || 'https://dalilukum.sy/api').replace(/\/$/, '');
 const CHECK_INTERVAL_MS = 60 * 60 * 1000; // كل ساعة

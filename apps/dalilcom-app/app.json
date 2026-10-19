@@ -2,14 +2,14 @@
   "expo": {
     "name": "دليلكم",
     "slug": "dalilukum",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "orientation": "portrait",
     "scheme": "com.dalilukum.app",
     "userInterfaceStyle": "light",
     "icon": "./assets/images/logo-square.png",
     "android": {
       "package": "com.dalilukum.app",
-      "versionCode": 17,
+      "versionCode": 18,
       "usesCleartextTraffic": true,
       "permissions": [
         "INTERNET",
@@ -28,7 +28,7 @@
     "ios": {
       "bundleIdentifier": "com.dalilukum.app",
       "supportsTablet": true,
-      "buildNumber": "17"
+      "buildNumber": "18"
     },
     "plugins": [
       "expo-router",
