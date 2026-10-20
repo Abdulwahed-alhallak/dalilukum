@@ -1,0 +1,2 @@
+.github/workflows/* text eol=lf
+tools/deploy-vps.sh text eol=lf
