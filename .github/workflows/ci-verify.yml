@@ -1,5 +1,4 @@
 name: CI - verify (no deploy)
-
 on:
   pull_request:
     branches: [main]
