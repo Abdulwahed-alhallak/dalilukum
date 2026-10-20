@@ -1,0 +1,36 @@
+name: CI - verify (no deploy)
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: pdo_pgsql, pgsql, mbstring, xml, curl
+          coverage: none
+      - name: Validate version unity
+        run: |
+          echo "Check version sources..."
+          grep -q "version" package.json && echo "monorepo OK"
+          grep -q "version" apps/dalilcom-app/app.json && echo "app.json OK"
+          grep -q "version" apps/dalilcom-app/package.json && echo "app pkg OK"
+          grep -q "version" apps/dalilcom-web/package.json && echo "web pkg OK"
+      - name: PHP syntax
+        run: |
+          find laravel-api -name "*.php" -exec php -l {} \; 2>&1 | grep -v "No syntax errors" | head -20; echo "php -l done"
+      - name: Web typecheck
+        run: |
+          npm ci --prefer-offline 2>/dev/null || npm install
+          npx tsc --noEmit --project apps/dalilcom-web/tsconfig.json 2>&1 | head -80

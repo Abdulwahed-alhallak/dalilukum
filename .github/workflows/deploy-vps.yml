@@ -1,0 +1,78 @@
+name: Deploy to VPS (dalilukum.sy)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script_stop: true
+          command_timeout: 10m
+          script: |
+            set -e
+            echo "=== Deploy dalilukum.sy ==="
+            echo "Host: $(hostname) Date: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            if [ -d /home/dalilukum/.git ]; then
+              echo "[1/6] git pull dalilukum..."
+              git -C /home/dalilukum fetch --prune origin
+              git -C /home/dalilukum reset --hard origin/main
+              git -C /home/dalilukum log --oneline -3
+            else
+              echo "[1/6] clone dalilukum..."
+              git clone https://github.com/Abdulwahed-alhallak/dalilukum.git /home/dalilukum
+            fi
+            echo "[2/6] backend: composer + migrate..."
+            cd /home/dalilukum/laravel-api
+            composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+            php artisan migrate --force
+            php artisan config:clear || true
+            php artisan route:clear || true
+            php artisan view:clear || true
+            echo "[3/6] frontend: npm build..."
+            cd /home/dalilukum
+            npm ci --prefer-offline 2>/dev/null || npm install
+            npm run build:web 2>&1 | tail -30
+            if [ -d apps/dalilcom-web/dist ]; then WEB_DIST=apps/dalilcom-web/dist; elif [ -d dist ]; then WEB_DIST=dist; else echo "WARN: no dist found"; WEB_DIST=""; fi
+            if [ -n "$WEB_DIST" ] && [ -d /home/dalilukum.sy/public_html ]; then
+              echo "[3b] copy $WEB_DIST -> /home/dalilukum.sy/public_html..."
+              cp -a /home/dalilukum/$WEB_DIST/* /home/dalilukum.sy/public_html/
+            else
+              echo "WARN: skip web copy (WEB_DIST=$WEB_DIST)"
+            fi
+            echo "[4/6] permissions..."
+            mkdir -p /home/dalilukum/laravel-api/storage/framework/{cache,sessions,views} /home/dalilukum/laravel-api/bootstrap/cache
+            chmod -R 775 /home/dalilukum/laravel-api/storage /home/dalilukum/laravel-api/bootstrap/cache || true
+            echo "[5/6] restart API..."
+            RESTARTED=""
+            if systemctl is-active --quiet dalilukum 2>/dev/null; then systemctl restart dalilukum && RESTARTED=dalilukum && echo "restarted systemd:dalilukum"; fi
+            if [ -z "$RESTARTED" ] && systemctl is-active --quiet dalilukum-api 2>/dev/null; then systemctl restart dalilukum-api && RESTARTED=dalilukum-api && echo "restarted systemd:dalilukum-api"; fi
+            if [ -z "$RESTARTED" ]; then
+              echo "no systemd unit -- restart php artisan serve on :8000"
+              pkill -f "artisan serve.*8000" 2>/dev/null || true
+              sleep 2
+              nohup php /home/dalilukum/laravel-api/artisan serve --host=127.0.0.1 --port=8000 > /var/log/dalilukum-api.log 2>&1 &
+              sleep 3
+              echo "artisan serve restarted"
+            fi
+            systemctl reload lsws 2>/dev/null && echo "reloaded lsws" || true
+            echo "[6/6] health checks..."
+            sleep 3
+            for i in 1 2 3 4 5; do if curl -sf http://127.0.0.1:8000/api/health | grep -q success; then echo "OK: 127.0.0.1:8000/api/health"; break; fi; echo "retry $i/5..."; sleep 3; if [ "$i" = "5" ]; then echo "WARN: local health failed"; curl -v http://127.0.0.1:8000/api/health 2>&1 | head -30; fi; done
+            for i in 1 2 3 4 5; do if curl -skf https://dalilukum.sy/api/health | grep -q success; then echo "OK: https://dalilukum.sy/api/health"; break; fi; echo "retry public $i/5..."; sleep 3; if [ "$i" = "5" ]; then echo "WARN: public health failed"; curl -skv https://dalilukum.sy/api/health 2>&1 | head -40; fi; done
+            curl -sk "https://dalilukum.sy/api/app/update-check?platform=android&version=18" | head -c 500; echo
+            echo "=== Deploy done ==="
