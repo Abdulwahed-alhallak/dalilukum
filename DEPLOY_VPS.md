@@ -14,7 +14,7 @@
 | الخيار | الوصف | متى يستخدمه |
 |--------|-------|--------------|
 | **A — يدوي (Manual SSH)** | `bash tools/deploy-vps.sh` على VPS أو عبر SSH | تحكم كامل، فحص قبل النشر، لا يحتاج إعداد secrets |
-| **B — تلقائي (GitHub Actions)** | `git push origin main` يشغل `.github/workflows/deploy-vps.yml` تلقائيا | نشر فوري بعد الدفع، يحتاج `VPS_*` secrets |
+| **B — تلقائي (GitHub Actions)** ⏸️ متوقف مؤقتا | `git push origin main` يشغل `.github/workflows/deploy-vps.yml` تلقائيا | نشر فوري بعد الدفع، يحتاج `VPS_*` secrets |
 
 ---
 
@@ -54,6 +54,10 @@ curl -sk "https://dalilukum.sy/api/app/update-check?platform=android&version=18"
 ```
 
 ---
+
+> **تنبيه — B متوقف مؤقتا:** حساب GitHub Abdulwahed-alhallak موقوف عن Actions بسبب ccount locked due to billing issue (خطة Pro).
+> الحل: https://github.com/settings/billing → حدث طريقة الدفع. بعدها يعمل B تلقائيا دون أي تعديل — الـ workflow والـ secrets جاهزة.
+> حتى ذلك الحين، استخدم **الخيار A** لكل نشر.
 
 ## الخيار B — النشر التلقائي عبر GitHub Actions
 
@@ -203,3 +207,4 @@ curl "https://dalilukum.sy/api/app/update-check?platform=android&version=18"
 curl https://dalilukum.sy/api/ads | head -c 500
 psql postgresql://dalilukum:***@127.0.0.1:5432/dalilukum -c "\\dt"
 ```
+
