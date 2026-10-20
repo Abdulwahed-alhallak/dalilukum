@@ -21,7 +21,7 @@ return new class extends Migration
         // Default app update settings
         DB::table('app_settings')->updateOrInsert(
             ['setting_key' => 'app_version'],
-            ['setting_value' => '17', 'updated_at' => now()]
+            ['setting_value' => '18', 'updated_at' => now()]
         );
         DB::table('app_settings')->updateOrInsert(
             ['setting_key' => 'app_force_update'],
