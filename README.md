@@ -1,20 +1,39 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# dalilukum.sy — دليلكم — v1.0.15/18
 
-# Run and deploy your AI Studio app
+> **دليل العقارات والسيارات —** واجهة ويب (React Vite) + تطبيقان موبايل (Expo Android/iOS) + واجهة برمجة Laravel 12 + PostgreSQL 17 — كلها على `main` فقط.
 
-This contains everything you need to run your app locally.
+## الجذر
+- **المحلي:** `F:\Apps\dalilukum.sy\syrialzeel` (قديماً `C:\...\dalilukum.sy\syrialzeel`)
+- **النهائي (بعد التنظيم):** `F:\Apps\dalilukum.sy\{backend,frontend,mobile,database,docs,others}` — بلا `syrialzeel`
+- **الإنتاج:** `https://dalilukum.sy` على `179.236.255.47` (CyberPanel/AlmaLinux + `dalilukum-pgsql` pgsql 17)
+- **Git:** `Abdulwahed-alhallak/dalilukum` — `main` فقط — `origin/main` (`Abdulwahed-alhallak/dalilukum`) — الدفع والنشر تلقائيان
+- **النسخة:** `1.0.15 / 18 / 18` (app.json `version` / `android.versionCode` / `ios.buildNumber`) — tag `v1.0.15` — DB `app_version=18`
 
-View your app in AI Studio: https://ai.studio/apps/852b4202-4633-4dd9-a73f-9bf0cb72dfb2
+## البنية
 
-## Run Locally
+```
+syrialzeel/
+├── apps/
+│   ├── dalilcom-api  ← Laravel 12 API — pgsql 17 — 33 جدول + app_update_logs
+│   ├── dalilcom-app  ← Expo 52 — com.dalilukum.app — 1.0.15/18 — UpdateGate
+│   └── dalilcom-web  ← Vite — 1.0.15 — dist مبني
+├── laravel-api/      ← Laravel 12 — canonical — Dockerfile libpq-dev — .env pgsql
+├── database/         ← schema.sql (dalilukum) + migrations
+├── dalilukum.sql     ← 62KB — 16 إعلان، 85 ماركة، 12 دولة، admin/user
+├── docker-compose.yml — pgsql 17 (dalilukum-pgsql healthy)
+└── render.yaml       — rootDir laravel-api — APP_URL https://dalilukum.sy
+```
 
-**Prerequisites:**  Node.js
+## التشغيل المحلي
 
+```bash
+docker compose up -d                          # pgsql 17
+cd laravel-api && php artisan migrate --force # 33 جدول + app_update_logs
+cd .. && npm run build:web                    # dist
+php artisan serve --host=127.0.0.1 --port=7000 # health: /api/health → {"api":true,"database":true}
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## القوانين
+- **main فقط** — الدفع والنشر تلقائيان على `main` فقط — أي فرع = خرق.
+- **التوحيد 100%** — `pgsql 17`، `https://dalilukum.sy/api`، `1.0.15/18` في كل مكان.
+- **الترقيم v1.x.x** — بعد كل تحديث bump في 4 أماكن + DB + tag + push — لا commit بلا ترقيم.
